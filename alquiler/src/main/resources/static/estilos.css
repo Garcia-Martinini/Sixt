@@ -1,0 +1,147 @@
+h1{
+    background-color: #FF7900;
+    color: black;
+    text-align: center;
+    padding: 40px;
+    font-size: 40px;
+    margin: 0%;
+
+}
+.ingreso{
+    background-color: rgba(255, 255, 240, 0.8);
+    border: 3px solid black;
+    width: 40%;
+    margin: auto;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.ingreso p{
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.ingreso label{
+    font-family: Arial, Helvetica, sans-serif;
+    width: 25%;
+    font-size: 20px;
+    padding: 15px;
+    margin-left: 10px;
+}
+
+.ingreso input{
+    width: 90%;
+    height: 35px;
+    margin: 10px 20px;
+    border: solid black 2px;
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+.boton{
+    background-color: #FF7900;
+    color: black;
+    width: 200px;
+    padding: 15px;
+    font-size: 20px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.portada{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+    margin-top: 0px;
+}
+
+/* Estilo del contenedor del botón */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Botón principal */
+.dropdown button {
+    background-color: #ff7d00;
+    color: white;
+    width: 160px;
+    padding: 20px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Menú desplegable oculto inicialmente */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #FF7900;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Estilo de los elementos del menú */
+.dropdown-menu a {
+    color: black;
+    padding: 20px 16px;
+    text-decoration: none;
+    display: block;
+    border: solid 1px #131212;
+}
+
+/* Cambio de color al pasar el ratón por encima */
+.dropdown-menu a:hover {
+    background-color: #131212;
+    color: #FF7900;
+    border: solid 1px black;
+}
+
+/* Mostrar el menú al pasar el ratón sobre el contenedor */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Cambiar el color del botón al pasar el ratón */
+.dropdown:hover button {
+    background-color: #131212;
+    color: #FF7900;
+    
+}
+
+.navBar{
+    background-color: rgb(53, 53, 53,0.7);
+    margin: 0%;
+    height: 58px;
+    border: solid 1px black;
+}
+
+.navBar li{
+    list-style: none;
+    float: left;
+    margin: 0px;
+}
+
+.navBar ul{
+    margin: 0px;
+}
+
+.cerrar{
+    float: inline-end;
+    background-color: #FF7900;
+    width: 160px;
+    height: 58px;
+    border: none;
+    color: white;
+    padding: 20px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}

@@ -1,10 +1,13 @@
 package com.sixt.alquiler.modelo;
 
-import jakarta.persistence.Column;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 
@@ -21,91 +24,123 @@ public class Cliente {
     private String email;
     private String telefono;
     
-    @Column(name = "id_estado")
-    private int idEstado;
+    @ManyToOne
+    private Estado estado;
+
+    @OneToMany(mappedBy="cliente")
+    private List<Reserva> reservas;
+
+
 
     public Cliente() {
     }
 
-    public Cliente(Long codigo, String dni, String nombre, String direccion, String email, String telefono, int idEstado) {
-        this.codigo = codigo;
-        this.dni = dni;
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.email = email;
-        this.telefono = telefono;
-        this.idEstado = idEstado;
-    }
 
-    public Cliente(String dni, String nombre, String direccion, String email, String telefono, int idEstado) {
+
+    public Cliente(String dni, String nombre, String direccion, String email, String telefono, Estado estado,
+            List<Reserva> reservas) {
         this.dni = dni;
         this.nombre = nombre;
         this.direccion = direccion;
         this.email = email;
         this.telefono = telefono;
-        this.idEstado = idEstado;
+        this.estado = estado;
+        this.reservas = reservas;
     }
 
     public Long getCodigo() {
         return codigo;
     }
 
+
+
     public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
+
+
 
     public String getDni() {
         return dni;
     }
 
+
+
     public void setDni(String dni) {
         this.dni = dni;
     }
+
+
 
     public String getNombre() {
         return nombre;
     }
 
+
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+
 
     public String getDireccion() {
         return direccion;
     }
 
+
+
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+
+
 
     public String getEmail() {
         return email;
     }
 
+
+
     public void setEmail(String email) {
         this.email = email;
     }
+
+
 
     public String getTelefono() {
         return telefono;
     }
 
+
+
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    public int getIdEstado() {
-        return idEstado;
+
+
+    public Estado getEstado() {
+        return estado;
     }
 
-    public void setIdEstado(int idEstado) {
-        this.idEstado = idEstado;
+
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
-    @Override
-    public String toString() {
-        return "Cliente{" + "codigo=" + codigo + ", dni=" + dni + ", nombre=" + nombre + ", direccion=" + direccion + ", email=" + email + ", telefono=" + telefono + ", idEstado=" + idEstado + '}';
+
+
+    public List<Reserva> getReservas() {
+        return reservas;
     }
-    
+
+
+
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
+    }
+
     
 }

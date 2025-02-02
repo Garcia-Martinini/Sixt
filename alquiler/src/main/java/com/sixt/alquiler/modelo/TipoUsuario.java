@@ -1,10 +1,13 @@
 package com.sixt.alquiler.modelo;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,20 +16,27 @@ public class TipoUsuario {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_tipo_usuario")
-    private int idTipoUsuario;
+    private int id;
     @Column(name = "nombre_tipo_usuario")
     private String nombreUsuario;
+
+    @OneToMany(mappedBy = "tipoUsuario")
+    private List<Usuario> usuarios;
 
     public TipoUsuario() {
     }
 
-    public int getIdTipoUsuario() {
-        return idTipoUsuario;
+    public TipoUsuario(String nombreUsuario, List<Usuario> usuarios) {
+        this.nombreUsuario = nombreUsuario;
+        this.usuarios = usuarios;
     }
 
-    public void setIdTipoUsuario(int idTipoUsuario) {
-        this.idTipoUsuario = idTipoUsuario;
+    public int getId() {
+        return id;
+    }
+
+    public void setIdTipoUsuario(int id) {
+        this.id = id;
     }
 
     public String getNombreUsuario() {
@@ -37,10 +47,13 @@ public class TipoUsuario {
         this.nombreUsuario = nombreUsuario;
     }
 
-    @Override
-    public String toString() {
-        return "TipoUsuario{" + "idTipoUsuario=" + idTipoUsuario + ", nombreUsuario=" + nombreUsuario + '}';
+    public List<Usuario> getUsuarios() {
+        return usuarios;
     }
-    
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
     
 }

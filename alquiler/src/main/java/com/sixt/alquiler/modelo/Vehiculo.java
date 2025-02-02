@@ -1,10 +1,15 @@
 package com.sixt.alquiler.modelo;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,110 +25,31 @@ public class Vehiculo {
     private int combustible;
     private String patente;
 
-    @Column(name = "id_modelo")
-    private int idModelo;
+    @ManyToOne
+    @JoinColumn(name = "id_modelo")
+    private Modelo modelo;
 
-    @Column(name = "id_color")
-    private int idColor;
+    @ManyToOne
+    @JoinColumn(name = "id_color")
+    private Color color;
 
-    @Column(name = "id_oficina")
-    private int idOficina;
+    @ManyToOne
+    @JoinColumn(name = "id_oficina")
+    private Oficina oficina;
 
-    @Column(name = "id_estado")
-    private int idEstado;
+    @ManyToOne
+    @JoinColumn(name = "id_estado")
+    private Estado estado;
+
+    @ManyToOne
+    @JoinColumn(name = "id_marca")
+    private Marca marca;
+
+    @ManyToMany(mappedBy = "vehiculos")
+    private List<Reserva> reservas;
 
     public Vehiculo() {
     }
 
-    public Vehiculo(double precioDiario, int combustible, String patente, int idModelo, int idColor, int idOficina, int idEstado) {
-        this.precioDiario = precioDiario;
-        this.combustible = combustible;
-        this.patente = patente;
-        this.idModelo = idModelo;
-        this.idColor = idColor;
-        this.idOficina = idOficina;
-        this.idEstado = idEstado;
-    }
-
-    public Vehiculo(int idVehiculo, double precioDiario, int combustible, String patente, int idModelo, int idColor, int idOficina, int idEstado) {
-        this.idVehiculo = idVehiculo;
-        this.precioDiario = precioDiario;
-        this.combustible = combustible;
-        this.patente = patente;
-        this.idModelo = idModelo;
-        this.idColor = idColor;
-        this.idOficina = idOficina;
-        this.idEstado = idEstado;
-    }
-
-    public int getIdVehiculo() {
-        return idVehiculo;
-    }
-
-    public void setIdVehiculo(int idVehiculo) {
-        this.idVehiculo = idVehiculo;
-    }
-
-    public double getPrecioDiario() {
-        return precioDiario;
-    }
-
-    public void setPrecioDiario(double precioDiario) {
-        this.precioDiario = precioDiario;
-    }
-
-    public int getCombustible() {
-        return combustible;
-    }
-
-    public void setCombustible(int combustible) {
-        this.combustible = combustible;
-    }
-
-    public String getPatente() {
-        return patente;
-    }
-
-    public void setPatente(String patente) {
-        this.patente = patente;
-    }
-
-    public int getIdModelo() {
-        return idModelo;
-    }
-
-    public void setIdModelo(int idModelo) {
-        this.idModelo = idModelo;
-    }
-
-    public int getIdColor() {
-        return idColor;
-    }
-
-    public void setIdColor(int idColor) {
-        this.idColor = idColor;
-    }
-
-    public int getIdOficina() {
-        return idOficina;
-    }
-
-    public void setIdOficina(int idOficina) {
-        this.idOficina = idOficina;
-    }
-
-    public int getIdEstado() {
-        return idEstado;
-    }
-
-    public void setIdEstado(int idEstado) {
-        this.idEstado = idEstado;
-    }
-
-    @Override
-    public String toString() {
-        return "Vehiculo{" + "idVehiculo=" + idVehiculo + ", precioDiario=" + precioDiario + ", combustible=" + combustible + ", patente=" + patente + ", idModelo=" + idModelo + ", idColor=" + idColor + ", idOficina=" + idOficina + ", idEstado=" + idEstado + '}';
-    }
-    
     
 }

@@ -1,12 +1,18 @@
 package com.sixt.alquiler.modelo;
 
+import java.util.Date;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.util.Date;
 
 @Entity
 @Table(name = "reserva")
@@ -22,41 +28,47 @@ public class Reserva {
     private Date fechaFin;
     @Column(name = "precio_total")
     private Double precioTotal;
+    @Column(name = "dias_totales")
+    private int diasTotales;
 
-    @Column(name = "id_cliente")
-    private Long idCliente;
+    @ManyToMany
+    @JoinTable(
+        name = "reservas_vehiculos", // Nombre de la tabla intermedia
+        joinColumns = @JoinColumn(name = "id_reserva"), // FK en la tabla intermedia
+        inverseJoinColumns = @JoinColumn(name = "id_vehiculo") // FK del otro lado
+    )
+    private List<Vehiculo> vehiculos;
 
-    @Column(name = "id_estado")
-    private int idEstado;
+    @ManyToOne
+    @JoinColumn(name = "codigo")
+    private Cliente cliente;
 
-    @Column(name = "id_oficina_origen")
-    private int idOficinaOrigen;
+    @ManyToOne
+    @JoinColumn(name = "id_estado")
+    private Estado estado;
 
-    @Column(name = "id_tipo_reserva")
-    private int idTipoReserva;
+    @ManyToOne
+    @JoinColumn(name = "id_oficina")
+    private Oficina oficinaOrigen;
+
+    @ManyToOne
+    @JoinColumn(name = "idTipoReserva")
+    private TipoReserva tipoReserva;
 
     public Reserva() {
     }
 
-    public Reserva(Date fechaInicio, Date fechaFin, Double precioTotal, Long idCliente, int idEstado, int idOficinaOrigen, int idTipoReserva) {
+    public Reserva(Date fechaInicio, Date fechaFin, Double precioTotal, int diasTotales, List<Vehiculo> vehiculos,
+            Cliente cliente, Estado estado, Oficina oficinaOrigen, TipoReserva tipoReserva) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.precioTotal = precioTotal;
-        this.idCliente = idCliente;
-        this.idEstado = idEstado;
-        this.idOficinaOrigen = idOficinaOrigen;
-        this.idTipoReserva = idTipoReserva;
-    }
-
-    public Reserva(Long idReserva, Date fechaInicio, Date fechaFin, Double precioTotal, Long idCliente, int idEstado, int idOficinaOrigen, int idTipoReserva) {
-        this.idReserva = idReserva;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.precioTotal = precioTotal;
-        this.idCliente = idCliente;
-        this.idEstado = idEstado;
-        this.idOficinaOrigen = idOficinaOrigen;
-        this.idTipoReserva = idTipoReserva;
+        this.diasTotales = diasTotales;
+        this.vehiculos = vehiculos;
+        this.cliente = cliente;
+        this.estado = estado;
+        this.oficinaOrigen = oficinaOrigen;
+        this.tipoReserva = tipoReserva;
     }
 
     public Long getIdReserva() {
@@ -91,43 +103,54 @@ public class Reserva {
         this.precioTotal = precioTotal;
     }
 
-    public Long getIdCliente() {
-        return idCliente;
+    public int getDiasTotales() {
+        return diasTotales;
     }
 
-    public void setIdCliente(Long idCliente) {
-        this.idCliente = idCliente;
+    public void setDiasTotales(int diasTotales) {
+        this.diasTotales = diasTotales;
     }
 
-    public int getIdEstado() {
-        return idEstado;
+    public List<Vehiculo> getVehiculos() {
+        return vehiculos;
     }
 
-    public void setIdEstado(int idEstado) {
-        this.idEstado = idEstado;
+    public void setVehiculos(List<Vehiculo> vehiculos) {
+        this.vehiculos = vehiculos;
     }
 
-    public int getIdOficinaOrigen() {
-        return idOficinaOrigen;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setIdOficinaOrigen(int idOficinaOrigen) {
-        this.idOficinaOrigen = idOficinaOrigen;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    public int getIdTipoReserva() {
-        return idTipoReserva;
+    public Estado getEstado() {
+        return estado;
     }
 
-    public void setIdTipoReserva(int idTipoReserva) {
-        this.idTipoReserva = idTipoReserva;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
-    @Override
-    public String toString() {
-        return "Reserva{" + "idReserva=" + idReserva + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", precioTotal=" + precioTotal + ", idCliente=" + idCliente + ", idEstado=" + idEstado + ", idOficinaOrigen=" + idOficinaOrigen + ", idTipoReserva=" + idTipoReserva + '}';
+    public Oficina getOficinaOrigen() {
+        return oficinaOrigen;
     }
-    
-    
+
+    public void setOficinaOrigen(Oficina oficinaOrigen) {
+        this.oficinaOrigen = oficinaOrigen;
+    }
+
+    public TipoReserva getTipoReserva() {
+        return tipoReserva;
+    }
+
+    public void setTipoReserva(TipoReserva tipoReserva) {
+        this.tipoReserva = tipoReserva;
+    }
+
+     
 }
 

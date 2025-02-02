@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,28 +18,30 @@ public class Usuario {
     private Long idUsuario;
     private String usuario;
     private String contrasenia;
+
+    @ManyToOne
+    private TipoUsuario tipoUsuario;
     
-    //@OnetoMany
-    @Column(name = "id_estado")
-    private int idEstado;
+    @ManyToOne
+    private Estado estado;
 
     public Usuario() {
     }
 
-    public Usuario(Long idUsuario, String usuario, String contrasenia, int idEstado) {
-        this.idUsuario = idUsuario;
-        this.usuario = usuario;
+    public Usuario(String contrasenia, Estado estado, Long idUsuario, TipoUsuario tipoUsuario, String usuario) {
         this.contrasenia = contrasenia;
-        this.idEstado = idEstado;
+        this.estado = estado;
+        this.idUsuario = idUsuario;
+        this.tipoUsuario = tipoUsuario;
+        this.usuario = usuario;
     }
 
-    public Usuario(String usuario, String contrasenia, int idEstado) {
-        this.usuario = usuario;
+    public Usuario(String contrasenia, Estado estado, TipoUsuario tipoUsuario, String usuario) {
         this.contrasenia = contrasenia;
-        this.idEstado = idEstado;
+        this.estado = estado;
+        this.tipoUsuario = tipoUsuario;
+        this.usuario = usuario;
     }
-    
-    
 
     public Long getIdUsuario() {
         return idUsuario;
@@ -64,18 +67,21 @@ public class Usuario {
         this.contrasenia = contrasenia;
     }
 
-    public int getIdEstado() {
-        return idEstado;
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
     }
 
-    public void setIdEstado(int idEstado) {
-        this.idEstado = idEstado;
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" + "idUsuario=" + idUsuario + ", usuario=" + usuario + ", contrasenia=" + contrasenia + ", idEstado=" + idEstado + '}';
+    public Estado getEstado() {
+        return estado;
     }
-    
-    
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+      
 }

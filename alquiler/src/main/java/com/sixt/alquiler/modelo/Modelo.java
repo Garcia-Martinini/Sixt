@@ -24,12 +24,6 @@ public class Modelo {
     public Modelo() {
     }
 
-    public Modelo(int idModelo, String nombreModelo, int idMarca) {
-        this.idModelo = idModelo;
-        this.nombreModelo = nombreModelo;
-        this.idMarca = idMarca;
-    }
-
     public Modelo(String nombreModelo, int idMarca) {
         this.nombreModelo = nombreModelo;
         this.idMarca = idMarca;

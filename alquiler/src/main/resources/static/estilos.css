@@ -3,12 +3,17 @@ h1{
     color: black;
     text-align: center;
     padding: 40px;
-    font-size: 40px;
-    margin: 0%;
-
+    font-size: 50px;
+    text-shadow: 2px 2px 0.5px gray;
+    margin-bottom: 0 !important;
 }
+
+h2{
+    padding: 20px;
+}
+
 .ingreso{
-    background-color: rgba(255, 255, 240, 0.8);
+    background-color: rgb(255, 255, 240, 0.8);
     border: 3px solid black;
     width: 40%;
     margin: auto;
@@ -21,11 +26,12 @@ h1{
     font-weight: bold;
     text-align: center;
     margin-top: 10px;
+    text-decoration: underline;
 }
 
 .ingreso label{
     font-family: Arial, Helvetica, sans-serif;
-    width: 25%;
+    width: 50%;
     font-size: 20px;
     padding: 15px;
     margin-left: 10px;
@@ -40,7 +46,16 @@ h1{
     background-color: transparent;
 }
 
-.boton{
+.ingreso label select{
+    width: 480px;
+    height: 35px;
+    margin: auto;
+    border: solid black 2px;
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+.botonEnviar{
     background-color: #FF7900;
     color: black;
     width: 200px;
@@ -51,6 +66,7 @@ h1{
     justify-content: center;
     border-radius: 5px;
     text-decoration: none;
+    
 }
 
 .portada{
@@ -72,17 +88,16 @@ h1{
 .dropdown button {
     background-color: #ff7d00;
     color: white;
-    width: 160px;
+    max-width: 350px;
     padding: 20px 20px;
-    border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 25px;
+    border: solid #131212 1px;
 }
 
 /* Menú desplegable oculto inicialmente */
 .dropdown-menu {
     display: none;
-    position: absolute;
     background-color: #FF7900;
     min-width: 160px;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
@@ -92,10 +107,11 @@ h1{
 /* Estilo de los elementos del menú */
 .dropdown-menu a {
     color: black;
-    padding: 20px 16px;
+    padding: 10px 8px;
     text-decoration: none;
     display: block;
     border: solid 1px #131212;
+    background-color: #FF7900;
 }
 
 /* Cambio de color al pasar el ratón por encima */
@@ -118,30 +134,46 @@ h1{
 }
 
 .navBar{
-    background-color: rgb(53, 53, 53,0.7);
-    margin: 0%;
-    height: 58px;
+    background-color: rgb(53, 53, 53,0.6);
+    height: 81px;
     border: solid 1px black;
 }
 
 .navBar li{
     list-style: none;
     float: left;
-    margin: 0px;
 }
 
 .navBar ul{
     margin: 0px;
 }
 
-.cerrar{
+.finDeNav{
     float: inline-end;
     background-color: #FF7900;
     width: 160px;
-    height: 58px;
-    border: none;
+    height: 80px;
+    border: 1px solid black;
     color: white;
-    padding: 20px 20px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 25px;
+    text-shadow: 2px 2px 0.5px gray;
+}
+
+.divGuardar{
+   margin: auto;
+   padding: 20px; 
+   text-align: center;
+}
+
+.divGuardar button{
+    background-color: #FF7900;
+    font-weight: bold;
+    color: #131212;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 5px;
+    height: 60px;
+    width: 120px;
+    margin: 20px;
 }

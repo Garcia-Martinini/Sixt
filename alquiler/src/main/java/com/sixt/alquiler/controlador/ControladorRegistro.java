@@ -8,7 +8,8 @@ public class ControladorRegistro {
     
     @GetMapping("/")
     public String inicio(){
-      return "registro";   
+      //modelo.addAttribute("usuario", Usuario)
+      return "Registro/registro";   
     }
     
 }

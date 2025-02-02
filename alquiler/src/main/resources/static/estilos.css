@@ -89,6 +89,7 @@ h2{
     background-color: #ff7d00;
     color: white;
     max-width: 350px;
+    min-width: 160px;
     padding: 20px 20px;
     cursor: pointer;
     font-size: 25px;

@@ -1,15 +1,15 @@
 package com.sixt.alquiler.controlador;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.stereotype.Controller;
+//import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
+//@Controller
 public class ControladorRegistro {
     
-    @GetMapping("/")
+   /*  @GetMapping("/")
     public String inicio(){
       //modelo.addAttribute("usuario", Usuario)
       return "Registro/registro";   
-    }
+    }*/
     
 }

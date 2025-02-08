@@ -17,8 +17,8 @@ public class ControladorUsuario {
     @Autowired
     private UsuarioServicio servicio;
 
-    @GetMapping("/") 
-    public String mostrarLogin(Model modelo, @ModelAttribute("mensaje") String mensaje) {    
+    @GetMapping("/")
+    public String mostrarLogin(Model modelo, @ModelAttribute("mensaje") String mensaje) {
         Usuario usuario = new Usuario();
         modelo.addAttribute("user", usuario);
         modelo.addAttribute("mensaje", mensaje);
@@ -26,45 +26,47 @@ public class ControladorUsuario {
     }
 
     @PostMapping("/login")
-    public String validarUsuario(@ModelAttribute("user") Usuario usuario, Model modelo, RedirectAttributes redirectAttributes) {
+    public String validarUsuario(@ModelAttribute("user") Usuario usuario, Model modelo,
+            RedirectAttributes redirectAttributes) {
         Usuario usuarioBD = servicio.obtenerUsuarioPorUsuario(usuario.getUsuario());
         TipoUsuario tipoUsuario = usuarioBD.getTipoUsuario();
 
         if (usuarioBD != null && usuarioBD.getContrasenia().equals(usuario.getContrasenia())) {
-            if(tipoUsuario.getNombreUsuario().equals("administrador")){
+            if (tipoUsuario.getNombreUsuario().equals("administrador")) {
                 return "redirect:/gestionAdministrador";
             }
-            if(tipoUsuario.getNombreUsuario().equals("vendedor")){
+            if (tipoUsuario.getNombreUsuario().equals("vendedor")) {
+                redirectAttributes.addFlashAttribute("vendedor", usuarioBD);
                 return "redirect:/gestionVendedor";
             }
-            if(tipoUsuario.getNombreUsuario().equals("cliente")){
+            if (tipoUsuario.getNombreUsuario().equals("cliente")) {
                 return "redirect:/gestionCliente";
             }
-            
-        } 
-            redirectAttributes.addFlashAttribute("mensaje", "Usuario o contraseña incorrectos");
-            return "redirect:/";
-        
+
+        }
+        redirectAttributes.addFlashAttribute("mensaje", "Usuario o contraseña incorrectos");
+        return "redirect:/";
+
     }
 
-    @GetMapping("/gestionAdministrador")    
+    @GetMapping("/gestionAdministrador")
     public String mostrarPanelInicioAdministrador() {
-        //Usuario usuario = new Usuario();
-        //modelo.addAttribute("user", usuario);
+        // Usuario usuario = new Usuario();
+        // modelo.addAttribute("user", usuario);
         return "Administrador/administrador";
 
     }
-    @GetMapping("/gestionVendedor")    
-    public String mostrarPanelInicioVendedor() {
-        //Usuario usuario = new Usuario();
-        //modelo.addAttribute("user", usuario);
-        return "Vendedor/vendedor";
 
+    @GetMapping("/gestionVendedor")
+    public String mostrarPanelInicioVendedor(@ModelAttribute("vendedor") Usuario usuario, Model modelo) {
+        modelo.addAttribute("vendedor", usuario);
+        return "Vendedor/vendedor";
     }
-    @GetMapping("/gestionCliente")    
+
+    @GetMapping("/gestionCliente")
     public String mostrarPanelInicioCliente() {
-        //Usuario usuario = new Usuario();
-        //modelo.addAttribute("user", usuario);
+        // Usuario usuario = new Usuario();
+        // modelo.addAttribute("user", usuario);
         return "Cliente/cliente";
 
     }

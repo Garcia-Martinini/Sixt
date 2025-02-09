@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sixt.alquiler.modelo.TipoUsuario;
@@ -13,6 +15,7 @@ import com.sixt.alquiler.modelo.Usuario;
 import com.sixt.alquiler.servicio.UsuarioServicio;
 
 @Controller
+@SessionAttributes("usuarioSesion")
 public class ControladorUsuario {
     @Autowired
     private UsuarioServicio servicio;
@@ -29,23 +32,24 @@ public class ControladorUsuario {
     public String validarUsuario(@ModelAttribute("user") Usuario usuario, Model modelo,
             RedirectAttributes redirectAttributes) {
         Usuario usuarioBD = servicio.obtenerUsuarioPorUsuario(usuario.getUsuario());
-        TipoUsuario tipoUsuario = usuarioBD.getTipoUsuario();
+       
 
         if (usuarioBD != null && usuarioBD.getContrasenia().equals(usuario.getContrasenia())) {
-            if (tipoUsuario.getNombreUsuario().equals("administrador")) {
+            if (usuarioBD.getTipoUsuario().getId() == 1) {
                 return "redirect:/gestionAdministrador";
             }
-            if (tipoUsuario.getNombreUsuario().equals("vendedor")) {
-                redirectAttributes.addFlashAttribute("vendedor", usuarioBD);
+            if (usuarioBD.getTipoUsuario().getId() == 2) {
+                redirectAttributes.addFlashAttribute("usuarioSesion", usuarioBD);
                 return "redirect:/gestionVendedor";
             }
-            if (tipoUsuario.getNombreUsuario().equals("cliente")) {
+            if (usuarioBD.getTipoUsuario().getId() == 3) {
                 return "redirect:/gestionCliente";
             }
 
         }
-        redirectAttributes.addFlashAttribute("mensaje", "Usuario o contraseña incorrectos");
-        return "redirect:/";
+            redirectAttributes.addFlashAttribute("mensaje", "Usuario o contraseña incorrectos");
+            return "redirect:/";
+        
 
     }
 
@@ -58,7 +62,7 @@ public class ControladorUsuario {
     }
 
     @GetMapping("/gestionVendedor")
-    public String mostrarPanelInicioVendedor(@ModelAttribute("vendedor") Usuario usuario, Model modelo) {
+    public String mostrarPanelInicioVendedor(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
         modelo.addAttribute("vendedor", usuario);
         return "Vendedor/vendedor";
     }
@@ -69,5 +73,11 @@ public class ControladorUsuario {
         // modelo.addAttribute("user", usuario);
         return "Cliente/cliente";
 
+    }
+
+     @GetMapping("/logout")
+    public String logout(SessionStatus status) {
+        status.setComplete(); // Limpiar la sesión
+        return "redirect:/";
     }
 }

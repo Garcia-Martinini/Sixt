@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sixt.alquiler.modelo.TipoUsuario;
 import com.sixt.alquiler.modelo.Usuario;
 import com.sixt.alquiler.servicio.UsuarioServicio;
 
@@ -54,9 +53,8 @@ public class ControladorUsuario {
     }
 
     @GetMapping("/gestionAdministrador")
-    public String mostrarPanelInicioAdministrador() {
-        // Usuario usuario = new Usuario();
-        // modelo.addAttribute("user", usuario);
+    public String mostrarPanelInicioAdministrador(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
+        modelo.addAttribute("administrador", usuario);
         return "Administrador/administrador";
 
     }
@@ -68,9 +66,8 @@ public class ControladorUsuario {
     }
 
     @GetMapping("/gestionCliente")
-    public String mostrarPanelInicioCliente() {
-        // Usuario usuario = new Usuario();
-        // modelo.addAttribute("user", usuario);
+    public String mostrarPanelInicioCliente(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
+        modelo.addAttribute("cliente", usuario);
         return "Cliente/cliente";
 
     }

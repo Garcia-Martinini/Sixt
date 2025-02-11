@@ -19,4 +19,23 @@ public class ColorServicioImpl implements ColorServicio{
         return repositorio.findAll();
     }
 
+    @Override
+    public void guardarColor(Color color) {
+        repositorio.save(color);
+    }
+
+    @Override
+    public Color obtenerColorPorIdColor(Integer id) {
+        return repositorio.findById(id).get();
+    }
+
+    @Override
+    public Color modificarColor(Color color) {
+        return repositorio.save(color);
+    }
+
+    @Override
+    public void eliminarColor(Integer id) {
+        repositorio.deleteById(id);
+    }
 }

@@ -96,7 +96,20 @@ h2{
     border: solid #131212 1px;
 }
 
-/* Menú desplegable oculto inicialmente */
+.nuevo {
+    background-color: #ff7d00;
+    color: white;
+    max-width: 350px;
+    min-width: 160px;
+    padding: 20px 20px;
+    cursor: pointer;
+    font-size: 25px;
+    border: solid #131212 1px;
+    text-decoration: none;
+    display: inline-block;
+    text-shadow: 2px 2px 0.5px gray;
+}
+
 .dropdown-menu {
     display: none;
     background-color: #FF7900;
@@ -152,13 +165,16 @@ h2{
 .finDeNav{
     float: inline-end;
     background-color: #FF7900;
-    width: 160px;
+    width: 200px;
     height: 80px;
     border: 1px solid black;
     color: white;
     cursor: pointer;
     font-size: 25px;
     text-shadow: 2px 2px 0.5px gray;
+    text-decoration: none;
+    padding: 20px 25px;
+    text-align: center;
 }
 
 .divGuardar{

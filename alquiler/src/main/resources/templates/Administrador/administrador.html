@@ -40,7 +40,7 @@
                     <div class="dropdown">
                         <button>ABM</button>
                         <div class="dropdown-menu">
-                            <a href="ABM_color.html">Color</a>
+                            <a th:href="@{/listarABM_color}">Color</a>
                             <a href="#opcion1">Estado</a>
                             <a href="#opcion2">Marca</a>
                             <a href="#opcion3">Modelo</a>
@@ -52,7 +52,7 @@
                     </li>
             </ul>
                   <div>
-                      <button class="finDeNav">Cerrar sesión</button>
+                        <a th:href="@{/logout}" class="finDeNav">Cerrar sesión</a>
                   </div>
           
       </div>

@@ -1,8 +1,8 @@
 package com.sixt.alquiler.controlador;
 
-import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +35,7 @@ public class ControladorUsuario {
 
         if (usuarioBD != null && usuarioBD.getContrasenia().equals(usuario.getContrasenia())) {
             if (usuarioBD.getTipoUsuario().getId() == 1) {
+                redirectAttributes.addFlashAttribute("usuarioSesion", usuarioBD);
                 return "redirect:/gestionAdministrador";
             }
             if (usuarioBD.getTipoUsuario().getId() == 2) {
@@ -42,6 +43,7 @@ public class ControladorUsuario {
                 return "redirect:/gestionVendedor";
             }
             if (usuarioBD.getTipoUsuario().getId() == 3) {
+                redirectAttributes.addFlashAttribute("usuarioSesion", usuarioBD);
                 return "redirect:/gestionCliente";
             }
 

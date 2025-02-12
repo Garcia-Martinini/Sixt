@@ -2,6 +2,7 @@ package com.sixt.alquiler.servicio;
 
 import java.util.List;
 
+
 import com.sixt.alquiler.modelo.Usuario;
 
 public interface UsuarioServicio {
@@ -17,4 +18,6 @@ public interface UsuarioServicio {
     public void eliminarUsuarioPorId(Long id);
 
     public Usuario obtenerUsuarioPorUsuario(String usuario);
+
+    
 }

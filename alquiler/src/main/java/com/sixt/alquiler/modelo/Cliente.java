@@ -1,7 +1,6 @@
 package com.sixt.alquiler.modelo;
 
 import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente {
+public class Cliente{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,12 +29,8 @@ public class Cliente {
     @OneToMany(mappedBy="cliente")
     private List<Reserva> reservas;
 
-
-
     public Cliente() {
     }
-
-
 
     public Cliente(String dni, String nombre, String direccion, String email, String telefono, Estado estado,
             List<Reserva> reservas) {

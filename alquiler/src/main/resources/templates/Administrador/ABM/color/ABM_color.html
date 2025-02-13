@@ -40,8 +40,8 @@
                 <td th:text = "${color.idColor}">Id</td>
                 <td th:text = "${color.nombreColor}">Usuario</td>
                 <td>
-                  <button type="button" class="btn btn-warning">Modificar</button>
-                  <button type="button" class="btn btn-danger">Eliminar</button>
+                  <a th:href="@{/formularioColor/{id}(id = ${color.idColor})}" class="btn btn-warning">Modificar</a>
+                  <a th:href="@{/eliminarColor/{id}(id = ${color.idColor})}" class="btn btn-danger">Eliminar</a>
                 </td>
               </tr>
               

@@ -12,7 +12,7 @@ public interface ColorServicio {
 
     public Color obtenerColorPorIdColor(Integer id);
 
-    public Color modificarColor(Color color);
+    public void modificarColor(Color color);
 
     public void eliminarColor(Integer id);
      

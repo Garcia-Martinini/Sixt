@@ -30,8 +30,8 @@ public class ColorServicioImpl implements ColorServicio{
     }
 
     @Override
-    public Color modificarColor(Color color) {
-        return repositorio.save(color);
+    public void modificarColor(Color color) {
+        repositorio.save(color);
     }
 
     @Override

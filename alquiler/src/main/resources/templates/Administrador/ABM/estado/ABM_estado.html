@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/estilos.css}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <title>ABM Color</title>
+    <title>ABM Estado</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
@@ -20,7 +20,7 @@
         <div class="navBar">
           <li>
               <div>
-                <a href="/nuevoColor" class="nuevo">Nuevo color</a>
+                <a href="/nuevoEstado" class="nuevo">Nuevo Estado</a>
               </div>
             </li>
                   <div>
@@ -30,23 +30,23 @@
       </div>
     <div class = "container">
         <div class = "row">
-            <h2>Lista de colores disponibles</h2>
+            <h2>Lista de estados disponibles</h2>
         </div>
         <table class="table table-striped table-bordered w-75">
             <thead class="table-dark  opacity-75">
               <tr>
                 <th class="w-25 center">Id</th>
-                <th class="w-25">Color</th>
+                <th class="w-25">Estado</th>
                 <th class="w-50">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              <tr class = "opacity-80" th:each = "color : ${colores}">
-                <td th:text = "${color.idColor}">Id</td>
-                <td th:text = "${color.nombreColor}">Color</td>
+              <tr class = "opacity-80" th:each = "estado : ${estados}">
+                <td th:text = "${estado.idEstado}">Id</td>
+                <td th:text = "${estado.nombreEstado}">Estado</td>
                 <td>
-                  <a th:href="@{/formularioColor/{id}(id = ${color.idColor})}" class="btn btn-warning">Modificar</a>
-                  <a th:href="@{/eliminarColor/{id}(id = ${color.idColor})}" class="btn btn-danger">Eliminar</a>
+                  <a th:href="@{/formularioEstado/{id}(id = ${estado.idEstado})}" class="btn btn-warning">Modificar</a>
+                  <a th:href="@{/eliminarEstado/{id}(id = ${estado.idEstado})}" class="btn btn-danger">Eliminar</a>
                 </td>
               </tr>
               

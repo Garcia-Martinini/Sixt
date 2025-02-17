@@ -8,7 +8,12 @@
     <title>Administrador</title>
 </head>
 <body>
-        <h1>SIXT ARGENTINA<span th:text="'       Bienvenido ' + ${administrador.usuario}"></span></h1>
+    <div>
+        <div class="titulo">Bienvenido a Sixt Argentina</div>
+        <div class="identidad">
+          <p th:text="'Usuario: ' + ${usuarioSesion.usuario}"></p>
+        </div>
+    </div>
         <img src="IMG/Foto portada.webp" alt="foto de portada" class = "portada">
         <div class="navBar">
           <ul>
@@ -41,12 +46,12 @@
                         <button>ABM</button>
                         <div class="dropdown-menu">
                             <a th:href="@{/listarABM_color}">Color</a>
-                            <a href="#opcion1">Estado</a>
-                            <a href="#opcion2">Marca</a>
-                            <a href="#opcion3">Modelo</a>
-                            <a href="#opcion3">Oficina</a>
-                            <a href="#opcion1">Tipo de reserva</a>
-                            <a href="#opcion2">Tipo de Usuario</a>
+                            <a th:href="@{/listarABM_estado}">Estado</a>
+                            <a th:href="@{/listarABM_marca}">Marca</a>
+                            <a th:href="@{/listarABM_modelo}">Modelo</a>
+                            <!--<a th:href="#opcion3">Oficina</a>
+                            <a th:href="#opcion1">Tipo de reserva</a>
+                            <a th:href="#opcion2">Tipo de Usuario</a>-->
                         </div>
                     </div>
                     </li>

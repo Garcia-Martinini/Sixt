@@ -1,12 +1,29 @@
-h1{
+.titulo{
+    display: inline-block;
+    width: 80%;
     background-color: #FF7900;
     color: black;
     text-align: center;
     padding: 40px;
     font-size: 50px;
     text-shadow: 2px 2px 0.5px gray;
+    border: solid 1px black;
     margin-bottom: 0 !important;
 }
+
+.identidad{
+    display: inline-block;
+    float: inline-end;
+    width: 20%;
+    height: 157px;
+    background-color: #FF7900;
+    color: black;
+    border: solid 1px black;
+    margin-bottom: 0 !important;
+    text-align: center;
+    padding: 5%;
+}
+
 
 h2{
     padding: 20px;
@@ -15,7 +32,7 @@ h2{
 .ingreso{
     background-color: rgb(255, 255, 240, 0.8);
     border: 3px solid black;
-    width: 40%;
+    width: 30%;
     margin: auto;
     border-radius: 10px;
     margin-top: 20px;
@@ -29,12 +46,24 @@ h2{
     text-decoration: underline;
 }
 
+.datoAnterior{
+    width: 90%;
+    height: 35px;
+    border: solid black 2px;
+    border-radius: 5px;
+    background-color: transparent;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+}
+
 .ingreso label{
     font-family: Arial, Helvetica, sans-serif;
-    width: 50%;
+    /*width: 50%;
     font-size: 20px;
     padding: 15px;
-    margin-left: 10px;
+    margin-left: 10px;*/
+    margin-left: 20px;
+    padding-top: 5px;
 }
 
 .ingreso input{
@@ -44,15 +73,7 @@ h2{
     border: solid black 2px;
     border-radius: 5px;
     background-color: transparent;
-}
-
-.ingreso label select{
-    width: 480px;
-    height: 35px;
-    margin: auto;
-    border: solid black 2px;
-    border-radius: 5px;
-    background-color: transparent;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .botonEnviar{

@@ -58,7 +58,6 @@ public class ControladorUsuario {
     public String mostrarPanelInicioAdministrador(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
         modelo.addAttribute("administrador", usuario);
         return "Administrador/administrador";
-
     }
 
     @GetMapping("/gestionVendedor")

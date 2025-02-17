@@ -7,11 +7,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/gestionAdministrador")
 public class ControladorAdministrador {
-
-    /*@GetMapping("/ABM_color")
-    public String abmColor(){
-        return "Administrador/ABM/ABM_color";
-    }*/
-
     
 }

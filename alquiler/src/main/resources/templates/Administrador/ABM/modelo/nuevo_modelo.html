@@ -25,6 +25,12 @@
   <form class="ingreso" th:action="@{/guardarModelo}" th:object="${modelo}" method="post">
     <p>Completa los datos para ingresar un modelo</p>
     <div class="mb-3 mt-3">
+      <label for="marca">Selecciona una Marca:</label>
+        <select id="marca" th:field="*{marca.idMarca}">
+            <option th:each="marca : ${marcas}" 
+                    th:value="${marca.idMarca}" 
+                    th:text="${marca.nombreMarca}">
+            </option>
       <label for="modelo">Nuevo Modelo:</label><br>
       <input type="text" id="modelo" th:field="*{nombreModelo}" placeholder="Ingrese el nuevo modelo" name="modelo">
     </div>

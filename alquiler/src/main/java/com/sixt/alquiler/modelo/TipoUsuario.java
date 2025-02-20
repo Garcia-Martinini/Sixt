@@ -13,12 +13,12 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tipo_usuario")
 public class TipoUsuario {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "nombre_tipo_usuario")
-    private String nombreUsuario;
+    private String nombreTipoUsuario;
 
     @OneToMany(mappedBy = "tipoUsuario")
     private List<Usuario> usuarios;
@@ -26,8 +26,8 @@ public class TipoUsuario {
     public TipoUsuario() {
     }
 
-    public TipoUsuario(String nombreUsuario, List<Usuario> usuarios) {
-        this.nombreUsuario = nombreUsuario;
+    public TipoUsuario(String nombreTipoUsuario, List<Usuario> usuarios) {
+        this.nombreTipoUsuario = nombreTipoUsuario;
         this.usuarios = usuarios;
     }
 
@@ -35,16 +35,8 @@ public class TipoUsuario {
         return id;
     }
 
-    public void setIdTipoUsuario(int id) {
+    public void setId(int id) {
         this.id = id;
-    }
-
-    public String getNombreUsuario() {
-        return nombreUsuario;
-    }
-
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
     }
 
     public List<Usuario> getUsuarios() {
@@ -55,5 +47,11 @@ public class TipoUsuario {
         this.usuarios = usuarios;
     }
 
-    
+    public String getNombreTipoUsuario() {
+        return nombreTipoUsuario;
+    }
+
+    public void setNombreTipoUsuario(String nombreTipoUsuario) {
+        this.nombreTipoUsuario = nombreTipoUsuario;
+    }
 }

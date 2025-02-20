@@ -6,7 +6,7 @@
   <link rel="stylesheet" th:href="@{/estilos.css}">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-  <title>Nuevo modelo</title>
+  <title>Modificar Tipo de Usuario</title>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
@@ -16,26 +16,22 @@
       <p th:text="'Usuario: ' + ${usuarioSesion.usuario}"></p>
     </div>
   </div>
+  <img src="IMG/Foto portada.webp" alt="foto de portada" class="portada">
   <div class="navBar">
             <div>
-                <a th:href="@{/listarABM_modelo}" class="finDeNav">Volver</a>
+                <a th:href="@{/listarABM_TipoUsuario}" class="finDeNav">Volver</a>
             </div>
-    
-</div>
-  <form class="ingreso" th:action="@{/guardarModelo}" th:object="${modelo}" method="post">
-    <p>Completa los datos para ingresar un modelo</p>
+  </div>
+  <form class="ingreso" th:action="@{/actualizarTipoUsuario/{id}(id=${tipoUsuario.idTipoUsuario})}" th:object="${tipoUsuario}" method="post">
+    <p>Modificacion de Tipo de Usuario</p>
     <div class="mb-3 mt-3">
-      <label for="marca">Selecciona una Marca:</label>
-      <br>marca
-        <select id="marca" th:field="*{marca.idMarca}">
-            <option th:each="marca : ${marcas}" 
-                    th:value="${marca.idMarca}" 
-                    th:text="${marca.nombreMarca}">
-            </option>
-        </select>
-      <label for="modelo">Nuevo Modelo:</label><br>
-      <input type="text" id="modelo" th:field="*{nombreModelo}" placeholder="Ingrese el nuevo modelo" name="modelo">
+      <label>Tipo de usuario anterior:</label><br>
+      <label th:text="${nombreAnterior}" class="datoAnterior"></label><br>
     </div>
+    <div class="mb-3 mt-3">
+        <label>Nuevo Tipo de Usuario:</label><br>
+        <input id="tipoUsuario" th:field="*{nombreTipoUsuario}" placeholder="Ingrese el nuevo tipo de usuario">
+      </div>
     
     <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
       <button type="submit" class="botonEnviar">Grabar</button>

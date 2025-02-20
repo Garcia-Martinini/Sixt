@@ -76,6 +76,16 @@ h2{
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.ingreso select{
+    width: 90%;
+    height: 35px;
+    margin: 10px 20px;
+    border: solid black 2px;
+    border-radius: 5px;
+    background-color: transparent;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .botonEnviar{
     background-color: #FF7900;
     color: black;

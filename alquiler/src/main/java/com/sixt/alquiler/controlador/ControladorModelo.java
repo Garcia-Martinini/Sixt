@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.sixt.alquiler.modelo.Modelo;
 import com.sixt.alquiler.modelo.Usuario;
+import com.sixt.alquiler.servicio.MarcaServicio;
 import com.sixt.alquiler.servicio.ModeloServicio;
 
 @Controller
@@ -20,9 +21,12 @@ public class ControladorModelo {
     @Autowired
     private ModeloServicio servicio;
 
+    @Autowired
+    private MarcaServicio servicioMarca;
+
     @GetMapping("/listarABM_modelo")
     public String listarLosModelos(@ModelAttribute("usuarioSesion") Usuario usuario, Model model) {
-        model.addAttribute("marcas", servicio.listarLosModelos());
+        model.addAttribute("modelos", servicio.listarLosModelos());
         return "Administrador/ABM/modelo/ABM_modelo";
     }
 
@@ -30,6 +34,7 @@ public class ControladorModelo {
     public String nuevoModeloFormulario(@ModelAttribute("usuarioSesion") Usuario usuario, Model model) {
         Modelo modelo = new Modelo();
         model.addAttribute("modelo", modelo);
+        model.addAttribute("marcas", servicioMarca.listarLasMarcas());
         return "Administrador/ABM/modelo/nuevo_modelo";
     }
 

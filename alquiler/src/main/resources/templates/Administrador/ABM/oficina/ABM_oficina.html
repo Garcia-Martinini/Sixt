@@ -37,13 +37,15 @@
               <tr>
                 <th class="w-25 center">Id</th>
                 <th class="w-25">Oficina</th>
-                <th class="w-50">Acciones</th>
+                <th class="w-25">Direccion</th>
+                <th class="w-25">Acciones</th>
               </tr>
             </thead>
             <tbody>
               <tr class = "opacity-80" th:each = "oficina : ${oficinas}">
                 <td th:text = "${oficina.idOficina}">Id</td>
                 <td th:text = "${oficina.nombreOficina}">Oficina</td>
+                <td th:text = "${oficina.direccionOficina}">Direccion</td>
                 <td>
                   <a th:href="@{/formularioOficina/{id}(id = ${oficina.idOficina})}" class="btn btn-warning">Modificar</a>
                   <a th:href="@{/eliminarOficina/{id}(id = ${oficina.idOficina})}" class="btn btn-danger">Eliminar</a>

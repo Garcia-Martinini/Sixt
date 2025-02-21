@@ -43,8 +43,10 @@ public class ControladorOficina {
             Model modelo) {
         Oficina oficina = servicio.obtenerOficinaPorIdOficina(id);
         String nombreAnterior = oficina.getNombreOficina();
+        String direccionAnterior = oficina.getDireccionOficina();
         modelo.addAttribute("oficina", oficina);
         modelo.addAttribute("nombreAnterior", nombreAnterior);
+        modelo.addAttribute("direccionAnterior", direccionAnterior);
         return "Administrador/ABM/oficina/modificar_oficina";
     }
 
@@ -52,6 +54,7 @@ public class ControladorOficina {
     public String actualizarOficina(@PathVariable Integer id, @ModelAttribute("oficina") Oficina oficina) {
         Oficina oficinaModificado = servicio.obtenerOficinaPorIdOficina(id);
         oficinaModificado.setNombreOficina(oficina.getNombreOficina());
+        oficinaModificado.setDireccionOficina(oficina.getDireccionOficina());
         servicio.modificarOficina(oficinaModificado);
         return "redirect:/listarABM_oficina";
     }

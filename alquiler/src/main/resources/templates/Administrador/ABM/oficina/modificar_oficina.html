@@ -25,12 +25,20 @@
   <form class="ingreso" th:action="@{/actualizarOficina/{id}(id=${oficina.idOficina})}" th:object="${oficina}" method="post">
     <p>Modificacion de oficina</p>
     <div class="mb-3 mt-3">
-      <label for="nombreOficina">Oficina Anterior:</label><br>
+      <label for="nombreAnterior">Nombre Oficina Anterior:</label><br>
       <label th:text="${nombreAnterior}" class="datoAnterior"></label><br>
     </div>
     <div class="mb-3 mt-3">
-        <label for="nombreOficina">Nueva Oficina:</label><br>
+      <label for="direccionAnterior">Direccion de Oficina Anterior:</label><br>
+      <label th:text="${direccionAnterior}" class="datoAnterior"></label><br>
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="nombreOficina">Nuevo nombre de la oficina:</label><br>
         <input id="nombreOficina" th:field="*{nombreOficina}" placeholder="Ingrese la nueva oficina">
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="direccionOficina">Nueva dirección de la oficina:</label><br>
+        <input id="direccionOficina" th:field="*{direccionOficina}" placeholder="Ingrese la nueva direccion">
       </div>
     
     <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">

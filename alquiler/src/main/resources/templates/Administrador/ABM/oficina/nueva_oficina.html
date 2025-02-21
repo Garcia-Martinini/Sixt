@@ -25,10 +25,13 @@
   <form class="ingreso" th:action="@{/guardarOficina}" th:object="${oficina}" method="post">
     <p>Completa los datos para ingresar una oficina</p>
     <div class="mb-3 mt-3">
-      <label for="oficina">Nueva oficina:</label><br>
-      <input type="text" id="oficina" th:field="*{nombreOficina}" placeholder="Ingrese la nueva oficina" name="oficina">
+     <label for="nombre">Nuevo  de la oficina:</label><br>
+      <input type="text" id="nombre" th:field="*{nombreOficina}" placeholder="Ingrese el nombre de la nueva oficina" name="nombre">
     </div>
-    
+    <div class="mb-3 mt-3">
+      <label for="direccion">Nueva dirección de la oficina:</label><br>
+      <input type="text" id="direccion" th:field="*{direccionOficina}" placeholder="Ingrese la dirección de la nueva oficina" name="direccion">
+    </div> 
     <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
       <button type="submit" class="botonEnviar">Grabar</button>
     </div>

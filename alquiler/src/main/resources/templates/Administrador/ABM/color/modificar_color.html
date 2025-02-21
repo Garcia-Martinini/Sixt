@@ -14,10 +14,9 @@
     <div class="titulo">Bienvenido a Sixt Argentina</div>
     <div class="identidad">
       <p th:text="'Usuario: ' + ${usuarioSesion.usuario}"></p>
-      <!--<p> Bienvenido sr Adrministrador</p>-->
     </div>
   </div>
-  <img src="IMG/Foto portada.webp" alt="foto de portada" class="portada">
+  <img th:src="@{IMG/Foto portada.webp}" alt="foto de portada" class="portada">
   <div class="navBar">
             <div>
                 <a th:href="@{/listarABM_color}" class="finDeNav">Volver</a>

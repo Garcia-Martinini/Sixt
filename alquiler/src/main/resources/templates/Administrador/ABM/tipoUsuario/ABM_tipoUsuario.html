@@ -42,11 +42,11 @@
             </thead>
             <tbody>
               <tr class = "opacity-75" th:each = "tipoUsuario : ${tipoUsuarios}">
-                <td th:text = "${tipoUsuario.idTipoUsuario}">Id</td>
+                <td th:text = "${tipoUsuario.id}">Id</td>
                 <td th:text = "${tipoUsuario.nombreTipoUsuario}">Tipo de usuario</td>
                 <td>
-                  <a th:href="@{/formularioTipoUsuario/{id}(id = ${tipoUsuario.idTipoUsuario})}" class="btn btn-warning">Modificar</a>
-                  <a th:href="@{/eliminarTipoUsuario/{id}(id = ${tipoUsuario.idTipoUsuario})}" class="btn btn-danger">Eliminar</a>
+                  <a th:href="@{/formularioTipoUsuario/{id}(id = ${tipoUsuario.id})}" class="btn btn-warning">Modificar</a>
+                  <a th:href="@{/eliminarTipoUsuario/{id}(id = ${tipoUsuario.id})}" class="btn btn-danger">Eliminar</a>
                 </td>
               </tr>
             </tbody>

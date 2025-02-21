@@ -16,6 +16,7 @@
       <p th:text="'Usuario: ' + ${usuarioSesion.usuario}"></p>
     </div>
   </div>
+  <img src="IMG/Foto portada.webp" alt="foto de portada" class="portada">
   <div class="navBar">
             <div>
                 <a th:href="@{/listarABM_TipoUsuario}" class="finDeNav">Volver</a>
@@ -26,7 +27,7 @@
     <p>Completa los datos para ingresar un tipo de usuario</p>
     <div class="mb-3 mt-3">
       <label for="tipoUsuario">Nuevo Tipo de usuario:</label><br>
-      <input type="text" id="tipoUsuario" th:field="*{nombreTipoUsuario}" placeholder="Ingrese el nuevo modelo" name="tipoUsuario">
+      <input type="text" id="tipoUsuario" th:field="*{nombreTipoUsuario}" placeholder="Ingrese el nuevo tipo de usuario" name="tipoUsuario">
     </div>
     
     <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">

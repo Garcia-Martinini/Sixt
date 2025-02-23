@@ -17,5 +17,27 @@ public class ClienteServicioImpl implements ClienteServicio {
     public List<Cliente> listarTodosLosClientes() {
         return repositorio.findAll();
     }
+    
+    @Override
+    public Cliente guardarCliente(Cliente cliente) {
+        return repositorio.save(cliente);
+    }
+
+    @Override
+    public Cliente obtenerClientePorId(Long id) {
+        return repositorio.findById(id).orElse(null);
+    }
+
+    @Override
+    public void eliminarCliente(Long id) {
+        repositorio.deleteById(id);
+    }
+
+    @Override
+    public Cliente modificarCliente(Cliente cliente) {
+        return repositorio.save(cliente);
+    }
+
+    
 
 }

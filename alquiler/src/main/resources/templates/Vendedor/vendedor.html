@@ -17,7 +17,7 @@
         <nav class="navbar navbar-expand-lg bg-warning text-dark ">
             <div class="container-fluid">
                 <a class="navbar-brand fs-2" href="#">SIXT ARGENTINA</a>
-                
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -31,7 +31,7 @@
                                 CLIENTES
                             </a>
                             <ul class="dropdown-menu bg-warning text-dark justify-content-end">
-                                <li><a class="dropdown-item" href="#">Alta nuevo Cliente</a></li>
+                                <li><a class="dropdown-item" th:href="@{/Clientes/Crear}">Alta nuevo Cliente</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -39,11 +39,11 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Modificar datos de Clientes</a></li>
+                                <li><a class="dropdown-item" th:href="@{/Clientes/Buscar}">Modificar datos de Clientes</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Baja de Clientes</a></li>
+                                <li><a class="dropdown-item" th:href="@{/Clientes/Elegir}">Baja de Clientes</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -52,7 +52,7 @@
                                 RESERVAS
                             </a>
                             <ul class="dropdown-menu bg-warning text-dark justify-content-end">
-                                <li><a class="dropdown-item" href="#">Cargar Reserva</a></li>
+                                <li><a class="dropdown-item"th:href="@{/Clientes/NuevaReserva}" >Cargar Reserva</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -71,9 +71,9 @@
                     <p class="navbar-text" th:text="'Bienvenido: ' + ${vendedor.usuario}">Usuario no disponible</p>
                 </div>
             </div>
-            
 
-            
+
+
 
 
         </nav>

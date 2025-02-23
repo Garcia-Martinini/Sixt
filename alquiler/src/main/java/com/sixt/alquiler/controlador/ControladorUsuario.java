@@ -5,19 +5,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sixt.alquiler.modelo.TipoUsuario;
 import com.sixt.alquiler.modelo.Usuario;
+import com.sixt.alquiler.servicio.EstadoServicio;
+import com.sixt.alquiler.servicio.TipoUsuarioServicio;
 import com.sixt.alquiler.servicio.UsuarioServicio;
 
 @Controller
 @SessionAttributes("usuarioSesion")
 public class ControladorUsuario {
+
     @Autowired
     private UsuarioServicio servicio;
+
+    @Autowired
+    private TipoUsuarioServicio tipoUsuarioServicio;
 
     @GetMapping("/")
     public String mostrarLogin(Model modelo, @ModelAttribute("mensaje") String mensaje) {
@@ -77,5 +85,57 @@ public class ControladorUsuario {
     public String logout(SessionStatus status) {
         status.setComplete(); // Limpiar la sesión
         return "redirect:/";
+    }
+
+    @GetMapping("/nuevoUsuario")
+    public String nuevoUsuarioFormulario(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
+        Usuario usuario1 = new Usuario();
+        modelo.addAttribute("usuario", usuario1);
+        modelo.addAttribute("tipoUsuarios", tipoUsuarioServicio.listarLosTipoUsuario());
+        return "Administrador/Usuario/nuevo_usuario";
+    }
+
+    @PostMapping("/guardarUsuario")
+    public String guardarUsuario(@ModelAttribute("usuario") Usuario usuario) {
+        servicio.guardarUsuario(usuario);
+        return "redirect:/listarABM_usuario";
+    }
+
+    @GetMapping("/gestionUsuario")
+    public String gestionarUsuarios(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
+        modelo.addAttribute("usuarios", servicio.listartodosLosUsuarios());
+        return "Administrador/Usuario/ABM_usuario"; 
+    }
+
+    @GetMapping("/formularioUsuario/{id}")
+    public String modificarUsuarioFormulario(@ModelAttribute("usuarioSesion") Usuario usuario, @PathVariable Long id, Model modelo) {
+        Usuario usuario1 = servicio.obtenerUsuarioPorId(id);
+        String usuarioAnterior = usuario1.getUsuario();
+        String contraseniaAnterior = usuario1.getContrasenia();
+        String tipoUsuarioAnterior = usuario1.getTipoUsuario().getNombreTipoUsuario();
+        String estadoAnterior = usuario1.getEstado().getNombreEstado();
+        modelo.addAttribute("usuario", usuario);
+        modelo.addAttribute("nombreAnterior", usuarioAnterior);
+        modelo.addAttribute("contraseniaAnterior", contraseniaAnterior);
+        modelo.addAttribute("tipoUsuarioAnterior", tipoUsuarioAnterior);
+        modelo.addAttribute("estadoAnterior", estadoAnterior);
+        return "Administrador/Usuario/modificar_usuario";
+    }
+
+    @PostMapping("/actualizarUsuario/{id}")
+    public String actualizarUsuario(@PathVariable Long id, @ModelAttribute("usuario") Usuario usuario) {
+        Usuario usuarioModificado = servicio.obtenerUsuarioPorId(id);
+        usuarioModificado.setUsuario(usuario.getUsuario());
+        usuarioModificado.setContrasenia(usuario.getContrasenia());
+        usuarioModificado.setTipoUsuario(usuario.getTipoUsuario());
+        usuarioModificado.setEstado(usuario.getEstado());
+        servicio.actualizarUsuario(usuarioModificado);
+        return "redirect:/listarABM_usuario";
+    }
+
+    @GetMapping("/eliminarUsuario/{id}")
+    public String eliminarUsuario(@PathVariable Long id) {
+        servicio.eliminarUsuarioPorId(id);;
+        return "redirect:/listarABM_usuario";
     }
 }

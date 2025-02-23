@@ -56,7 +56,7 @@ public class ControladorTipoUsuario {
     }
 
     @GetMapping("/eliminarTipoUsuario/{id}")
-    public String eliminarTipoUsuario(@PathVariable Integer id) {
+    public String eliminarUnTipoUsuario(@PathVariable Integer id) {
         servicio.eliminarTipoUsuario(id);
         return "redirect:/listarABM_tipoUsuario";
     }

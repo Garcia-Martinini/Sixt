@@ -16,10 +16,10 @@
       <p th:text="'Usuario: ' + ${usuarioSesion.usuario}"></p>
     </div>
   </div>
-  <img src="IMG/Foto portada.webp" alt="foto de portada" class="portada">
+  <img src="/IMG/Foto portada.webp" alt="foto de portada" class="portada">
   <div class="navBar">
             <div>
-                <a th:href="@{/listarABM_Oficina}" class="finDeNav">Volver</a>
+                <a th:href="@{/listarABM_oficina}" class="finDeNav">Volver</a>
             </div>
   </div>
   <form class="ingreso" th:action="@{/actualizarOficina/{id}(id=${oficina.idOficina})}" th:object="${oficina}" method="post">

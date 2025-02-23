@@ -16,13 +16,14 @@
       <p th:text="'Usuario: ' + ${usuarioSesion.usuario}"></p>
     </div>
   </div>
-  <img src="IMG/Foto portada.webp" alt="foto de portada" class="portada">
+  <img th:src="@{/IMG/Foto portada.webp}" alt="foto de portada" class = "portada">
   <div class="navBar">
             <div>
-                <a th:href="@{/listarABM_TipoUsuario}" class="finDeNav">Volver</a>
+                <a th:href="@{/gestionAdministrador}" class="finDeNav">Volver</a>
             </div>
-  </div>
-  <form class="ingreso" th:action="@{/actualizarTipoUsuario/{id}(id=${tipoUsuario.idTipoUsuario})}" th:object="${tipoUsuario}" method="post">
+    
+</div>
+  <form class="ingreso" th:action="@{/actualizarTipoUsuario/{id}(id=${tipoUsuario.id})}" th:object="${tipoUsuario}" method="post">
     <p>Modificacion de Tipo de Usuario</p>
     <div class="mb-3 mt-3">
       <label>Tipo de usuario anterior:</label><br>

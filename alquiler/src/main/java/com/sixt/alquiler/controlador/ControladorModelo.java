@@ -56,7 +56,7 @@ public class ControladorModelo {
     @PostMapping("/actualizarModelo/{id}")
     public String actualizarModelo(@PathVariable Integer id, @ModelAttribute("modelo") Modelo modelo) {
         Modelo modeloModificado = servicio.obtenerModeloPorIdModelo(id);
-        modeloModificado.setNombreModelo(modelo.getNombreModelo());;
+        modeloModificado.setNombreModelo(modelo.getNombreModelo());
         servicio.modificarModelo(modeloModificado);
         return "redirect:/listarABM_modelo";
     }

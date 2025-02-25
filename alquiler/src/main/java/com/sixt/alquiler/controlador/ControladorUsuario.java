@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sixt.alquiler.modelo.TipoUsuario;
 import com.sixt.alquiler.modelo.Usuario;
 import com.sixt.alquiler.servicio.EstadoServicio;
 import com.sixt.alquiler.servicio.TipoUsuarioServicio;
@@ -92,7 +91,6 @@ public class ControladorUsuario {
 
     @GetMapping("/nuevoUsuario")
     public String nuevoUsuarioFormulario(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo, @ModelAttribute("mensaje") String mensaje) {
-        mensaje = "";
         Usuario usuario1 = new Usuario();
         modelo.addAttribute("mensaje", mensaje);
         modelo.addAttribute("user", usuario1);
@@ -101,16 +99,17 @@ public class ControladorUsuario {
     }
 
     @PostMapping("/guardarUsuario")
-    public String guardarUsuario(@ModelAttribute("user") Usuario usuario, RedirectAttributes redirectAttributes) {
+    public String guardarUsuario(@ModelAttribute("usuarioSesion") Usuario usuario, RedirectAttributes redirectAttributes) {
         if(servicio.obtenerUsuarioPorUsuario(usuario.getUsuario()) == null){
-            usuario.setEstado(estadoServicio.obtenerEstadoPorIdEstado(1));
-            usuario.setUsuario(usuario.getUsuario());
-            usuario.setContrasenia(usuario.getContrasenia());
-            usuario.setTipoUsuario(usuario.getTipoUsuario());
-            servicio.guardarUsuario(usuario);
+            Usuario nuevoUsuario = new Usuario();
+            nuevoUsuario.setEstado(estadoServicio.obtenerEstadoPorIdEstado(1));
+            nuevoUsuario.setUsuario(usuario.getUsuario());
+            nuevoUsuario.setContrasenia(usuario.getContrasenia());
+            nuevoUsuario.setTipoUsuario(usuario.getTipoUsuario());
+            servicio.guardarUsuario(nuevoUsuario);
             return "redirect:/gestionUsuario";
         }
-        redirectAttributes.addFlashAttribute("mensaje", "El usuario ya existe");
+        redirectAttributes.addFlashAttribute("mensaje", "El usuario que ingresaste ya existe");
         return "redirect:/nuevoUsuario";
     }
 
@@ -127,16 +126,18 @@ public class ControladorUsuario {
         String contraseniaAnterior = usuario1.getContrasenia();
         String tipoUsuarioAnterior = usuario1.getTipoUsuario().getNombreTipoUsuario();
         String estadoAnterior = usuario1.getEstado().getNombreEstado();
-        modelo.addAttribute("usuario", usuario);
+        modelo.addAttribute("user", usuario1);
         modelo.addAttribute("nombreAnterior", usuarioAnterior);
         modelo.addAttribute("contraseniaAnterior", contraseniaAnterior);
         modelo.addAttribute("tipoUsuarioAnterior", tipoUsuarioAnterior);
         modelo.addAttribute("estadoAnterior", estadoAnterior);
+        modelo.addAttribute("tipoUsuarios", tipoUsuarioServicio.listarLosTipoUsuario());
+        modelo.addAttribute("estados", estadoServicio.listarLosEstados());
         return "Administrador/Usuario/modificar_usuario";
     }
 
     @PostMapping("/actualizarUsuario/{id}")
-    public String actualizarUsuario(@PathVariable Long id, @ModelAttribute("usuario") Usuario usuario) {
+    public String actualizarUsuario(@PathVariable Long id, @ModelAttribute("user") Usuario usuario) {
         Usuario usuarioModificado = servicio.obtenerUsuarioPorId(id);
         usuarioModificado.setUsuario(usuario.getUsuario());
         usuarioModificado.setContrasenia(usuario.getContrasenia());

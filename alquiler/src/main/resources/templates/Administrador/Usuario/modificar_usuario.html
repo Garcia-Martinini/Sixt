@@ -19,19 +19,51 @@
   <img th:src="@{/IMG/Foto portada.webp}" alt="foto de portada" class="portada">
   <div class="navBar">
             <div>
-                <a th:href="@{/listarABM_color}" class="finDeNav">Volver</a>
+                <a th:href="@{/listarABM_usuario}" class="finDeNav">Volver</a>
             </div>
   </div>
-  <form class="ingreso" th:action="@{/actualizarColor/{id}(id=${color.idColor})}" th:object="${color}" method="post">
-    <p>Modificacion de color</p>
+  <form class="ingreso" th:action="@{/actualizarUsuario/{id}(id=${user.idUsuario})}" th:object="${user}" method="post">
+    <p>Modificacion de usuario</p>
     <div class="mb-3 mt-3">
-      <label for="nombreColor">Color Anterior:</label><br>
-      <label for="color_anterior"th:text="${nombreAnterior}" class="datoAnterior"></label><br>
+      <label for="nombreUsuario">Usuario Anterior:</label><br>
+      <label for="usuario_anterior"th:text="${nombreAnterior}" class="datoAnterior"></label><br>
     </div>
     <div class="mb-3 mt-3">
-        <label for="nombreColor">Nuevo Color:</label><br>
-        <input id="nombreColor" th:field="*{nombreColor}" placeholder="Ingrese el nuevo color">
+      <label for="pass">Contraseña Anterior:</label><br>
+      <label for="pass"th:text="${contraseniaAnterior}" class="datoAnterior"></label><br>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="tipo">Tipo de usuario Anterior:</label><br>
+      <label for="tipo"th:text="${tipoUsuarioAnterior}" class="datoAnterior"></label><br>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="estadoAnterior">Estado Anterior:</label><br>
+      <label for="estadoAnterior"th:text="${estadoAnterior}" class="datoAnterior"></label><br>
+    </div>
+
+
+    <div class="mb-3 mt-3">
+        <label for="nombreColor">Nuevo Usuario:</label><br>
+        <input id="nombreColor" th:field="*{usuario}" placeholder="Ingrese el nuevo color">
       </div>
+      <div class="mb-3 mt-3">
+        <label for="nombreColor">Nueva Contraseña:</label><br>
+        <input id="nombreColor" th:field="*{contrasenia}" placeholder="Ingrese el nuevo color">
+      </div>
+      <label for="nombreColor">Nuevo tipo de usuario:</label><br>
+      <select id="tipoUsuario" th:field="*{tipoUsuario.id}">
+        <option th:each="tipoUsuario : ${tipoUsuarios}" 
+                th:value="${tipoUsuario.id}" 
+                th:text="${tipoUsuario.nombreTipoUsuario}">
+        </option>
+    </select>
+    <label for="nuevoEstado">Nuevo estado:</label><br>
+    <select id="nuevoEstado" th:field="*{estado.idEstado}">
+      <option th:each="estado : ${estados}" 
+              th:value="${estado.idEstado}" 
+              th:text="${estado.nombreEstado}">
+      </option>
+    </select>
     
     <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
       <button type="submit" class="botonEnviar">Grabar</button>

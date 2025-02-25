@@ -27,6 +27,9 @@ public class ControladorUsuario {
     @Autowired
     private TipoUsuarioServicio tipoUsuarioServicio;
 
+    @Autowired
+    private EstadoServicio estadoServicio;
+
     @GetMapping("/")
     public String mostrarLogin(Model modelo, @ModelAttribute("mensaje") String mensaje) {
         Usuario usuario = new Usuario();
@@ -88,17 +91,27 @@ public class ControladorUsuario {
     }
 
     @GetMapping("/nuevoUsuario")
-    public String nuevoUsuarioFormulario(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
+    public String nuevoUsuarioFormulario(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo, @ModelAttribute("mensaje") String mensaje) {
+        mensaje = "";
         Usuario usuario1 = new Usuario();
-        modelo.addAttribute("usuario", usuario1);
+        modelo.addAttribute("mensaje", mensaje);
+        modelo.addAttribute("user", usuario1);
         modelo.addAttribute("tipoUsuarios", tipoUsuarioServicio.listarLosTipoUsuario());
-        return "Administrador/Usuario/nuevo_usuario";
+        return "/Administrador/Usuario/nuevo_usuario";
     }
 
     @PostMapping("/guardarUsuario")
-    public String guardarUsuario(@ModelAttribute("usuario") Usuario usuario) {
-        servicio.guardarUsuario(usuario);
-        return "redirect:/listarABM_usuario";
+    public String guardarUsuario(@ModelAttribute("user") Usuario usuario, RedirectAttributes redirectAttributes) {
+        if(servicio.obtenerUsuarioPorUsuario(usuario.getUsuario()) == null){
+            usuario.setEstado(estadoServicio.obtenerEstadoPorIdEstado(1));
+            usuario.setUsuario(usuario.getUsuario());
+            usuario.setContrasenia(usuario.getContrasenia());
+            usuario.setTipoUsuario(usuario.getTipoUsuario());
+            servicio.guardarUsuario(usuario);
+            return "redirect:/gestionUsuario";
+        }
+        redirectAttributes.addFlashAttribute("mensaje", "El usuario ya existe");
+        return "redirect:/nuevoUsuario";
     }
 
     @GetMapping("/gestionUsuario")
@@ -130,12 +143,12 @@ public class ControladorUsuario {
         usuarioModificado.setTipoUsuario(usuario.getTipoUsuario());
         usuarioModificado.setEstado(usuario.getEstado());
         servicio.actualizarUsuario(usuarioModificado);
-        return "redirect:/listarABM_usuario";
+        return "redirect:/gestionUsuario";
     }
 
     @GetMapping("/eliminarUsuario/{id}")
     public String eliminarUsuario(@PathVariable Long id) {
         servicio.eliminarUsuarioPorId(id);;
-        return "redirect:/listarABM_usuario";
+        return "redirect:/gestionUsuario";
     }
 }

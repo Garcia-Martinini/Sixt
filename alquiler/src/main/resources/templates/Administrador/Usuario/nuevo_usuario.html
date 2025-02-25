@@ -14,11 +14,11 @@
   <img src="IMG/Foto portada.webp" alt="foto de portada" class="portada">
   <div class="navBar">
             <div>
-                <a th:href="@{/ABM_usuario}" class="finDeNav">Volver</a>
+                <a th:href="@{/gestionUsuario}" class="finDeNav">Volver</a>
             </div>
     
 </div>
-  <form class="ingreso" th:action="@{/guardarUsuario}" th:object="${usuario}" method="post">
+  <form class="ingreso" th:action="@{/guardarUsuario}" th:object="${user}" method="post">
     <p>Completa los datos para ingresar un usuario</p>
     <div class="mb-3 mt-3">
       <label for="nombreUsuario">Usuario:</label><br>

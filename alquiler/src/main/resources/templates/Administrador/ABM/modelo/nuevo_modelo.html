@@ -29,6 +29,7 @@
       <label for="marca">Selecciona una Marca:</label>
       <br>marca
         <select id="marca" th:field="*{marca.idMarca}">
+            <option value="0" disabled selected>Seleccione una marca</option>
             <option th:each="marca : ${marcas}" 
                     th:value="${marca.idMarca}" 
                     th:text="${marca.nombreMarca}">

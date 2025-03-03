@@ -37,6 +37,7 @@
     <label>Selecciona un tipo de usuario:</label>
       <br>
       <select id="tipoUsuario" th:field="*{tipoUsuario.id}">
+            <option value="0" disabled selected>Seleccione un tipo de usuario</option>
             <option th:each="tipoUsuario : ${tipoUsuarios}" 
                     th:value="${tipoUsuario.id}" 
                     th:text="${tipoUsuario.nombreTipoUsuario}">

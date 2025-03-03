@@ -51,6 +51,7 @@
         <input id="nombreColor" th:field="*{contrasenia}" placeholder="Ingrese el nuevo color">
       </div>
       <label for="nombreColor">Nuevo tipo de usuario:</label><br>
+      <option value="0" disabled selected>Seleccione un tipo de usuario</option>
       <select id="tipoUsuario" th:field="*{tipoUsuario.id}">
         <option th:each="tipoUsuario : ${tipoUsuarios}" 
                 th:value="${tipoUsuario.id}" 
@@ -59,6 +60,7 @@
     </select>
     <label for="nuevoEstado">Nuevo estado:</label><br>
     <select id="nuevoEstado" th:field="*{estado.idEstado}">
+      <option value="0" disabled selected>Seleccione un estado</option>
       <option th:each="estado : ${estados}" 
               th:value="${estado.idEstado}" 
               th:text="${estado.nombreEstado}">

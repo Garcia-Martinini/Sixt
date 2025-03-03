@@ -28,12 +28,13 @@
     <p th:text="${mensaje}" class="text-danger"></p>
     <div class="mb-3 mt-3">
       <label for="patente">Patente:</label><br>
-      <input type="text" id="patente" th:field="*{patente}" placeholder="Ingrese el dominio" name="patente">
+      <input type="text" id="patente" th:field="*{patente}" placeholder="Ingrese el dominio" name="patente" required>
     </div>
     <div class="mb-3 mt-3">
     <label>Selecciona una Marca:</label>
       <br>
-      <select id="marca" th:field="*{marca.idMarca}">
+      <select id="marca" th:field="*{marca.idMarca}" required>
+        <option value="0" disabled selected>Seleccione una marca</option>
             <option th:each="marca : ${marcas}" 
                     th:value="${marca.idMarca}" 
                     th:text="${marca.nombreMarca}">
@@ -43,7 +44,8 @@
     <div class="mb-3 mt-3">
       <label>Selecciona un Modelo:</label>
       <br>
-      <select id="modelo" th:field="*{modelo.idModelo}">
+      <select id="modelo" th:field="*{modelo.idModelo}" required>
+            <option value="0" disabled selected>Seleccione un modelo</option>
             <option th:each="modelo : ${modelos}" 
                     th:value="${modelo.idModelo}" 
                     th:text="${modelo.nombreModelo}">
@@ -53,7 +55,8 @@
       <div class="mb-3 mt-3">
       <label>Selecciona un Color:</label>
       <br>
-      <select id="color" th:field="*{color.idColor}">
+      <select id="color" th:field="*{color.idColor}" required>
+            <option value="0" disabled selected>Seleccione un color</option>
             <option th:each="color : ${colores}" 
                     th:value="${color.idColor}" 
                     th:text="${color.nombreColor}">
@@ -62,12 +65,13 @@
     </div>
     <div class="mb-3 mt-3">
       <label for="precio">Precio diario:</label><br>
-      <input type="text" id="precio" th:field="*{precioDiario}" placeholder="Ingrese el precio diario" name="precio">
+      <input type="text" id="precio" th:field="*{precioDiario}" placeholder="Ingrese el precio diario" name="precio" required>
     </div>
     <div class="mb-3 mt-3">
       <label>Selecciona una oficina de Origen:</label>
       <br>
-      <select id="oficina" th:field="*{oficina.idOficina}">
+      <select id="oficina" th:field="*{oficina.idOficina}" required>
+        <option value="0"disabled selected>Seleccione una oficina de origen</option>
             <option th:each="oficina : ${oficinas}" 
                     th:value="${oficina.idOficina}" 
                     th:text="${oficina.nombreOficina}">
@@ -76,7 +80,7 @@
     </div>
     <div class="mb-3 mt-3">
       <label for="capacidad">Capacidad del tanque en litros:</label><br>
-      <input type="text" id="capacidad" th:field="*{combustible}" placeholder="Ingrese la capacidad del tanque" name="capacidad">
+      <input type="text" id="capacidad" th:field="*{combustible}" placeholder="Ingrese la capacidad del tanque" name="capacidad" required>
     </div>
     <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
       <button type="submit" class="botonEnviar">Grabar</button>

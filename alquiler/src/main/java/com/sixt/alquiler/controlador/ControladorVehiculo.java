@@ -1,5 +1,7 @@
 package com.sixt.alquiler.controlador;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sixt.alquiler.modelo.Modelo;
 import com.sixt.alquiler.modelo.Usuario;
 import com.sixt.alquiler.modelo.Vehiculo;
 import com.sixt.alquiler.servicio.ColorServicio;
@@ -63,17 +66,23 @@ public class ControladorVehiculo {
     @PostMapping("/guardarVehiculo")
     public String guardarVehiculo(@ModelAttribute("usuarioSesion") Usuario usuario,@ModelAttribute("vehiculo") Vehiculo vehiculo, RedirectAttributes redirectAttributes) {
         if(servicio.obtenerVehiculoPorPatente(vehiculo.getPatente()) == null){
-            Vehiculo nuevoVehiculo = new Vehiculo();
-            nuevoVehiculo.setEstado(estadoServicio.obtenerEstadoPorIdEstado(1));
-            nuevoVehiculo.setPatente(vehiculo.getPatente());
-            nuevoVehiculo.setMarca(vehiculo.getMarca());
-            nuevoVehiculo.setModelo(vehiculo.getModelo());
-            nuevoVehiculo.setCombustible(vehiculo.getCombustible());
-            nuevoVehiculo.setPrecioDiario(vehiculo.getPrecioDiario());
-            nuevoVehiculo.setColor(vehiculo.getColor());
-            nuevoVehiculo.setOficina(vehiculo.getOficina());
-            servicio.guardarVehiculo(nuevoVehiculo);
-            return "redirect:/gestionVehiculo";
+            if(vehiculo.getPrecioDiario() != 0.0 && vehiculo.getCombustible() != 0){
+                Vehiculo nuevoVehiculo = new Vehiculo();
+                nuevoVehiculo.setEstado(estadoServicio.obtenerEstadoPorIdEstado(1));
+                nuevoVehiculo.setPatente(vehiculo.getPatente());
+                nuevoVehiculo.setMarca(vehiculo.getMarca());
+                nuevoVehiculo.setModelo(vehiculo.getModelo());
+                nuevoVehiculo.setCombustible(vehiculo.getCombustible());
+                nuevoVehiculo.setPrecioDiario(vehiculo.getPrecioDiario());
+                nuevoVehiculo.setColor(vehiculo.getColor());
+                nuevoVehiculo.setOficina(vehiculo.getOficina());
+                servicio.guardarVehiculo(nuevoVehiculo);
+                return "redirect:/gestionVehiculo";    
+            }
+                redirectAttributes.addFlashAttribute("mensaje", "Debes seleccionar una opcion valida");
+                return "redirect:/nuevoVehiculo";
+            
+            
         }
         redirectAttributes.addFlashAttribute("mensaje", "El vehiculo que ingresaste ya existe");
         return "redirect:/nuevoVehiculo";
@@ -112,5 +121,10 @@ public class ControladorVehiculo {
     public String eliminarVehiculo(@PathVariable Integer id) {
         servicio.eliminarVehiculoPorId(id);
         return "redirect:/gestionVehiculo";
+    }
+
+    @GetMapping("/modelos/{idMarca}")
+    public List<Modelo> obtenerModelosPorMarca(@PathVariable Integer idMarca) {
+        return modeloServicio.listarLosModelosPorMarca(idMarca);
     }
 }

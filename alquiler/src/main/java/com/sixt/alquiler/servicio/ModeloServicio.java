@@ -15,5 +15,7 @@ public interface ModeloServicio {
     public void modificarModelo(Modelo modelo);
 
     public void eliminarModelo(Integer id);
+
+    public List<Modelo> listarLosModelosPorMarca(Integer idMarca);
      
 }

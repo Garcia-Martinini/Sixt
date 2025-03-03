@@ -40,4 +40,8 @@ public class ModeloServicioImpl implements ModeloServicio {
         repositorio.deleteById(id);
     }
 
+    @Override
+    public List<Modelo> listarLosModelosPorMarca(Integer idMarca) {
+        return repositorio.findByMarcaIdMarca(idMarca);
+    }
 }

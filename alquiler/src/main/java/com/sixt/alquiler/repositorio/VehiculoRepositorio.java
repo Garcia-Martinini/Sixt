@@ -8,4 +8,5 @@ import com.sixt.alquiler.modelo.Vehiculo;
 @Repository
 public interface VehiculoRepositorio extends JpaRepository<Vehiculo, Integer>{
 
+    Vehiculo findByPatente(String patente);
 }

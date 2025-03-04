@@ -25,6 +25,7 @@
 </div>
   <form class="ingreso" th:action="@{/actualizarTipoUsuario/{id}(id=${tipoUsuario.id})}" th:object="${tipoUsuario}" method="post">
     <p>Modificacion de Tipo de Usuario</p>
+    <p th:text="${mensaje}" class="text-danger"></p>
     <div class="mb-3 mt-3">
       <label>Tipo de usuario anterior:</label><br>
       <label th:text="${nombreAnterior}" class="datoAnterior"></label><br>

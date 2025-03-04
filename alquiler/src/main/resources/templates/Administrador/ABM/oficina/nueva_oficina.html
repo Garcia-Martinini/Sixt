@@ -25,8 +25,9 @@
 </div>
   <form class="ingreso" th:action="@{/guardarOficina}" th:object="${oficina}" method="post">
     <p>Completa los datos para ingresar una oficina</p>
+    <p th:text="${mensaje}" class="text-danger"></p>
     <div class="mb-3 mt-3">
-     <label for="nombre">Nuevo  de la oficina:</label><br>
+     <label for="nombre">Nuevo nombre de la oficina:</label><br>
       <input type="text" id="nombre" th:field="*{nombreOficina}" placeholder="Ingrese el nombre de la nueva oficina" name="nombre">
     </div>
     <div class="mb-3 mt-3">

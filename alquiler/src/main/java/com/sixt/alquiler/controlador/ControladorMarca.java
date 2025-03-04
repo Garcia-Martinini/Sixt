@@ -1,5 +1,7 @@
 package com.sixt.alquiler.controlador;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sixt.alquiler.modelo.Marca;
 import com.sixt.alquiler.modelo.Usuario;
@@ -27,20 +30,27 @@ public class ControladorMarca {
     }
 
     @GetMapping("/nuevaMarca")
-    public String nuevaMarcaFormulario(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
+    public String nuevaMarcaFormulario(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo, @ModelAttribute("mensaje") String mensaje) {
         Marca marca = new Marca();
         modelo.addAttribute("marca", marca);
         return "Administrador/ABM/marca/nueva_marca";
     }
 
     @PostMapping("/guardarMarca")
-    public String guardarMarca(@ModelAttribute("marca") Marca marca) {
+    public String guardarMarca(@ModelAttribute("marca") Marca marca, RedirectAttributes redirectAttributes) {
+        List<Marca> marcas = servicio.listarLasMarcas();
+        for (Marca m : marcas) {
+            if (m.getNombreMarca().equalsIgnoreCase(marca.getNombreMarca())) {
+                redirectAttributes.addFlashAttribute("mensaje", "La marca que ingresaste ya existe");
+                return "redirect:/nuevaMarca";
+            }
+        }
         servicio.guardarMarca(marca);
         return "redirect:/listarABM_marca";
     }
 
     @GetMapping("/formularioMarca/{id}")
-    public String modificarMarcaFormulario(@ModelAttribute("usuarioSesion") Usuario usuario, @PathVariable Integer id, Model modelo) {
+    public String modificarMarcaFormulario(@ModelAttribute("usuarioSesion") Usuario usuario, @PathVariable Integer id, Model modelo, @ModelAttribute("mensaje") String mensaje) {
         Marca marca = servicio.obtenerMarcaPorIdMarca(id);
         String nombreAnterior = marca.getNombreMarca();
         modelo.addAttribute("marca", marca);
@@ -49,8 +59,15 @@ public class ControladorMarca {
     }
 
     @PostMapping("/actualizarMarca/{id}")
-    public String actualizarMarca(@PathVariable Integer id, @ModelAttribute("marca") Marca marca) {
+    public String actualizarMarca(@PathVariable Integer id, @ModelAttribute("marca") Marca marca, RedirectAttributes redirectAttributes) {
         Marca marcaModificada = servicio.obtenerMarcaPorIdMarca(id);
+        List<Marca> marcas = servicio.listarLasMarcas();
+        for (Marca m : marcas) {
+            if (m.getNombreMarca().equalsIgnoreCase(marca.getNombreMarca())) {
+                redirectAttributes.addFlashAttribute("mensaje", "La marca que ingresaste ya existe");
+                return "redirect:/formularioMarca/" + id;
+            }
+        }
         marcaModificada.setNombreMarca(marca.getNombreMarca());
         servicio.modificarMarca(marcaModificada);
         return "redirect:/listarABM_marca";

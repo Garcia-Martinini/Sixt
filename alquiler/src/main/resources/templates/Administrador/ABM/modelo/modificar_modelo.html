@@ -24,6 +24,7 @@
   </div>
   <form class="ingreso" th:action="@{/actualizarModelo/{id}(id=${modelo.idModelo})}" th:object="${modelo}" method="post">
     <p>Modificacion de modelo</p>
+    <p th:text="${mensaje}" class="text-danger"></p>
     <div class="mb-3 mt-3">
       <label for="nombreModelo">Modelo Anterior:</label><br>
       <label th:text="${nombreAnterior}" class="datoAnterior"></label><br>

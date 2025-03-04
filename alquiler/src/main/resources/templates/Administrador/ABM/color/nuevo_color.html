@@ -20,6 +20,7 @@
 </div>
   <form class="ingreso" th:action="@{/guardarColor}" th:object="${color}" method="post">
     <p>Completa los datos para ingresar un color</p>
+    <p th:text="${mensaje}" class="text-danger"></p>
     <div class="mb-3 mt-3">
       <label for="color">Nuevo Color:</label><br>
       <input type="text" id="color" th:field="*{nombreColor}" placeholder="Ingrese el nuevo color" name="color">

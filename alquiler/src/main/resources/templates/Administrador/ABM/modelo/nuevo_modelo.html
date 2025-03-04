@@ -25,9 +25,10 @@
 </div>
   <form class="ingreso" th:action="@{/guardarModelo}" th:object="${modelo}" method="post">
     <p>Completa los datos para ingresar un modelo</p>
+    <p th:text="${mensaje}" class="text-danger"></p>
     <div class="mb-3 mt-3">
       <label for="marca">Selecciona una Marca:</label>
-      <br>marca
+      <br>
         <select id="marca" th:field="*{marca.idMarca}">
             <option value="0" disabled selected>Seleccione una marca</option>
             <option th:each="marca : ${marcas}" 

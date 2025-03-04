@@ -19,11 +19,12 @@
   <img th:src="@{/IMG/Foto portada.webp}" alt="foto de portada" class="portada">
   <div class="navBar">
             <div>
-                <a th:href="@{/listarABM_usuario}" class="finDeNav">Volver</a>
+                <a th:href="@{/gestionUsuario}" class="finDeNav">Volver</a>
             </div>
   </div>
   <form class="ingreso" th:action="@{/actualizarUsuario/{id}(id=${user.idUsuario})}" th:object="${user}" method="post">
     <p>Modificacion de usuario</p>
+    <p th:text="${mensaje}" class="text-danger"></p>
     <div class="mb-3 mt-3">
       <label for="nombreUsuario">Usuario Anterior:</label><br>
       <label for="usuario_anterior"th:text="${nombreAnterior}" class="datoAnterior"></label><br>
@@ -51,8 +52,8 @@
         <input id="nombreColor" th:field="*{contrasenia}" placeholder="Ingrese el nuevo color">
       </div>
       <label for="nombreColor">Nuevo tipo de usuario:</label><br>
-      <option value="0" disabled selected>Seleccione un tipo de usuario</option>
       <select id="tipoUsuario" th:field="*{tipoUsuario.id}">
+        <option value="0" disabled selected>Seleccione un tipo de usuario</option>
         <option th:each="tipoUsuario : ${tipoUsuarios}" 
                 th:value="${tipoUsuario.id}" 
                 th:text="${tipoUsuario.nombreTipoUsuario}">

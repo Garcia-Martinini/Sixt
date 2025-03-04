@@ -1,5 +1,7 @@
 package com.sixt.alquiler.controlador;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -89,6 +91,12 @@ public class ControladorUsuario {
         return "redirect:/";
     }
 
+    @GetMapping("/gestionUsuario")
+    public String gestionarUsuarios(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
+        modelo.addAttribute("usuarios", servicio.listartodosLosUsuarios());
+        return "Administrador/Usuario/ABM_usuario"; 
+    }
+
     @GetMapping("/nuevoUsuario")
     public String nuevoUsuarioFormulario(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo, @ModelAttribute("mensaje") String mensaje) {
         Usuario usuario1 = new Usuario();
@@ -113,14 +121,8 @@ public class ControladorUsuario {
         return "redirect:/nuevoUsuario";
     }
 
-    @GetMapping("/gestionUsuario")
-    public String gestionarUsuarios(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
-        modelo.addAttribute("usuarios", servicio.listartodosLosUsuarios());
-        return "Administrador/Usuario/ABM_usuario"; 
-    }
-
     @GetMapping("/formularioUsuario/{id}")
-    public String modificarUsuarioFormulario(@ModelAttribute("usuarioSesion") Usuario usuario, @PathVariable Long id, Model modelo) {
+    public String modificarUsuarioFormulario(@ModelAttribute("usuarioSesion") Usuario usuario, @PathVariable Long id, Model modelo, @ModelAttribute("mensaje") String mensaje) {
         Usuario usuario1 = servicio.obtenerUsuarioPorId(id);
         String usuarioAnterior = usuario1.getUsuario();
         String contraseniaAnterior = usuario1.getContrasenia();
@@ -137,8 +139,15 @@ public class ControladorUsuario {
     }
 
     @PostMapping("/actualizarUsuario/{id}")
-    public String actualizarUsuario(@PathVariable Long id, @ModelAttribute("user") Usuario usuario) {
+    public String actualizarUsuario(@PathVariable Long id, @ModelAttribute("user") Usuario usuario, RedirectAttributes redirectAttributes) {
         Usuario usuarioModificado = servicio.obtenerUsuarioPorId(id);
+        List<Usuario> usuarios = servicio.listartodosLosUsuarios();
+        for (Usuario u : usuarios) {
+            if (u.getUsuario().equalsIgnoreCase(usuario.getUsuario())) {
+                redirectAttributes.addFlashAttribute("mensaje", "El usuario que ingresaste ya existe");
+                return "redirect:/formularioUsuario/" + id;
+            }
+        }
         usuarioModificado.setUsuario(usuario.getUsuario());
         usuarioModificado.setContrasenia(usuario.getContrasenia());
         usuarioModificado.setTipoUsuario(usuario.getTipoUsuario());
@@ -149,7 +158,7 @@ public class ControladorUsuario {
 
     @GetMapping("/eliminarUsuario/{id}")
     public String eliminarUsuario(@PathVariable Long id) {
-        servicio.eliminarUsuarioPorId(id);;
+        servicio.eliminarUsuarioPorId(id);
         return "redirect:/gestionUsuario";
     }
 }

@@ -24,6 +24,7 @@
   </div>
   <form class="ingreso" th:action="@{/actualizarOficina/{id}(id=${oficina.idOficina})}" th:object="${oficina}" method="post">
     <p>Modificacion de oficina</p>
+    <p th:text="${mensaje}" class="text-danger"></p>
     <div class="mb-3 mt-3">
       <label for="nombreAnterior">Nombre Oficina Anterior:</label><br>
       <label th:text="${nombreAnterior}" class="datoAnterior"></label><br>

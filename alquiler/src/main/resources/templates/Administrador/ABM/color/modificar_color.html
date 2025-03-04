@@ -24,13 +24,14 @@
   </div>
   <form class="ingreso" th:action="@{/actualizarColor/{id}(id=${color.idColor})}" th:object="${color}" method="post">
     <p>Modificacion de color</p>
+    <p th:text="${mensaje}" class="text-danger"></p>
     <div class="mb-3 mt-3">
-      <label for="nombreColor">Color Anterior:</label><br>
+      <label for="color_anterior">Color Anterior:</label><br>
       <label for="color_anterior"th:text="${nombreAnterior}" class="datoAnterior"></label><br>
     </div>
     <div class="mb-3 mt-3">
-        <label for="nombreColor">Nuevo Color:</label><br>
-        <input id="nombreColor" th:field="*{nombreColor}" placeholder="Ingrese el nuevo color">
+        <label for="nuevoColor">Nuevo Color:</label><br>
+        <input id="nuevoColor" type="text" th:value="'Ingrese el nuevo color'" th:field="*{nombreColor}" placeholder="Ingrese el nuevo color">
       </div>
     
     <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">

@@ -19,7 +19,7 @@
   <img th:src="@{/IMG/Foto portada.webp}" alt="foto de portada" class="portada">
   <div class="navBar">
             <div>
-                <a th:href="@{/listarABM_vehiculo}" class="finDeNav">Volver</a>
+                <a th:href="@{/gestionVehiculo}" class="finDeNav">Volver</a>
             </div>
   </div>
   <form class="ingreso" th:action="@{/actualizarVehiculo/{id}(id=${vehiculo.idVehiculo})}" th:object="${vehiculo}" method="post">

@@ -8,6 +8,25 @@
   <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
   <title>Nuevo Vehiculo</title>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Esta función hará una petición AJAX cuando cambie la marca
+    function actualizarModelos() {
+      const marcaId = document.getElementById('marca').value;
+      
+      if (marcaId !== "0") {
+        fetch(`/obtenerModelos/${marcaId}`)
+          .then(response => response.json())
+          .then(data => {
+            const modeloSelect = document.getElementById('modelo');
+            modeloSelect.innerHTML = '<option value="0" disabled selected>Seleccione un modelo</option>'; // Limpiar los modelos existentes
+            data.forEach(modelo => {
+              modeloSelect.innerHTML += `<option value="${modelo.idModelo}">${modelo.nombreModelo}</option>`;
+            });
+          })
+          .catch(error => console.error('Error al obtener los modelos:', error));
+      }
+    }
+  </script>
 </head>
 <body>
   <div>
@@ -18,11 +37,10 @@
   </div>
   <img src="IMG/Foto portada.webp" alt="foto de portada" class="portada">
   <div class="navBar">
-            <div>
-                <a th:href="@{/gestionVehiculo}" class="finDeNav">Volver</a>
-            </div>
-    
-</div>
+    <div>
+      <a th:href="@{/gestionVehiculo}" class="finDeNav">Volver</a>
+    </div>
+  </div>
   <form class="ingreso" th:action="@{/guardarVehiculo}" th:object="${vehiculo}" method="post">
     <p>Completa los datos para ingresar un vehículo</p>
     <p th:text="${mensaje}" class="text-danger"></p>
@@ -31,36 +49,27 @@
       <input type="text" id="patente" th:field="*{patente}" placeholder="Ingrese el dominio" name="patente" required>
     </div>
     <div class="mb-3 mt-3">
-    <label>Selecciona una Marca:</label>
+      <label>Selecciona una Marca:</label>
       <br>
-      <select id="marca" th:field="*{marca.idMarca}" required>
+      <select id="marca" th:field="*{marca.idMarca}" onchange="actualizarModelos()" required>
         <option value="0" disabled selected>Seleccione una marca</option>
-            <option th:each="marca : ${marcas}" 
-                    th:value="${marca.idMarca}" 
-                    th:text="${marca.nombreMarca}">
-            </option>
+        <option th:each="marca : ${marcas}" th:value="${marca.idMarca}" th:text="${marca.nombreMarca}"></option>
       </select>
     </div>
     <div class="mb-3 mt-3">
       <label>Selecciona un Modelo:</label>
       <br>
       <select id="modelo" th:field="*{modelo.idModelo}" required>
-            <option value="0" disabled selected>Seleccione un modelo</option>
-            <option th:each="modelo : ${modelos}" 
-                    th:value="${modelo.idModelo}" 
-                    th:text="${modelo.nombreModelo}">
-            </option>
+        <option value="0" disabled selected>Seleccione un modelo</option>
+        <!-- Los modelos se llenarán dinámicamente con JavaScript -->
       </select>
     </div>
-      <div class="mb-3 mt-3">
+    <div class="mb-3 mt-3">
       <label>Selecciona un Color:</label>
       <br>
       <select id="color" th:field="*{color.idColor}" required>
-            <option value="0" disabled selected>Seleccione un color</option>
-            <option th:each="color : ${colores}" 
-                    th:value="${color.idColor}" 
-                    th:text="${color.nombreColor}">
-            </option>
+        <option value="0" disabled selected>Seleccione un color</option>
+        <option th:each="color : ${colores}" th:value="${color.idColor}" th:text="${color.nombreColor}"></option>
       </select>
     </div>
     <div class="mb-3 mt-3">
@@ -71,11 +80,8 @@
       <label>Selecciona una oficina de Origen:</label>
       <br>
       <select id="oficina" th:field="*{oficina.idOficina}" required>
-        <option value="0"disabled selected>Seleccione una oficina de origen</option>
-            <option th:each="oficina : ${oficinas}" 
-                    th:value="${oficina.idOficina}" 
-                    th:text="${oficina.nombreOficina}">
-            </option>
+        <option value="0" disabled selected>Seleccione una oficina de origen</option>
+        <option th:each="oficina : ${oficinas}" th:value="${oficina.idOficina}" th:text="${oficina.nombreOficina}"></option>
       </select>
     </div>
     <div class="mb-3 mt-3">

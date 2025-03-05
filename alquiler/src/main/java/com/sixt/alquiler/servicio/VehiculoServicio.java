@@ -17,4 +17,5 @@ public interface VehiculoServicio {
     public void eliminarVehiculoPorId(int id);
 
     public Vehiculo obtenerVehiculoPorPatente(String patente);
+
 }

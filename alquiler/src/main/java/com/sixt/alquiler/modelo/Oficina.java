@@ -27,6 +27,12 @@ public class Oficina {
     public Oficina() {
     }
 
+    public Oficina(String nombreOficina, String direccionOficina, int idEstado) {
+        this.nombreOficina = nombreOficina;
+        this.direccionOficina = direccionOficina;
+        this.idEstado = idEstado;
+    }
+
     public int getIdOficina() {
         return idOficina;
     }

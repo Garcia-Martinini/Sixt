@@ -6,7 +6,7 @@ body, html {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-image: url('IMG/camaro.jpg');
+    background-image: url('/IMG/camaro.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

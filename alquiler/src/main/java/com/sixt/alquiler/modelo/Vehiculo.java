@@ -51,5 +51,100 @@ public class Vehiculo {
     public Vehiculo() {
     }
 
+    public Vehiculo(double precioDiario, int combustible, String patente, Modelo modelo, Color color, Oficina oficina,
+            Estado estado, Marca marca, List<Reserva> reservas) {
+        this.precioDiario = precioDiario;
+        this.combustible = combustible;
+        this.patente = patente;
+        this.modelo = modelo;
+        this.color = color;
+        this.oficina = oficina;
+        this.estado = estado;
+        this.marca = marca;
+        this.reservas = reservas;
+    }
+
+    public int getIdVehiculo() {
+        return idVehiculo;
+    }
+
+    public void setIdVehiculo(int idVehiculo) {
+        this.idVehiculo = idVehiculo;
+    }
+
+    public double getPrecioDiario() {
+        return precioDiario;
+    }
+
+    public void setPrecioDiario(double precioDiario) {
+        this.precioDiario = precioDiario;
+    }
+
+    public int getCombustible() {
+        return combustible;
+    }
+
+    public void setCombustible(int combustible) {
+        this.combustible = combustible;
+    }
+
+    public String getPatente() {
+        return patente;
+    }
+
+    public void setPatente(String patente) {
+        this.patente = patente;
+    }
+
+    public Modelo getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(Modelo modelo) {
+        this.modelo = modelo;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Oficina getOficina() {
+        return oficina;
+    }
+
+    public void setOficina(Oficina oficina) {
+        this.oficina = oficina;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+    public Marca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
+    }
+
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
+    }
+
+    
+
     
 }

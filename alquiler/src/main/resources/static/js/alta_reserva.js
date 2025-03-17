@@ -11,7 +11,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
     fetchVehiculosPorOficina(idOficina);
   });
-
+  selectVehiculos.addEventListener('change', function () {
+    var selectedOptions = this.selectedOptions;
+    console.log("Options selected: ");
+    for (var i = 0; i < selectedOptions.length; i++) {
+      console.log(selectedOptions[i].value);
+      fetch(`/precioDiario?idVehiculo=${selectedOptions[i].value}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('la respuesta no fue exitosa');
+          }
+          return response.json();
+        })
+        .then(precio => {
+          precioDiario = precio;
+          console.log("Precio diario: " + precioDiario);
+        })
+        .catch(error => console.error('Error al intentar extraer el precio diario del vehículo:', error));
+    }
+  });
   fechaInicio.addEventListener('change', function () {
     var inicio = fechaInicio.value;
     document.getElementById("cantDias").value = 1;

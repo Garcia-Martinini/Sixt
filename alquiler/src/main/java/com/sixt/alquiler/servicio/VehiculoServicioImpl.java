@@ -19,6 +19,10 @@ public class VehiculoServicioImpl implements VehiculoServicio {
     public List<Vehiculo> listarVehiculosDisponiblesEnOficina(int idOficina, int idEstado) {
         return repositorio.findByOficinaIdAndEstadoId(idOficina, idEstado);
     }
+    @Override
+    public Vehiculo obtenerVehiculoPorId(int idVehiculo) {
+        return repositorio.findById(idVehiculo).orElse(null);
+    }
 
 
 }

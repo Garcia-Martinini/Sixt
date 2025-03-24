@@ -154,25 +154,43 @@ public class ControladorVendedor {
     // Recurso que permite mostrar el formulario para crear una nueva reserva
     @GetMapping("/Clientes/NuevaReserva")
     public String mostrarFormCrearReserva(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
-        Cliente cliente = new Cliente();
+        
         Reserva reserva = new Reserva();
         List<TipoReserva> tiposReserva = servicio3.listarTodosLosTiposReserva();
         List<Oficina> oficinas = servicio5.listarTodasLasOficinas();
         
-        modelo.addAttribute("oficinas", oficinas);
         
+        modelo.addAttribute("oficinas", oficinas);
         modelo.addAttribute("tiposReserva", tiposReserva);
         modelo.addAttribute("reserva", reserva);
-        modelo.addAttribute("cliente", cliente);
         modelo.addAttribute("vendedor", usuario);
         return "Vendedor/alta_reserva";
     }
+
+    @GetMapping("/ObtenerCliente")
+    @ResponseBody
+    public Cliente obtenerCliente(@RequestParam("idCliente") Long codigo) {
+        
+        Cliente cliente = servicio.obtenerClientePorId(codigo);
+        
+            return cliente;    
+    }
+
     //Recursos que permiten obtener los vehiculos disponibles en una oficina
     @GetMapping("/vehiculosPorOficina")
     @ResponseBody
     public List<Vehiculo> obtenerVehiculosPorOficina(@RequestParam("idOficina") int idOficina) {
-        return servicio4.listarVehiculosDisponiblesEnOficina(idOficina,6);
+        return servicio4.listarVehiculosDisponiblesEnOficina(idOficina,3);
     }
+
+    //Recursos que permiten obtener el precio diario de un vehiculo
+    @GetMapping("/precioDiario")
+    @ResponseBody   
+    public double obtenerPrecioDiario(@RequestParam("idVehiculo") int idVehiculo) {
+        Vehiculo vehiculo = servicio4.obtenerVehiculoPorId(idVehiculo);
+        return vehiculo.getPrecioDiario();
+    }
+
     // Recurso que permite guardar una nueva reserva
     @PostMapping("/guardarReserva")
     public String guardarReserva(@ModelAttribute("cliente") Cliente cliente, RedirectAttributes redirectAttributes) {
@@ -188,6 +206,6 @@ public class ControladorVendedor {
          * clienteNuevo.setTelefono(cliente.getTelefono());
          * servicio.guardarCliente(clienteNuevo);
          */
-        return "redirect:/Clientes";
+        return "redirect:/Clientes/NuevaReserva";
     }
 }

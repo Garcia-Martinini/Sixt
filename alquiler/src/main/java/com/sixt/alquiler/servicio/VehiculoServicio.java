@@ -7,5 +7,6 @@ public interface VehiculoServicio {
 
     List<Vehiculo> listarTodosLosVehiculos();
     List<Vehiculo> listarVehiculosDisponiblesEnOficina(int idOficina, int idEstado);
+    Vehiculo obtenerVehiculoPorId(int idVehiculo);
 
 }

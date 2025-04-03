@@ -14,22 +14,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
   //listener que se ejecuta cuando se cambia el valor del input de cliente
   inputCliente.addEventListener('input', function () {
-    if(inputCliente.value.length != 0){
-    var codigoCliente = inputCliente.value;
+    if (inputCliente.value.length != 0) {
+      var codigoCliente = inputCliente.value;
 
-    fetch(`/ObtenerCliente?idCliente=${codigoCliente}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('la respuesta no fue exitosa');
-        }
-        console.log(response);
-        return response.json();
-      }).then(cliente => {
-        console.log(cliente);
-        
-      }).catch(  () =>{alert( "Ingrese un cliente válido");
-        inputCliente.value = "";});
-      }
+      fetch(`/ObtenerCliente?idCliente=${codigoCliente}`)
+        .then(response => {
+          if (!response.ok) {
+            alert("Intente nuevamente");
+            inputCliente.value = "";
+          }
+          console.log(response);
+          return response.json();
+        }).then(cliente => {
+          console.log(cliente);
+
+        }).catch(() => {
+          alert("Ingrese un cliente válido");
+          inputCliente.value = "";
+        });
+    }
   });
 
   //listener que se ejecuta cuando se cambia el valor del select de oficinas
@@ -55,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => {
           if (!response.ok) {
             throw new Error('la respuesta no fue exitosa');
+            //alert("Intente nuevamente");
           }
           return response.json();
         })
@@ -62,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
           precioAcumulado += precio;
         })
         .catch(error => console.error('Error al intentar extraer el precio diario del vehículo:', error));
+
     }
     fechaInicio.disabled = false;
 
@@ -92,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fetch(`/vehiculosPorOficina?idOficina=${idOficina}`)
       .then(response => {
         if (!response.ok) {
+          //alert("Intente nuevamente");
           throw new Error('la respuesta no fue exitosa');
         }
         return response.json();
@@ -99,18 +105,19 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(vehiculos => {
         if (!Array.isArray(vehiculos)) {
           throw new Error('Se esperaba un array de vehículos');
+          //alert("Intente nuevamente");
         }
         // Limpiar el select de vehículos
         selectVehiculos.innerHTML = '';
         // Agregar las nuevas opciones
-        vehiculos.forEach(vehiculo => {
+       vehiculos.forEach(vehiculo => {
           const option = document.createElement('option');
           option.value = vehiculo.idVehiculo;
-          option.text = `${vehiculo.marca.nombreMarca} ${vehiculo.modelo.nombreModelo} Dominio: ${vehiculo.patente} Precio Diario: $${vehiculo.precioDiario}`;
+          option.text = `${vehiculo.marca.nombreMarca} ${vehiculo.modelo.nombreModelo} Dominio: ${vehiculo.patente} Precio Diario: $${vehiculo.precioDiario}`; 
           selectVehiculos.appendChild(option);
         });
       })
-      .catch(error => console.error('Error al intentar extraer los vehículos de la ocicina correspondiente:', error));
+      .catch(error => console.error('Error al intentar extraer el precio diario del vehículo:', error));     //() => { alert("Intente nuevamente") }
   }
 
   function calcularDiasAlquiler(inicio, fin) {
@@ -130,3 +137,5 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
 });
+
+

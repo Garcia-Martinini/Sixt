@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sixt.alquiler.modelo.Vehiculo;
 import com.sixt.alquiler.repositorio.VehiculoRepositorio;
+
 @Service
 public class VehiculoServicioImpl implements VehiculoServicio {
     @Autowired
@@ -17,7 +18,7 @@ public class VehiculoServicioImpl implements VehiculoServicio {
     }
     @Override
     public List<Vehiculo> listarVehiculosDisponiblesEnOficina(int idOficina, int idEstado) {
-        return repositorio.findByOficinaIdAndEstadoId(idOficina, idEstado);
+        return repositorio.findByOficinaIdOficinaAndEstadoIdEstado(idOficina, idEstado);
     }
     @Override
     public Vehiculo obtenerVehiculoPorId(int idVehiculo) {

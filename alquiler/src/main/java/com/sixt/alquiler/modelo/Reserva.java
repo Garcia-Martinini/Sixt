@@ -1,6 +1,7 @@
 package com.sixt.alquiler.modelo;
 
-import java.util.Date;
+
+import java.sql.Date;
 import java.util.List;
 
 import jakarta.persistence.Column;

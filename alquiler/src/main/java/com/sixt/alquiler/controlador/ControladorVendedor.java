@@ -44,8 +44,8 @@ public class ControladorVendedor {
     private VehiculoServicio servicio4;
     @Autowired
     private OficinaServicio servicio5;
-   // @Autowired
-    //private VendedorServicio servicio5;
+    // @Autowired
+    // private VendedorServicio servicio5;
 
     // Recurso que permite mostrar la lista de clientes
     @GetMapping("/Clientes")
@@ -154,15 +154,13 @@ public class ControladorVendedor {
     // Recurso que permite mostrar el formulario para crear una nueva reserva
     @GetMapping("/Clientes/NuevaReserva")
     public String mostrarFormCrearReserva(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
-        
+
         Reserva reserva = new Reserva();
         List<TipoReserva> tiposReserva = servicio3.listarTodosLosTiposReserva();
         List<Oficina> oficinas = servicio5.listarTodasLasOficinas();
-        
-        
+        modelo.addAttribute("reserva", reserva);
         modelo.addAttribute("oficinas", oficinas);
         modelo.addAttribute("tiposReserva", tiposReserva);
-        modelo.addAttribute("reserva", reserva);
         modelo.addAttribute("vendedor", usuario);
         return "Vendedor/alta_reserva";
     }
@@ -170,22 +168,22 @@ public class ControladorVendedor {
     @GetMapping("/ObtenerCliente")
     @ResponseBody
     public Cliente obtenerCliente(@RequestParam("idCliente") Long codigo) {
-        
+
         Cliente cliente = servicio.obtenerClientePorId(codigo);
-        
-            return cliente;    
+
+        return cliente;
     }
 
-    //Recursos que permiten obtener los vehiculos disponibles en una oficina
+    // Recurso que permiten obtener los vehiculos disponibles en una oficina
     @GetMapping("/vehiculosPorOficina")
     @ResponseBody
     public List<Vehiculo> obtenerVehiculosPorOficina(@RequestParam("idOficina") int idOficina) {
-        return servicio4.listarVehiculosDisponiblesEnOficina(idOficina,3);
+        return servicio4.listarVehiculosDisponiblesEnOficina(idOficina, 3);
     }
 
-    //Recursos que permiten obtener el precio diario de un vehiculo
+    // Recurso que permiten obtener el precio diario de un vehiculo
     @GetMapping("/precioDiario")
-    @ResponseBody   
+    @ResponseBody
     public double obtenerPrecioDiario(@RequestParam("idVehiculo") int idVehiculo) {
         Vehiculo vehiculo = servicio4.obtenerVehiculoPorId(idVehiculo);
         return vehiculo.getPrecioDiario();
@@ -193,19 +191,22 @@ public class ControladorVendedor {
 
     // Recurso que permite guardar una nueva reserva
     @PostMapping("/guardarReserva")
-    public String guardarReserva(@ModelAttribute("cliente") Cliente cliente, RedirectAttributes redirectAttributes) {
-        /*
-         * Cliente clienteNuevo = new Cliente();
-         * Estado estado = new Estado();
-         * estado = servicio1.obtenerEstadoPorId(1);
-         * clienteNuevo.setEstado(estado);
-         * clienteNuevo.setNombre(cliente.getNombre());
-         * clienteNuevo.setDni(cliente.getDni());
-         * clienteNuevo.setDireccion(cliente.getDireccion());
-         * clienteNuevo.setEmail(cliente.getEmail());
-         * clienteNuevo.setTelefono(cliente.getTelefono());
-         * servicio.guardarCliente(clienteNuevo);
-         */
+    public String guardarReserva(@ModelAttribute("reserva") Reserva reserva, RedirectAttributes redirectAttributes) {
+
+        Reserva reservaNueva = new Reserva();
+        Estado estado = servicio1.obtenerEstadoPorId(1);
+
+        reservaNueva.setEstado(estado);
+        reservaNueva.setTipoReserva(reserva.getTipoReserva());
+        reservaNueva.setCliente(reserva.getCliente());
+        reservaNueva.setFechaInicio(reserva.getFechaInicio());
+        reservaNueva.setFechaFin(reserva.getFechaFin());
+        reservaNueva.setVehiculos(reserva.getVehiculos());
+        reservaNueva.setPrecioTotal(reserva.getPrecioTotal());
+        reservaNueva.setDiasTotales(reserva.getDiasTotales());
+        reservaNueva.setOficinaOrigen(reserva.getOficinaOrigen());
+        servicio2.guardarReserva(reservaNueva);
+
         return "redirect:/Clientes/NuevaReserva";
     }
 }

@@ -2,8 +2,11 @@ package com.sixt.alquiler.modelo;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -45,7 +48,8 @@ public class Vehiculo {
     @JoinColumn(name = "id_marca")
     private Marca marca;
 
-    @ManyToMany(mappedBy = "vehiculos")
+    @ManyToMany(mappedBy = "vehiculos", fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<Reserva> reservas;
 
     public Vehiculo() {

@@ -4,8 +4,11 @@ package com.sixt.alquiler.modelo;
 import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,12 +35,13 @@ public class Reserva {
     @Column(name = "dias_totales")
     private int diasTotales;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "reservas_vehiculos", // Nombre de la tabla intermedia
         joinColumns = @JoinColumn(name = "id_reserva"), // FK en la tabla intermedia
         inverseJoinColumns = @JoinColumn(name = "id_vehiculo") // FK del otro lado
     )
+    @JsonManagedReference
     private List<Vehiculo> vehiculos;
 
     @ManyToOne

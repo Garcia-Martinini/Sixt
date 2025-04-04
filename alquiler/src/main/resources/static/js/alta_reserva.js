@@ -25,10 +25,9 @@ document.addEventListener('DOMContentLoaded', function () {
           }
           console.log(response);
           return response.json();
-        }).then(cliente => {
-          console.log(cliente);
-
-        }).catch(() => {
+        })
+        //.then(cliente => {console.log(cliente);})
+        .catch(() => {
           alert("Ingrese un cliente válido");
           inputCliente.value = "";
         });
@@ -57,15 +56,15 @@ document.addEventListener('DOMContentLoaded', function () {
       fetch(`/precioDiario?idVehiculo=${selectedOptions[i].value}`)
         .then(response => {
           if (!response.ok) {
-            throw new Error('la respuesta no fue exitosa');
-            //alert("Intente nuevamente");
+            //throw new Error('la respuesta no fue exitosa');
+            alert("Intente nuevamente");
           }
           return response.json();
         })
         .then(precio => {
           precioAcumulado += precio;
         })
-        .catch(error => console.error('Error al intentar extraer el precio diario del vehículo:', error));
+        .catch(() => { alert("Intente nuevamente") }); //error => console.error('Error al intentar extraer el precio diario del vehículo:', error)
 
     }
     fechaInicio.disabled = false;
@@ -97,27 +96,27 @@ document.addEventListener('DOMContentLoaded', function () {
     fetch(`/vehiculosPorOficina?idOficina=${idOficina}`)
       .then(response => {
         if (!response.ok) {
-          //alert("Intente nuevamente");
-          throw new Error('la respuesta no fue exitosa');
+          alert("Intente nuevamente");
+          //throw new Error('la respuesta no fue exitosa');
         }
         return response.json();
       })
       .then(vehiculos => {
         if (!Array.isArray(vehiculos)) {
-          throw new Error('Se esperaba un array de vehículos');
-          //alert("Intente nuevamente");
+          //throw new Error('Se esperaba un array de vehículos');
+          alert("Intente nuevamente");
         }
         // Limpiar el select de vehículos
         selectVehiculos.innerHTML = '';
         // Agregar las nuevas opciones
-       vehiculos.forEach(vehiculo => {
+        vehiculos.forEach(vehiculo => {
           const option = document.createElement('option');
           option.value = vehiculo.idVehiculo;
-          option.text = `${vehiculo.marca.nombreMarca} ${vehiculo.modelo.nombreModelo} Dominio: ${vehiculo.patente} Precio Diario: $${vehiculo.precioDiario}`; 
+          option.text = `${vehiculo.marca.nombreMarca} ${vehiculo.modelo.nombreModelo} Dominio: ${vehiculo.patente} Precio Diario: $${vehiculo.precioDiario}`;
           selectVehiculos.appendChild(option);
         });
       })
-      .catch(error => console.error('Error al intentar extraer el precio diario del vehículo:', error));     //() => { alert("Intente nuevamente") }
+      .catch(() => { alert("Intente nuevamente") });     //error => console.error('Error al intentar extraer el o los vehículos:', error)
   }
 
   function calcularDiasAlquiler(inicio, fin) {

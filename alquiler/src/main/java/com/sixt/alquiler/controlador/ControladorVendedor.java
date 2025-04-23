@@ -1,8 +1,12 @@
 package com.sixt.alquiler.controlador;
 
+import java.sql.Date;
+import java.util.ArrayList;
+//import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -173,14 +177,45 @@ public class ControladorVendedor {
 
         return cliente;
     }
-
+//---------------------------------------------------------------------------------------------------------------
     // Recurso que permiten obtener los vehiculos disponibles en una oficina
     @GetMapping("/vehiculosPorOficina")
     @ResponseBody
-    public List<Vehiculo> obtenerVehiculosPorOficina(@RequestParam("idOficina") int idOficina) {
-        return servicio4.listarVehiculosDisponiblesEnOficina(idOficina, 3);
+    public List<Vehiculo> obtenerVehiculosPorOficina(
+            @RequestParam("idOficina") int idOficina,
+            @RequestParam(value = "fechaInicio", required = false) Date fechaInicio,
+            @RequestParam(value = "fechaFin", required = false) Date fechaFin) {
+        List<Vehiculo> vehiculosDisponibles = new ArrayList<>();
+
+        for (Vehiculo vehiculo : servicio4.listarVehiculosDisponiblesEnOficina(idOficina, 3)) {
+            if (VerificarReservasPorVehiculo(vehiculo.getIdVehiculo(), fechaInicio, fechaFin)==false) {
+                vehiculosDisponibles.add(vehiculo);
+            }
+        }
+        return vehiculosDisponibles;
     }
 
+    // Metodo que permiten obtener las reservas por cada vehiculo
+
+    public Boolean VerificarReservasPorVehiculo(int idVehiculo, Date inicio, Date fin) {
+        Boolean reservado = false;
+        List<Reserva> reservas = servicio2.listarReservasPorVehiculo(idVehiculo);
+        if (reservas.isEmpty()) {
+            return false;
+        } else {
+            for (Reserva reserva : reservas) {
+
+                    if ((!inicio.before(reserva.getFechaInicio()) || !fin.before(reserva.getFechaInicio()))
+                            && (!inicio.after(reserva.getFechaFin()) || !fin.after(reserva.getFechaFin()))) {
+                        reservado= true;
+                    }
+                
+            }
+        }
+        return reservado;
+    }
+//---------------------------------------------------------------------------------------------------------------
+    
     // Recurso que permiten obtener el precio diario de un vehiculo
     @GetMapping("/precioDiario")
     @ResponseBody

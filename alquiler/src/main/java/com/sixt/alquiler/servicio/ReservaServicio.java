@@ -10,4 +10,6 @@ public interface ReservaServicio {
     public Reserva obtenerReservaPorId(Long id);
     public void eliminarReserva(Long id);
     public Reserva modificarReserva(Reserva reserva);
+    public List<Reserva> listarReservasPorVehiculo(int idVehiculo);
+    
 }

@@ -38,4 +38,10 @@ public class ReservaServicioImpl implements ReservaServicio{
         return null;
     }
 
+    @Override
+    public List<Reserva> listarReservasPorVehiculo(int idVehiculo) {
+        return repositorio.findByVehiculosIdVehiculo(idVehiculo);
+    }
+
+    
 }

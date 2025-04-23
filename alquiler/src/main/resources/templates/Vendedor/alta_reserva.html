@@ -40,7 +40,7 @@
           <div class="row">
             <div class="col-6">
               <label for="fInicio" class="form-label">Fecha de Inicio</label>
-              <input type="date" id="fInicio" th:field="*{fechaInicio}" class="form-control" disabled>
+              <input type="date" id="fInicio" th:field="*{fechaInicio}" class="form-control" required>
             </div>
 
             <div class="col-6">
@@ -63,22 +63,22 @@
 
           </div>
 
-          <div class="row">
-            <div class="col-4">
+          
+            <div class="col-6">
               <label for="selectOficina" class="form-label">Seleccione una Oficina</label>
-              <select class="form-select" id="selectOficina"  th:field="*{oficinaOrigen}" required> 
-                <option value="Seleccione una oficina" selected readonly>Seleccione una oficina</option>
+              <select class="form-select" id="selectOficina"  th:field="*{oficinaOrigen}"  disabled required> 
+                <option value = 0 selected readonly>Seleccione una oficina</option>
                 <option th:each="oficina : ${oficinas}" th:value="${oficina.idOficina}"
                   th:text="${oficina.nombreOficina}"></option>
               </select>
 
             </div>
-            <div class="col-8">
+            <div class="col-12">
               <label for="selectVehiculos" class="form-label">Elija el o los Vehículos</label>
               <select class="form-select" id="selectVehiculos" th:field="*{vehiculos}" multiple required>
               </select>
             </div>
-          </div>
+          
 
           <div class="col-12">
             <button type="submit" class="btn btn-primary">Crear</button>

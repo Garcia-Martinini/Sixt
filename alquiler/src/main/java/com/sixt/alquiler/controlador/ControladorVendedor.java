@@ -74,7 +74,7 @@ public class ControladorVendedor {
     public String guardarCliente(@ModelAttribute("cliente") Cliente cliente, RedirectAttributes redirectAttributes) {
         Cliente clienteNuevo = new Cliente();
         Estado estado = new Estado();
-        estado = servicio1.obtenerEstadoPorId(1);
+        estado = servicio1.obtenerEstadoPorIdEstado(1);
         clienteNuevo.setEstado(estado);
         clienteNuevo.setNombre(cliente.getNombre());
         clienteNuevo.setDni(cliente.getDni());
@@ -160,8 +160,8 @@ public class ControladorVendedor {
     public String mostrarFormCrearReserva(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
 
         Reserva reserva = new Reserva();
-        List<TipoReserva> tiposReserva = servicio3.listarTodosLosTiposReserva();
-        List<Oficina> oficinas = servicio5.listarTodasLasOficinas();
+        List<TipoReserva> tiposReserva = servicio3.listarLosTipoReserva();
+        List<Oficina> oficinas = servicio5.listarLasOficinas();
         modelo.addAttribute("reserva", reserva);
         modelo.addAttribute("oficinas", oficinas);
         modelo.addAttribute("tiposReserva", tiposReserva);
@@ -187,7 +187,7 @@ public class ControladorVendedor {
             @RequestParam(value = "fechaFin", required = false) Date fechaFin) {
         List<Vehiculo> vehiculosDisponibles = new ArrayList<>();
 
-        for (Vehiculo vehiculo : servicio4.listarVehiculosDisponiblesEnOficina(idOficina, 3)) {
+        for (Vehiculo vehiculo : servicio4.listarVehiculosPorOficina(idOficina)) {
             if (VerificarReservasPorVehiculo(vehiculo.getIdVehiculo(), fechaInicio, fechaFin)==false) {
                 vehiculosDisponibles.add(vehiculo);
             }
@@ -229,7 +229,7 @@ public class ControladorVendedor {
     public String guardarReserva(@ModelAttribute("reserva") Reserva reserva, RedirectAttributes redirectAttributes) {
 
         Reserva reservaNueva = new Reserva();
-        Estado estado = servicio1.obtenerEstadoPorId(1);
+        Estado estado = servicio1.obtenerEstadoPorIdEstado(1);
 
         reservaNueva.setEstado(estado);
         reservaNueva.setTipoReserva(reserva.getTipoReserva());

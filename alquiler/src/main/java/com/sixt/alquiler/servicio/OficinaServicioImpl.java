@@ -9,16 +9,6 @@ import com.sixt.alquiler.modelo.Oficina;
 import com.sixt.alquiler.repositorio.OficinaRepositorio;
 
 @Service
-<<<<<<< HEAD
-public class OficinaServicioImpl implements OficinaServicio {
-    @Autowired
-    private OficinaRepositorio repositorio;
-    @Override
-    public List<Oficina> listarTodasLasOficinas() {
-        return repositorio.findAll();
-    }
-
-=======
 public class OficinaServicioImpl implements OficinaServicio{
     
     @Autowired
@@ -48,5 +38,5 @@ public class OficinaServicioImpl implements OficinaServicio{
     public void eliminarOficina(Integer id) {
         repositorio.deleteById(id);
     }
->>>>>>> a3263a05705b4e8ee38b15dc3180b83244f444b3
+
 }

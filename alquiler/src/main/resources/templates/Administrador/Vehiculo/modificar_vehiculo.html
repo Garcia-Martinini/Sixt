@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/estilos.css}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  <title>Modificar Vehiculo</title>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+  <div>
+    <div class="titulo">Bienvenido a Sixt Argentina</div>
+    <div class="identidad">
+      <p th:text="'Usuario: ' + ${usuarioSesion.usuario}"></p>
+    </div>
+  </div>
+  <img th:src="@{/IMG/Foto portada.webp}" alt="foto de portada" class="portada">
+  <div class="navBar">
+            <div>
+                <a th:href="@{/gestionVehiculo}" class="finDeNav">Volver</a>
+            </div>
+  </div>
+  <form class="ingreso" th:action="@{/actualizarVehiculo/{id}(id=${vehiculo.idVehiculo})}" th:object="${vehiculo}" method="post">
+    <p>Modificacion de vehiculo</p>
+    <div class="mb-3 mt-3">
+      <label for="color_anterior">Color anterior:</label><br>
+      <label for="color_anterior"th:text="${colorAnterior}" class="datoAnterior"></label><br>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="precio">Precio diario anterior:</label><br>
+      <label for="precio"th:text="${precioAnterior}" class="datoAnterior"></label><br>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="oficina">Oficina anterior:</label><br>
+      <label for="oficina"th:text="${oficinaAnterior}" class="datoAnterior"></label><br>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="estadoAnterior">Estado anterior:</label><br>
+      <label for="estadoAnterior"th:text="${estadoAnterior}" class="datoAnterior"></label><br>
+    </div>
+
+
+    <div class="mb-3 mt-3">
+        <label for="nuevoColor">Nuevo color:</label><br>
+        <select id="color" th:field="*{color.idColor}">
+          <option th:each="color : ${colores}" 
+                  th:value="${color.idColor}" 
+                  th:text="${color.nombreColor}">
+          </option>
+      </select>
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="precioNuevo">Nuevo precio diario:</label><br>
+        <input id="precioNuevo" th:field="*{precioDiario}" placeholder="Ingrese el nuevo precio diario">
+      </div>
+      <label for="nombreColor">Nueva oficina de origen:</label><br>
+    <select id="oficina" th:field="*{oficina.idOficina}">
+      <option th:each="oficina : ${oficinas}" 
+              th:value="${oficina.idOficina}" 
+              th:text="${oficina.nombreOficina}">
+      </option>
+    </select>
+    <label for="nuevoEstado">Nuevo estado:</label><br>
+    <select id="nuevoEstado" th:field="*{estado.idEstado}">
+      <option th:each="estado : ${estados}" 
+              th:value="${estado.idEstado}" 
+              th:text="${estado.nombreEstado}">
+      </option>
+    </select>
+    
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
+      <button type="submit" class="botonEnviar">Grabar</button>
+    </div>
+  </form>
+</body>
+</html>

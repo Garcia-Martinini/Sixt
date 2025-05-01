@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/estilos.css}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  <title>Modificar Estado</title>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+  <div>
+    <div class="titulo">Bienvenido a Sixt Argentina</div>
+    <div class="identidad">
+      <p th:text="'Usuario: ' + ${usuarioSesion.usuario}"></p>
+    </div>
+  </div>
+  <img src="/IMG/Foto portada.webp" alt="foto de portada" class="portada">
+  <div class="navBar">
+            <div>
+                <a th:href="@{/listarABM_estado}" class="finDeNav">Volver</a>
+            </div>
+  </div>
+  <form class="ingreso" th:action="@{/actualizarEstado/{id}(id=${estado.idEstado})}" th:object="${estado}" method="post">
+    <p>Modificacion de estado</p>
+    <p th:text="${mensaje}" class="text-danger"></p>
+    <div class="mb-3 mt-3">
+      <label for="nombreEstado">Estado Anterior:</label><br>
+      <label for="estado_anterior"th:text="${nombreAnterior}" class="datoAnterior"></label><br>
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="nombreEstado">Nuevo Estado:</label><br>
+        <input id="nombreEstado" th:field="*{nombreEstado}" placeholder="Ingrese el nuevo estado">
+      </div>
+    
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
+      <button type="submit" class="botonEnviar">Grabar</button>
+    </div>
+  </form>
+</body>
+</html>

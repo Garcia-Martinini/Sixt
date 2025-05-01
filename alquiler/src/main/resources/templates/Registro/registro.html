@@ -8,7 +8,9 @@
   <title>Inicio</title>
 </head>
 <body>
-  <h1>Bienvenido a Sixt Argentina</h1>
+  <div>
+    <div class="titulo w-100">Bienvenido a Sixt Argentina</div>
+</div>
   <img src="IMG/Foto portada.webp" alt="foto de portada" class="portada">
   <form class="ingreso" th:action="@{/login}" th:object="${user}" method="post">
     <p>Completa los datos para ingresar</p>

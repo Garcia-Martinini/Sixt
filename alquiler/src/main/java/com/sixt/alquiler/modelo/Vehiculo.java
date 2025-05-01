@@ -55,6 +55,20 @@ public class Vehiculo {
     @JsonBackReference
     private List<Reserva> reservas;
 
+    public Vehiculo(int idVehiculo, double precioDiario, int combustible, String patente, Modelo modelo, Color color,
+            Oficina oficina, Estado estado, Marca marca, List<Reserva> reservas) {
+        this.idVehiculo = idVehiculo;
+        this.precioDiario = precioDiario;
+        this.combustible = combustible;
+        this.patente = patente;
+        this.modelo = modelo;
+        this.color = color;
+        this.oficina = oficina;
+        this.estado = estado;
+        this.marca = marca;
+        this.reservas = reservas;
+    }
+
     public Vehiculo() {
     }
 
@@ -152,6 +166,9 @@ public class Vehiculo {
     }
 
     
+<<<<<<< HEAD
 
+=======
+>>>>>>> a3263a05705b4e8ee38b15dc3180b83244f444b3
     
 }

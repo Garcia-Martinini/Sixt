@@ -10,6 +10,7 @@ import com.sixt.alquiler.repositorio.TipoReservaRepositorio;
 
 @Service
 public class TipoReservaServicioImpl implements TipoReservaServicio {
+<<<<<<< HEAD
     @Autowired
     private TipoReservaRepositorio repositorio;
     @Override
@@ -17,4 +18,34 @@ public class TipoReservaServicioImpl implements TipoReservaServicio {
         return repositorio.findAll();
     }
 
+=======
+
+    @Autowired
+    private TipoReservaRepositorio repositorio;
+
+    @Override
+    public List<TipoReserva> listarLosTipoReserva() {
+        return repositorio.findAll();
+    }
+
+    @Override
+    public void guardarTipoReserva(TipoReserva tipoReserva) {
+        repositorio.save(tipoReserva);
+    }
+
+    @Override
+    public TipoReserva obtenerTipoReservaPorIdTipoReserva(Long id) {
+        return repositorio.findById(id).get();
+    }
+
+    @Override
+    public void modificarTipoReserva(TipoReserva tipoReserva) {
+        repositorio.save(tipoReserva);
+    }
+
+    @Override
+    public void eliminarTipoReserva(Long id) {
+        repositorio.deleteById(id);
+    }
+>>>>>>> a3263a05705b4e8ee38b15dc3180b83244f444b3
 }

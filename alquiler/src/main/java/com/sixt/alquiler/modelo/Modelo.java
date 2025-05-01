@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,15 +20,16 @@ public class Modelo {
     @Column(name = "nombre_modelo")
     private String nombreModelo;
 
-    @Column(name = "id_marca")
-    private int idMarca;
+    @ManyToOne
+    @JoinColumn(name = "id_marca")
+    private Marca marca;
 
     public Modelo() {
     }
 
-    public Modelo(String nombreModelo, int idMarca) {
+    public Modelo(String nombreModelo, Marca marca) {
         this.nombreModelo = nombreModelo;
-        this.idMarca = idMarca;
+        this.marca = marca;
     }
 
     public int getIdModelo() {
@@ -45,18 +48,14 @@ public class Modelo {
         this.nombreModelo = nombreModelo;
     }
 
-    public int getIdMarca() {
-        return idMarca;
+    public Marca getMarca() {
+        return marca;
     }
 
-    public void setIdMarca(int idMarca) {
-        this.idMarca = idMarca;
+    public void setMarca(Marca marca) {
+        this.marca = marca;
     }
 
-    @Override
-    public String toString() {
-        return "Modelo{" + "idModelo=" + idModelo + ", nombreModelo=" + nombreModelo + ", idMarca=" + idMarca + '}';
-    }
-    
+     
     
 }

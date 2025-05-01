@@ -11,6 +11,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var precioAcumulado = 0;
   var dias = 0;
+  
+ //listener que se ejecuta cuando se cambia el valor del input de cliente
+ inputCliente.addEventListener('input', function () {
+  if (inputCliente.value.length != 0) {
+    var codigoCliente = inputCliente.value;
+
+    fetch(`/ObtenerCliente?idCliente=${codigoCliente}`)
+      .then(response => {
+        if (!response.ok) {
+          alert("Intente nuevamente");
+          inputCliente.value = "";
+        }
+        console.log(response);
+        return response.json();
+      })
+      //.then(cliente => {console.log(cliente);})
+      .catch(() => {
+        alert("Ingrese un cliente válido");
+        inputCliente.value = "";
+      });
+  }
+});
 
 
   fechaInicio.addEventListener('change', function () {

@@ -1,6 +1,8 @@
 package com.sixt.alquiler.controlador;
 
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -22,7 +25,9 @@ import com.sixt.alquiler.servicio.EstadoServicio;
 import com.sixt.alquiler.servicio.MarcaServicio;
 import com.sixt.alquiler.servicio.ModeloServicio;
 import com.sixt.alquiler.servicio.OficinaServicio;
+import com.sixt.alquiler.servicio.ReservaServicio;
 import com.sixt.alquiler.servicio.VehiculoServicio;
+
 
 @Controller
 @SessionAttributes("usuarioSesion")
@@ -45,6 +50,10 @@ public class ControladorVehiculo {
 
     @Autowired
     private EstadoServicio estadoServicio;
+
+    @Autowired
+    private ReservaServicio reservaServicio;
+
 
 
     @GetMapping("/gestionVehiculo")
@@ -130,4 +139,31 @@ public class ControladorVehiculo {
     public List<Modelo> obtenerModelosPorMarca(@PathVariable Integer idMarca) {
         return modeloServicio.listarLosModelosPorMarca(idMarca);
     }
+
+     // Recurso que permiten obtener los vehiculos disponibles en una oficina
+    @GetMapping("/vehiculosPorOficina")
+    @ResponseBody
+    public List<Vehiculo> obtenerVehiculosPorOficina(
+            @RequestParam("idOficina") int idOficina,
+            @RequestParam(value = "fechaInicio", required = false) Date fechaInicio,
+            @RequestParam(value = "fechaFin", required = false) Date fechaFin) {
+        List<Vehiculo> vehiculosDisponibles = new ArrayList<>();
+
+        for (Vehiculo vehiculo : servicio.listarVehiculosPorOficina(idOficina)) {
+            if (reservaServicio.VerificarReservasPorVehiculo(vehiculo.getIdVehiculo(), fechaInicio, fechaFin)==false) {
+                vehiculosDisponibles.add(vehiculo);
+            }
+        }
+        return vehiculosDisponibles;
+    }
+   
+
+      // Recurso que permiten obtener el precio diario de un vehiculo
+      @GetMapping("/precioDiario")
+      @ResponseBody
+      public double obtenerPrecioDiario(@RequestParam("idVehiculo") int idVehiculo) {
+          Vehiculo vehiculo = servicio.obtenerVehiculoPorId(idVehiculo);
+          return vehiculo.getPrecioDiario();
+      }
+
 }

@@ -1,5 +1,6 @@
 package com.sixt.alquiler.servicio;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,29 @@ public class ReservaServicioImpl implements ReservaServicio{
     public List<Reserva> listarReservasPorVehiculo(int idVehiculo) {
         return repositorio.findByVehiculosIdVehiculo(idVehiculo);
     }
+    
+      // Metodo que permiten obtener las reservas por cada vehiculo
+    @Override
+    public Boolean VerificarReservasPorVehiculo(int idVehiculo, Date inicio, Date fin) {
+       
+    
+        Boolean reservado = false;
+        List<Reserva> reservas = listarReservasPorVehiculo(idVehiculo);
+        if (reservas.isEmpty()) {
+            return false;
+        } else {
+            for (Reserva reserva : reservas) {
+
+                    if ((!inicio.before(reserva.getFechaInicio()) || !fin.before(reserva.getFechaInicio()))
+                            && (!inicio.after(reserva.getFechaFin()) || !fin.after(reserva.getFechaFin()))) {
+                        reservado= true;
+                    }
+                
+            }
+        }
+        return reservado;
+    }
+    
 
     
 }

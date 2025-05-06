@@ -36,7 +36,7 @@ public class ControladorUsuario {
         Usuario usuario = new Usuario();
         modelo.addAttribute("user", usuario);
         modelo.addAttribute("mensaje", mensaje);
-        return "Registro/registro";
+        return "Registro/registro1";
     }
 
     @PostMapping("/login")

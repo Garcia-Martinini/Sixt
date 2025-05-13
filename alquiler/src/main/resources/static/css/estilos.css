@@ -7,7 +7,14 @@ body, html {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-image: url('/IMG/Foto portada.webp');
+    
+}
+
+.fotoPortada{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-image: url('/IMG/interior.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

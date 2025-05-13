@@ -1,0 +1,24 @@
+
+<body>
+    <section class=" min-vh-100">
+        <nav th:fragment="nav" class="navbar naranja text-dark">
+            <div class="container-fluid">
+                <div class="w-75 text-center">
+                    <p class="navbar-text mx-auto fs-1">
+                        Bienvenido a Sixt Argentina
+                    </p>
+                </div>
+                <div class="w-25 d-flex justify-content-end pe-4">
+                    <p class="fs-5" th:text="'Usuario: ' + ${usuarioSesion.usuario}"></p>
+                </div>
+            </div>
+        </nav>
+    
+    <div class="card-footer text-dark text-center" style="background-color: #FF7900;">
+      tp FINAL Programación 2 - Garcia-Martinini -
+    </div>
+  </section>
+
+</body>
+
+</html>

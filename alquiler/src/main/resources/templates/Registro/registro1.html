@@ -8,7 +8,7 @@
   <title>Inicio</title>
 </head>
 <body>
-  <section  class="card min-vh-100">
+  <section  class=" min-vh-100">
   <nav class="navbar naranja text-dark">
     <div class="container-fluid">
       <p class="navbar-text mx-auto fs-1">
@@ -16,12 +16,11 @@
       </p>
     </div>
   </nav>
- 
-   <div class="card mx-auto rounded-4" style="width: 35rem;">
-      <form class="p-4 transparente rounded-4" th:action="@{/login}" th:object="${user}" method="post">
-        <div class="text-center mb-4">
-          <h3>Completa los datos para ingresar</h3>
-        </div>
+    <section class="fotoPortada flex-fill">
+        <form class="p-4 transparente rounded-4 w-25 mx-auto" th:action="@{/login}" th:object="${user}" method="post">
+          <div class="text-center mb-4">
+            <h3>Completa los datos para ingresar</h3>
+          </div>
         
           <div class="mb-3">
             <label for="nombre" class="form-label">Nombre</label>
@@ -31,16 +30,16 @@
             <label for="pass" class="form-label">Password</label>
             <input type="password" id="pass" class="form-control" th:field="*{contrasenia}" placeholder="Ingrese la contraseña">
           </div>
-          <div class="mt-4">
+          <div class="mt-4 text-center">
             <button type="submit" class="btn" style="background-color: #FF7900;">Enviar</button>
             <div>
               <p th:text="${mensaje}"></p>
             </div>
-          </div>
           
-      </form>
+        </form>
   
-    </div>
+      </div>
+    </section>
     <div class="card-footer text-dark text-center" style="background-color: #FF7900;">
       tp FINAL Programación 2 - Garcia-Martinini -
     </div>

@@ -20,9 +20,19 @@ body, html {
     background-repeat: no-repeat;
 }
 
+.footer{
+    height: 60px;
+    align-items: center;
+}
+
 .naranja{
     background-color: #FF7900;
     color: black;
+}
+
+.navegacion{
+    background-color: rgba(19, 19, 19, 0.884);
+    color: wheat;
 }
 
 .titulo{

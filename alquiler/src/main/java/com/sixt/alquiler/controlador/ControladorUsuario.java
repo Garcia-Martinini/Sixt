@@ -94,7 +94,7 @@ public class ControladorUsuario {
     @GetMapping("/gestionUsuario")
     public String gestionarUsuarios(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
         modelo.addAttribute("usuarios", servicio.listartodosLosUsuarios());
-        return "Administrador/Usuario/ABM_usuario"; 
+        return "Administrador/Usuario/ABM_usuario1"; 
     }
 
     @GetMapping("/nuevoUsuario")

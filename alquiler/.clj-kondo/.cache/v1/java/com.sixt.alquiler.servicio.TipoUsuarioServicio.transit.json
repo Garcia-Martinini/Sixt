@@ -1,0 +1,1 @@
+["^ ","~:members",["^ ","listarLosTipoUsuario",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"guardarTipoUsuario",["^2",[["^ ","^3",["^2",["^4","^5"]]]]],"obtenerTipoUsuarioPorIdTipoUsuario",["^2",[["^ ","^3",["^2",["^4","^5"]]]]],"modificarTipoUsuario",["^2",[["^ ","^3",["^2",["^4","^5"]]]]],"eliminarTipoUsuario",["^2",[["^ ","^3",["^2",["^4","^5"]]]]]]]

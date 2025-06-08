@@ -1,0 +1,1 @@
+["^ ","~:members",["^ ","listarTodosLosClientes",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"guardarCliente",["^2",[["^ ","^3",["^2",["^4","^5"]]]]],"obtenerClientePorId",["^2",[["^ ","^3",["^2",["^4","^5"]]]]],"eliminarCliente",["^2",[["^ ","^3",["^2",["^4","^5"]]]]],"modificarCliente",["^2",[["^ ","^3",["^2",["^4","^5"]]]]]]]

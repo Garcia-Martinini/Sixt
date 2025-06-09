@@ -13,39 +13,65 @@
   <section class="min-vh-100">
     <!--Parte superior-->
     <div>
-      <nav th:replace="~{plantillas/formatoUsuario :: nav}"></nav>
-    </div>
-
-    <section class="fotoPortada1 flex-fill">
-      <div class = "container">
-        <form class="ingreso" th:action="@{/guardarUsuario}" th:object="${user}" method="post">
-    <p>Completa los datos para ingresar un usuario</p>
-    <p th:text="${mensaje}" class="text-danger"></p>
-    <div class="mb-3 mt-3">
-      <label for="nombreUsuario">Usuario:</label><br>
-      <input type="text" id="nombreUsuario" th:field="*{usuario}" placeholder="Ingrese el nuevo usuario" name="nombreUsuario">
-    </div>
-    <div class="mb-3 mt-3">
-      <label for="pass">Contraseña:</label><br>
-      <input type="text" id="pass" th:field="*{contrasenia}" placeholder="Ingrese el nuevo usuario" name="pass">
-    </div>
-    <label>Selecciona un tipo de usuario:</label>
-      <br>
-      <select id="tipoUsuario" th:field="*{tipoUsuario.id}">
+    <nav th:replace="~{plantillas/formatoUsuario :: nav}"></nav>
+        
+        <nav class="navbar navbar-expand-lg bg-body-tertiary py-2 px-4" data-bs-theme="dark">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/nuevoUsuario}" role="button">
+                            Nuevo usuario
+                            </a>
+                                
+                        </li>
+                    </ul>
+                <div>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a th:href="@{/gestionAdministrador}" class="nav-link">Volver</a>
+                        </li>
+                    </ul>
+                </div>
+  </div>
+</nav>
+</div>
+<section class="fotoPortada1 flex-fill">
+      <form class="p-4 transparente rounded-4 w-25 mx-auto" th:action="@{/guardarUsuario}" th:object="${user}" method="post">
+          <div class="text-center mb-4">
+            <h3>Completa los datos para ingresar un usuario</h3>
+            <p th:text="${mensaje}" class="text-danger"></p>
+          </div>
+        
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Usuario</label><br>
+            <input class="form-control" type="text" id="nombreUsuario" th:field="*{usuario}" placeholder="Ingrese el nuevo usuario" name="nombreUsuario">
+          </div>
+          <div class="mb-3">
+            <label for="pass" class="form-label">Contraseña</label><br>
+            <input class="form-control" type="text" id="pass" th:field="*{contrasenia}" placeholder="Ingrese la contraseña" name="pass">
+          </div>
+          <div class="mb-3">
+            <label for="pass" class="form-label">Tipo de usuario:</label>
+            <select class="form-select" id="tipoUsuario" th:field="*{tipoUsuario.id}">
             <option value="0" disabled selected>Seleccione un tipo de usuario</option>
             <option th:each="tipoUsuario : ${tipoUsuarios}" 
                     th:value="${tipoUsuario.id}" 
                     th:text="${tipoUsuario.nombreTipoUsuario}">
             </option>
         </select>
-    <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
-      <button type="submit" class="botonEnviar">Grabar</button>
-    </div>
-  </form>
+          </div>
+          <div class="mt-4 text-center">
+            <button type="submit" class="btn" style="background-color: #FF7900;">Guardar</button>
+            <div>
+              <p th:text="${mensaje}"></p>
+            </div>
+          
+        </form>
     </section>     
       <footer>
         <div th:replace="~{plantillas/formatoUsuario :: foot}" class="d-flex"></div>   
       </footer>
       </section>
+
 </body>
 </html>

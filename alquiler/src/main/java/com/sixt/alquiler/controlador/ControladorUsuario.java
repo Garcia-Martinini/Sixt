@@ -136,7 +136,7 @@ public class ControladorUsuario {
         modelo.addAttribute("estadoAnterior", estadoAnterior);
         modelo.addAttribute("tipoUsuarios", tipoUsuarioServicio.listarLosTipoUsuario());
         modelo.addAttribute("estados", estadoServicio.listarLosEstados());
-        return "Administrador/Usuario/modificar_usuario";
+        return "Administrador/Usuario/modificar_usuario1";
     }
 
     @PostMapping("/actualizarUsuario/{id}")

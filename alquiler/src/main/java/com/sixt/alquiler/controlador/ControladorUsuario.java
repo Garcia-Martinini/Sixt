@@ -90,15 +90,17 @@ public class ControladorUsuario {
     }
 
     @GetMapping("/gestionUsuario")
-    public String gestionarUsuarios(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
+    public String gestionarUsuarios(@ModelAttribute("usuarioSesion") Usuario usuarioSesion, Model modelo) {
         modelo.addAttribute("usuarios", servicio.listartodosLosUsuarios());
+        modelo.addAttribute("usuarioSesion", usuarioSesion);
         return "Administrador/Usuario/ABM_usuario1";
     }
 
     @GetMapping("/nuevoUsuario")
-    public String nuevoUsuarioFormulario(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo,
+    public String nuevoUsuarioFormulario(@ModelAttribute("usuarioSesion") Usuario usuarioSesion, Model modelo,
             @ModelAttribute("mensaje") String mensaje) {
         Usuario usuario1 = new Usuario();
+        modelo.addAttribute("usuarioSesion", usuarioSesion);
         modelo.addAttribute("mensaje", mensaje);
         modelo.addAttribute("user", usuario1);
         modelo.addAttribute("tipoUsuarios", tipoUsuarioServicio.listarLosTipoUsuario());
@@ -106,7 +108,7 @@ public class ControladorUsuario {
     }
 
     @PostMapping("/guardarUsuario")
-    public String guardarUsuario(@ModelAttribute("usuarioSesion") Usuario usuario,
+    public String guardarUsuario(@ModelAttribute("usuarioSesion") Usuario usuarioSesion, @ModelAttribute("user") Usuario usuario,
             RedirectAttributes redirectAttributes) {
         if (servicio.obtenerUsuarioPorUsuario(usuario.getUsuario()) == null) {
             Usuario nuevoUsuario = new Usuario();
@@ -122,13 +124,14 @@ public class ControladorUsuario {
     }
 
     @GetMapping("/formularioUsuario/{id}")
-    public String modificarUsuarioFormulario(@ModelAttribute("usuarioSesion") Usuario usuario, @PathVariable Long id,
+    public String modificarUsuarioFormulario(@ModelAttribute("usuarioSesion") Usuario usuarioSesion, @PathVariable Long id,
             Model modelo, @ModelAttribute("mensaje") String mensaje) {
         Usuario usuario1 = servicio.obtenerUsuarioPorId(id);
         String usuarioAnterior = usuario1.getUsuario();
         String contraseniaAnterior = usuario1.getContrasenia();
         String tipoUsuarioAnterior = usuario1.getTipoUsuario().getNombreTipoUsuario();
         String estadoAnterior = usuario1.getEstado().getNombreEstado();
+        modelo.addAttribute("usuarioSesion", usuarioSesion);
         modelo.addAttribute("user", usuario1);
         modelo.addAttribute("nombreAnterior", usuarioAnterior);
         modelo.addAttribute("contraseniaAnterior", contraseniaAnterior);
@@ -140,16 +143,18 @@ public class ControladorUsuario {
     }
 
     @PostMapping("/actualizarUsuario/{id}")
-    public String actualizarUsuario(@PathVariable Long id, @ModelAttribute("user") Usuario usuario,
-            RedirectAttributes redirectAttributes) {
+    public String actualizarUsuario(Model modelo, @PathVariable Long id, @ModelAttribute("user") Usuario usuario, 
+    @ModelAttribute("usuarioSesion") Usuario usuarioSesion, RedirectAttributes redirectAttributes) {
         Usuario usuarioModificado = servicio.obtenerUsuarioPorId(id);
         List<Usuario> usuarios = servicio.listartodosLosUsuarios();
+        usuarios.remove(usuarioModificado);
         for (Usuario u : usuarios) {
-            if (u.getUsuario().equalsIgnoreCase(usuario.getUsuario())) {
+            if (u.getUsuario().equals(usuario.getUsuario())) {
                 redirectAttributes.addFlashAttribute("mensaje", "El usuario que ingresaste ya existe");
                 return "redirect:/formularioUsuario/" + id;
             }
         }
+        modelo.addAttribute("usuarioSesion", usuarioSesion);
         usuarioModificado.setUsuario(usuario.getUsuario());
         usuarioModificado.setContrasenia(usuario.getContrasenia());
         usuarioModificado.setTipoUsuario(usuario.getTipoUsuario());

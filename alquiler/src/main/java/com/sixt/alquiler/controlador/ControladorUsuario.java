@@ -154,7 +154,6 @@ public class ControladorUsuario {
                 return "redirect:/formularioUsuario/" + id;
             }
         }
-        modelo.addAttribute("usuarioSesion", usuarioSesion);
         usuarioModificado.setUsuario(usuario.getUsuario());
         usuarioModificado.setContrasenia(usuario.getContrasenia());
         usuarioModificado.setTipoUsuario(usuario.getTipoUsuario());

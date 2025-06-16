@@ -5,9 +5,7 @@ body, html {
 
 .min-vh-100 {
     display: flex;
-    flex-direction: column;
-    /*justify-content: space-between;*/
-    
+    flex-direction: column;    
 }
 
 .fotoPortada{
@@ -29,10 +27,6 @@ body, html {
     background-repeat: no-repeat;
 }
 
-.footer{
-    height: 60px;
-    align-items: center;
-}
 
 .naranja{
     background-color: #FF7900;
@@ -142,7 +136,7 @@ h2{
 }
 
 .transparente{
-    background-color: rgb(255, 255, 240, 0.8);
+    background-color: rgba(255, 255, 240, 0.8);
 }
 
 /* Estilo del contenedor del botón

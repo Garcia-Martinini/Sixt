@@ -19,6 +19,7 @@ import com.sixt.alquiler.servicio.EstadoServicio;
 import com.sixt.alquiler.servicio.OficinaServicio;
 import com.sixt.alquiler.servicio.ReservaServicio;
 import com.sixt.alquiler.servicio.TipoReservaServicio;
+import com.sixt.alquiler.servicio.VehiculoServicio;
 
 
 @Controller
@@ -35,10 +36,12 @@ public class ControladorReserva {
     private TipoReservaServicio servicioTipoReserva;
     @Autowired
     private OficinaServicio servicioOficina;
+    @Autowired
+    private VehiculoServicio servicioVehiculo;
 
 
       // Recurso que permite mostrar el formulario para crear una nueva reserva
-    @GetMapping("/Clientes/NuevaReserva")
+    @GetMapping("/Reservas/NuevaReserva")
     public String mostrarFormCrearReserva(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
 
         Reserva reserva = new Reserva();
@@ -58,7 +61,7 @@ public class ControladorReserva {
     public String guardarReserva(@ModelAttribute("reserva") Reserva reserva, RedirectAttributes redirectAttributes) {
 
         Reserva reservaNueva = new Reserva();
-        Estado estado = servicioEstado.obtenerEstadoPorIdEstado(1);
+        Estado estado = servicioEstado.obtenerEstadoPorIdEstado(5); // Estado "En Proceso"
 
         reservaNueva.setEstado(estado);
         reservaNueva.setTipoReserva(reserva.getTipoReserva());
@@ -71,7 +74,21 @@ public class ControladorReserva {
         reservaNueva.setOficinaOrigen(reserva.getOficinaOrigen());
         servicioReserva.guardarReserva(reservaNueva);
 
-        return "redirect:/Clientes/NuevaReserva";
+        return "redirect:/gestionVendedor";
     }
 
+       // Recurso que permite mostrar el formulario para entregar vehículos de una reserva
+    @GetMapping("/Reservas/EntregaVehiculos")
+    public String mostrarFormEntregaVehiculos(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
+        /* 
+        Reserva reserva = new Reserva();
+        List<TipoReserva> tiposReserva = servicioTipoReserva.listarLosTipoReserva();
+        List<Oficina> oficinas = servicioOficina.listarLasOficinas();
+        modelo.addAttribute("reserva", reserva);
+        modelo.addAttribute("oficinas", oficinas);
+        modelo.addAttribute("tiposReserva", tiposReserva);
+        modelo.addAttribute("vendedor", usuario);
+        */
+        return "Vendedor/alta_reserva";
+    }
 }

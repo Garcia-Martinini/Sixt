@@ -62,6 +62,10 @@ public class ControladorEstado {
     public String actualizarEstado(@PathVariable Integer id, @ModelAttribute("estado") Estado estado, RedirectAttributes redirectAttributes) {
         Estado estadoModificado = servicio.obtenerEstadoPorIdEstado(id);
         List<Estado> estados = servicio.listarLosEstados();
+        if (estado.getNombreEstado().isEmpty()) {
+                redirectAttributes.addFlashAttribute("mensaje", "No se puede dejar el campo vacio");
+                return "redirect:/formularioEstado/" + id;
+            }
         for (Estado e : estados) {
             if (e.getNombreEstado().equalsIgnoreCase(estado.getNombreEstado())) {
                 redirectAttributes.addFlashAttribute("mensaje", "El estado que ingresaste ya existe");

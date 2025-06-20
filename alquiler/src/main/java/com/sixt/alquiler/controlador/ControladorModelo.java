@@ -67,6 +67,10 @@ public class ControladorModelo {
     public String actualizarModelo(@PathVariable Integer id, @ModelAttribute("modelo") Modelo modelo, RedirectAttributes redirectAttributes) {
         Modelo modeloModificado = servicio.obtenerModeloPorIdModelo(id);
         List<Modelo> modelos = servicio.listarLosModelos();
+        if (modelo.getNombreModelo().isEmpty()) {
+                redirectAttributes.addFlashAttribute("mensaje", "No se puede dejar el campo vacio");
+                return "redirect:/formularioModelo/" + id;
+            }
         for (Modelo m : modelos) {
             if (m.getNombreModelo().equalsIgnoreCase(modelo.getNombreModelo())) {
                 redirectAttributes.addFlashAttribute("mensaje", "El modelo que ingresaste ya existe");

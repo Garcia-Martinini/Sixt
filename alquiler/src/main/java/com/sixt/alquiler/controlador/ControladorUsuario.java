@@ -148,6 +148,10 @@ public class ControladorUsuario {
         Usuario usuarioModificado = servicio.obtenerUsuarioPorId(id);
         List<Usuario> usuarios = servicio.listartodosLosUsuarios();
         usuarios.remove(usuarioModificado);
+        if (usuario.getUsuario().isEmpty()) {
+                redirectAttributes.addFlashAttribute("mensaje", "No se puede dejar el campo vacio");
+                return "redirect:/formularioUsuario/" + id;
+            }
         for (Usuario u : usuarios) {
             if (u.getUsuario().equals(usuario.getUsuario())) {
                 redirectAttributes.addFlashAttribute("mensaje", "El usuario que ingresaste ya existe");

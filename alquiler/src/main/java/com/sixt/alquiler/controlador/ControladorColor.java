@@ -62,6 +62,10 @@ public class ControladorColor {
     public String actualizarColor(@PathVariable Integer id, @ModelAttribute("color") Color color, RedirectAttributes redirectAttributes) {
         Color colorModificado = servicio.obtenerColorPorIdColor(id);
         List<Color> colores = servicio.listarLosColores();
+        if (color.getNombreColor().isEmpty()) {
+                redirectAttributes.addFlashAttribute("mensaje", "No se puede dejar el campo vacio");
+                return "redirect:/formularioColor/" + id;
+            }
         for (Color c : colores) {
             if (c.getNombreColor().equalsIgnoreCase(color.getNombreColor())) {
                 redirectAttributes.addFlashAttribute("mensaje", "El color que ingresaste ya existe");

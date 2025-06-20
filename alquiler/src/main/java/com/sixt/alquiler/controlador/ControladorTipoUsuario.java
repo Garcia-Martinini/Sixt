@@ -61,6 +61,10 @@ public class ControladorTipoUsuario {
     public String actualizarTipoUsuario(@PathVariable Integer id, @ModelAttribute("tipoUsuario") TipoUsuario tipoUsuario, RedirectAttributes redirectAttributes) {  
         TipoUsuario tipoUsuarioModificado = servicio.obtenerTipoUsuarioPorIdTipoUsuario(id);
         List<TipoUsuario> tipoUsuarios = servicio.listarLosTipoUsuario();
+        if (tipoUsuario.getNombreTipoUsuario().isEmpty()) {
+                redirectAttributes.addFlashAttribute("mensaje", "No se puede dejar el campo vacio");
+                return "redirect:/formularioTipoUsuario/" + id;
+            }
         for (TipoUsuario tu : tipoUsuarios) {
             if (tu.getNombreTipoUsuario().equalsIgnoreCase(tipoUsuario.getNombreTipoUsuario())) {
                 redirectAttributes.addFlashAttribute("mensaje", "El tipo de usuario que ingresaste ya existe");

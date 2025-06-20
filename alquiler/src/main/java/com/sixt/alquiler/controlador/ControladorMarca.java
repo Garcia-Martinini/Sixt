@@ -62,6 +62,10 @@ public class ControladorMarca {
     public String actualizarMarca(@PathVariable Integer id, @ModelAttribute("marca") Marca marca, RedirectAttributes redirectAttributes) {
         Marca marcaModificada = servicio.obtenerMarcaPorIdMarca(id);
         List<Marca> marcas = servicio.listarLasMarcas();
+        if (marca.getNombreMarca().isEmpty()) {
+                redirectAttributes.addFlashAttribute("mensaje", "No se puede dejar el campo vacio");
+                return "redirect:/formularioMarca/" + id;
+            }
         for (Marca m : marcas) {
             if (m.getNombreMarca().equalsIgnoreCase(marca.getNombreMarca())) {
                 redirectAttributes.addFlashAttribute("mensaje", "La marca que ingresaste ya existe");

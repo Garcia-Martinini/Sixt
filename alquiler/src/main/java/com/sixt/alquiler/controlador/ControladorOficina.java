@@ -67,6 +67,10 @@ public class ControladorOficina {
     public String actualizarOficina(@PathVariable Integer id, @ModelAttribute("oficina") Oficina oficina, RedirectAttributes redirectAttributes) {
         Oficina oficinaModificado = servicio.obtenerOficinaPorIdOficina(id);
         List<Oficina> oficinas = servicio.listarLasOficinas();
+        if (oficina.getNombreOficina().isEmpty()) {
+                redirectAttributes.addFlashAttribute("mensaje", "No se puede dejar el campo vacio");
+                return "redirect:/formularioOficina/" + id;
+            }
         for (Oficina o : oficinas) {
             if (o.getNombreOficina().equalsIgnoreCase(oficina.getNombreOficina())) {
                 redirectAttributes.addFlashAttribute("mensaje", "La oficina que ingresaste ya existe");

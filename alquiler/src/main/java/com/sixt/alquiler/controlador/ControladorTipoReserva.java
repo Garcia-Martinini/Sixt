@@ -61,6 +61,10 @@ public class ControladorTipoReserva {
     public String actualizarTipoReserva(@PathVariable Long id, @ModelAttribute("tipoReserva") TipoReserva tipoReserva, RedirectAttributes redirectAttributes) {
         TipoReserva tipoReservaModificado = servicio.obtenerTipoReservaPorIdTipoReserva(id);
         List<TipoReserva> tipoReservas = servicio.listarLosTipoReserva();
+        if (tipoReserva.getNombreTipoReserva().isEmpty()) {
+                redirectAttributes.addFlashAttribute("mensaje", "No se puede dejar el campo vacio");
+                return "redirect:/formularioTipoReserva/" + id;
+            }
         for (TipoReserva tr : tipoReservas) {
             if (tr.getNombreTipoReserva().equalsIgnoreCase(tipoReserva.getNombreTipoReserva())) {
                 redirectAttributes.addFlashAttribute("mensaje", "El tipo de reserva que ingresaste ya existe");

@@ -42,49 +42,55 @@
       </nav>
     </div>
     <section class="fotoPortada1 flex-fill">
-      <form class="p-4 transparente rounded-4 w-25 mx-auto my-3" th:action="@{/guardarVehiculo}" th:object="${vehiculo}" method="post">
+      <form class="p-4 transparente rounded-4 w-75 mx-auto my-3" th:action="@{/guardarVehiculo}" th:object="${vehiculo}" method="post">
         <div class="text-center mb-4">
           <h3>Completa los datos para ingresar un vehículo</h3>
           <p th:text="${mensaje}" class="text-danger"></p>
         </div>
-        <div class="mb-3">
-          <label class="form-label" for="patente">Patente:</label><br>
-          <input class="form-control" type="text" id="patente" th:field="*{patente}" placeholder="Ingrese el dominio" name="patente" required>
+        <div class="row">
+          <div class="mb-3 col col-4">
+            <label class="form-label" for="patente">Patente:</label><br>
+            <input class="form-control" type="text" id="patente" th:field="*{patente}" placeholder="Ingrese el dominio" name="patente" required>
+          </div>
         </div>
-        <div class="mb-3 mt-3">
-          <label class="form-label">Selecciona una Marca:</label><br>
-          <select class="form-select" id="marca" th:field="*{marca.idMarca}" onchange="actualizarModelos()" required>
-            <option value="0" disabled selected>Seleccione una marca</option>
-            <option th:each="marca : ${marcas}" th:value="${marca.idMarca}" th:text="${marca.nombreMarca}"></option>
-          </select>
+        <div class="row">
+          <div class="mb-3 mt-3 col col-4">
+            <label class="form-label">Selecciona una Marca:</label><br>
+            <select class="form-select" id="marca" th:field="*{marca.idMarca}" onchange="actualizarModelos()" required>
+              <option value="0" disabled selected>Seleccione una marca</option>
+              <option th:each="marca : ${marcas}" th:value="${marca.idMarca}" th:text="${marca.nombreMarca}"></option>
+            </select>
+          </div>
+          <div class="mb-3 mt-3 col col-4">
+            <label class="form-label">Selecciona un Modelo:</label><br>
+            <select class="form-select" id="modelo" th:field="*{modelo.idModelo}" required>
+              <option value="0" disabled selected>Seleccione un modelo</option>
+            </select>
+          </div>
+          <div class="mb-3 mt-3 col col-4">
+            <label class="form-label">Selecciona un Color:</label><br>
+            <select class="form-select" id="color" th:field="*{color.idColor}" required>
+              <option value="0" disabled selected>Seleccione un color</option>
+              <option th:each="color : ${colores}" th:value="${color.idColor}" th:text="${color.nombreColor}"></option>
+            </select>
+          </div>
         </div>
-        <div class="mb-3 mt-3">
-          <label class="form-label">Selecciona un Modelo:</label><br>
-          <select class="form-select" id="modelo" th:field="*{modelo.idModelo}" required>
-            <option value="0" disabled selected>Seleccione un modelo</option>
-          </select>
-        </div>
-        <div class="mb-3 mt-3">
-          <label class="form-label">Selecciona un Color:</label><br>
-          <select class="form-select" id="color" th:field="*{color.idColor}" required>
-            <option value="0" disabled selected>Seleccione un color</option>
-            <option th:each="color : ${colores}" th:value="${color.idColor}" th:text="${color.nombreColor}"></option>
-          </select>
-        </div>
-        <div class="mb-3 mt-3">
-          <label class="form-label" for="precio">Precio diario:</label><br>
-          <input class="form-control" type="text" id="precio" th:field="*{precioDiario}" placeholder="Ingrese el precio diario" name="precio" required>
-        </div>
-        <div class="mb-3 mt-3">
-          <label class="form-label">Selecciona una oficina de Origen:</label><br>
-          <select class="form-select" id="oficina" th:field="*{oficina.idOficina}" required>
-            <option value="0" disabled selected>Seleccione una oficina de origen</option>
-            <option th:each="oficina : ${oficinas}" th:value="${oficina.idOficina}" th:text="${oficina.nombreOficina}"></option>
-          </select>
-        </div>
-        <div class="mb-3 mt-3">
-          <label class="form-label" for="capacidad">Capacidad del tanque en litros:</label><br>
-          <input class="form-control" type="text" id="capacidad" th:field="*{combustible}" placeholder="Ingrese la capacidad del tanque" name="capacidad" required>
+        <div class="row">
+          <div class="mb-3 mt-3 col-4">
+            <label class="form-label" for="precio">Precio diario:</label><br>
+            <input class="form-control" type="text" id="precio" th:field="*{precioDiario}" placeholder="Ingrese el precio diario" name="precio" required>
+          </div>
+          <div class="mb-3 mt-3 col-4">
+            <label class="form-label">Selecciona una oficina de Origen:</label><br>
+            <select class="form-select" id="oficina" th:field="*{oficina.idOficina}" required>
+              <option value="0" disabled selected>Seleccione una oficina de origen</option>
+              <option th:each="oficina : ${oficinas}" th:value="${oficina.idOficina}" th:text="${oficina.nombreOficina}"></option>
+            </select>
+          </div>
+          <div class="mb-3 mt-3 col-4">
+            <label class="form-label" for="capacidad">Capacidad del tanque en litros:</label><br>
+            <input class="form-control" type="text" id="capacidad" th:field="*{combustible}" placeholder="Ingrese la capacidad del tanque" name="capacidad" required>
+          </div>
         </div>
         <div class="mt-4 text-center">
           <button type="submit" class="btn" style="background-color: #FF7900;">Guardar</button>

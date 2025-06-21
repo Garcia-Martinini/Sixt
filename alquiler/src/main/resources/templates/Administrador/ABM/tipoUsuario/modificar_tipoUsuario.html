@@ -3,6 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/estilos.css}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  <title>Modificar Tipo de usuario</title>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+  <body>
+    <section class="min-vh-100">
+      <div>
+        <nav th:replace="~{plantillas/formatoUsuario :: nav}"></nav>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary py-2 px-4" data-bs-theme="dark">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+            <li class="nav-item">
+              <a th:href="@{/listarABM_tipoUsuario}" class="nav-link">Volver</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    <section class="fotoPortada1 flex-fill">
+      <form class="p-4 transparente rounded-4 w-50 mx-auto mt-5" th:action="@{/actualizarTipoUsuario/{id}(id=${tipoUsuario.id})}" th:object="${tipoUsuario}" method="post">
+          <div class="text-center mb-4">
+            <h3>Modificacion de tipo de usuario</h3>
+            <p th:text="${mensaje}" class="text-danger"></p>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <label class="form-label" for="nombreUsuario">Tipo de usuario anterior:</label><br>
+              <label class="form-control" for="usuario_anterior" th:text="${nombreAnterior}"></label>
+            </div>
+            <div class="col">
+              <label class="form-label">Nuevo tipo de usuario:</label><br>
+              <input class="form-control" type="text" th:field="*{nombreTipoUsuario}" placeholder="Ingrese el nuevo tipo de usuario">
+            </div>
+          </div>
+          
+          <div class="mt-4 text-center">
+            <button type="submit" class="btn" style="background-color: #FF7900;">Guardar</button>
+          </div>
+          
+        </form>
+    </section>     
+      <footer>
+        <div th:replace="~{plantillas/formatoUsuario :: foot}" class="d-flex"></div>   
+      </footer>
+    </section>
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" th:href="@{/estilos.css}">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
@@ -40,4 +93,4 @@
     </div>
   </form>
 </body>
-</html>
+</html> -->

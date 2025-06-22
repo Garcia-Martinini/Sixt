@@ -1,10 +1,10 @@
-package com.sixt.alquiler.controlador;
+// package com.sixt.alquiler.controlador;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+// import org.springframework.stereotype.Controller;
+// import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
-@RequestMapping("/gestionAdministrador")
-public class ControladorAdministrador {
+// @Controller
+// @RequestMapping("/gestionAdministrador")
+// public class ControladorAdministrador {
     
-}
+// }

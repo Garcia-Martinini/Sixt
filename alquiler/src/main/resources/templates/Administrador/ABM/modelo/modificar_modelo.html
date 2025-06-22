@@ -21,7 +21,8 @@
           </ul>
         </nav>
       </div>
-    <section class="fotoPortada1 flex-fill">
+      <section class="fotoPortada1 flex-fill">
+      <!-- formulario -->
       <form class="p-4 transparente rounded-4 w-50 mx-auto mt-5" th:action="@{/actualizarModelo/{id}(id=${modelo.idModelo})}" th:object="${modelo}" method="post">
           <div class="text-center mb-4">
             <h3>Modificacion de modelo</h3>
@@ -41,9 +42,8 @@
           <div class="mt-4 text-center">
             <button type="submit" class="btn" style="background-color: #FF7900;">Guardar</button>
           </div>
-          
         </form>
-    </section>     
+      </section>     
       <footer>
         <div th:replace="~{plantillas/formatoUsuario :: foot}" class="d-flex"></div>   
       </footer>

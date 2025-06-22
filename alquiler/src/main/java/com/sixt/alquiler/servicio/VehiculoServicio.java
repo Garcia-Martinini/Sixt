@@ -22,4 +22,6 @@ public interface VehiculoServicio {
     
     public List<Vehiculo> listarVehiculosPorOficina(int idOficina);
 
+    public List<Vehiculo> listarVehiculosParaRepatriar();
+
 }

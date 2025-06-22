@@ -27,7 +27,7 @@ public class ReservaServicioImpl implements ReservaServicio {
 
     @Override
     public Reserva obtenerReservaPorId(Long id) {
-        return null;
+        return repositorio.findById(id).orElse(null);
     }
 
     @Override

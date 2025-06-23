@@ -1,4 +1,5 @@
 package com.sixt.alquiler.controlador;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -15,30 +17,32 @@ import com.sixt.alquiler.modelo.Oficina;
 import com.sixt.alquiler.modelo.Reserva;
 import com.sixt.alquiler.modelo.TipoReserva;
 import com.sixt.alquiler.modelo.Usuario;
+import com.sixt.alquiler.modelo.Vehiculo;
 import com.sixt.alquiler.servicio.EstadoServicio;
 import com.sixt.alquiler.servicio.OficinaServicio;
 import com.sixt.alquiler.servicio.ReservaServicio;
 import com.sixt.alquiler.servicio.TipoReservaServicio;
-
+import com.sixt.alquiler.servicio.VehiculoServicio;
 
 @Controller
 @SessionAttributes("usuarioSesion")
 public class ControladorReserva {
-    
+
     @Autowired
     private ReservaServicio servicioReserva;
 
     @Autowired
     private EstadoServicio servicioEstado;
-    
+
     @Autowired
     private TipoReservaServicio servicioTipoReserva;
     @Autowired
     private OficinaServicio servicioOficina;
+    @Autowired
+    private VehiculoServicio servicioVehiculo;
 
-
-      // Recurso que permite mostrar el formulario para crear una nueva reserva
-    @GetMapping("/Clientes/NuevaReserva")
+    // Recurso que permite mostrar el formulario para crear una nueva reserva
+    @GetMapping("/Reservas/NuevaReserva")
     public String mostrarFormCrearReserva(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
 
         Reserva reserva = new Reserva();
@@ -51,14 +55,12 @@ public class ControladorReserva {
         return "Vendedor/alta_reserva";
     }
 
-    
-
-     // Recurso que permite guardar una nueva reserva
+    // Recurso que permite guardar una nueva reserva
     @PostMapping("/guardarReserva")
     public String guardarReserva(@ModelAttribute("reserva") Reserva reserva, RedirectAttributes redirectAttributes) {
 
         Reserva reservaNueva = new Reserva();
-        Estado estado = servicioEstado.obtenerEstadoPorIdEstado(1);
+        Estado estado = servicioEstado.obtenerEstadoPorIdEstado(5); // Estado "En Proceso"
 
         reservaNueva.setEstado(estado);
         reservaNueva.setTipoReserva(reserva.getTipoReserva());
@@ -71,7 +73,117 @@ public class ControladorReserva {
         reservaNueva.setOficinaOrigen(reserva.getOficinaOrigen());
         servicioReserva.guardarReserva(reservaNueva);
 
-        return "redirect:/Clientes/NuevaReserva";
+        return "redirect:/gestionVendedor";
     }
 
+    // Recurso que permite mostrar el formulario para entregar vehículos de una
+    // reserva
+    @GetMapping("/Reservas/BuscarReservaParaEntregaVehiculos")
+    public String mostrarFormEntregaVehiculos(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
+
+        Reserva reserva = new Reserva();
+        modelo.addAttribute("reserva", reserva);
+        modelo.addAttribute("vendedor", usuario);
+
+        return "Vendedor/buscar_reserva_entregar";
+    }
+
+    // Recurso que permite entregar vehículos de una reserva
+    @PostMapping("/entregarVehiculos")
+    public String entregarVehiculos(@RequestParam("idReserva") Long idReserva, RedirectAttributes redirectAttributes) {
+        Reserva reserva = servicioReserva.obtenerReservaPorId(idReserva);
+        if (reserva == null) {
+            redirectAttributes.addFlashAttribute("mensaje", "Reserva no existente.");
+            return "redirect:/Reservas/BuscarReservaParaEntregaVehiculos";
+        }
+
+        for (Vehiculo vehiculo : reserva.getVehiculos()) {
+            if (vehiculo.getDisponible() == false) {
+                redirectAttributes.addFlashAttribute("mensaje", "El o los vehículos ya han sido entregados.");
+                return "redirect:/Reservas/BuscarReservaParaEntregaVehiculos";
+            }
+
+            vehiculo.setDisponible(false); // Marcar como no disponible
+            servicioVehiculo.guardarVehiculo(vehiculo);
+        }
+        redirectAttributes.addFlashAttribute("reserva", reserva);
+        return "redirect:/Reservas/ListarVehiculosEntregados";
+    }
+
+    // Recurso que permite mostrar los vehículos entregados de una reserva
+    @GetMapping("/Reservas/ListarVehiculosEntregados")
+    public String mostrarVehiculosEntregados(@ModelAttribute("usuarioSesion") Usuario usuario,
+            @ModelAttribute("reserva") Reserva reserva, Model modelo) {
+        List<Vehiculo> vehiculos = reserva.getVehiculos();
+        modelo.addAttribute("vehiculos", vehiculos);
+        modelo.addAttribute("reserva", reserva);
+        modelo.addAttribute("vendedor", usuario);
+
+        return "Vendedor/lista_vehiculos_entregados";
+    }
+
+    // Recurso que permite mostrar el formulario para restituir vehículos de una
+    // reserva
+    @GetMapping("/Reservas/BuscarReservaParaReestablecimientoVehiculos")
+    public String mostrarFormReestablecimientoVehiculos(@ModelAttribute("usuarioSesion") Usuario usuario,
+            Model modelo) {
+        List<Oficina> oficinas = servicioOficina.listarLasOficinas();
+        Reserva reserva = new Reserva();
+        modelo.addAttribute("oficinas", oficinas);
+        modelo.addAttribute("reserva", reserva);
+        modelo.addAttribute("vendedor", usuario);
+
+        return "Vendedor/buscar_reserva_reestablecer";
+    }
+
+    // Recurso que permite entregar vehículos de una reserva
+    @PostMapping("/reestablecerVehiculos")
+    public String reestablecerVehiculos(@RequestParam("idReserva") Long idReserva, @RequestParam("idOficina") int idOficina,
+            RedirectAttributes redirectAttributes) {
+        Reserva reserva = servicioReserva.obtenerReservaPorId(idReserva);
+        if (reserva == null) {
+            redirectAttributes.addFlashAttribute("mensaje", "Reserva no existente.");
+            return "/Reservas/BuscarReservaParaReestablecimientoVehiculos";
+        }
+        if (reserva.getEstado().getIdEstado() == 6) { // Verifico si está finalizada
+            redirectAttributes.addFlashAttribute("mensaje", "La Reserva ya ha sido finalizada.");
+            return "redirect:/Reservas/BuscarReservaParaReestablecimientoVehiculos";
+        }
+        Oficina oficina =servicioOficina.obtenerOficinaPorIdOficina(idOficina);
+
+        for (Vehiculo vehiculo : reserva.getVehiculos()) {
+            vehiculo.setUbicacion(oficina); // Cambiar la ubicación del vehículo a la oficina de restitución
+            vehiculo.setDisponible(true); // Marcar como disponible
+            servicioVehiculo.guardarVehiculo(vehiculo);
+        }
+        redirectAttributes.addFlashAttribute("oficina", oficina);
+        redirectAttributes.addFlashAttribute("reserva", reserva);
+        return "redirect:/Reservas/ListarVehiculosReestablecidos";
+    }
+
+    // Recurso que permite mostrar los vehículos entregados de una reserva
+    @GetMapping("/Reservas/ListarVehiculosReestablecidos")
+    public String mostrarVehiculosReestablecidos(@ModelAttribute("oficina") Oficina oficina, 
+            @ModelAttribute("usuarioSesion") Usuario usuario,
+            @ModelAttribute("reserva") Reserva reserva, Model modelo) {
+        List<Vehiculo> vehiculos = reserva.getVehiculos();
+        modelo.addAttribute("oficina", oficina);
+        modelo.addAttribute("vehiculos", vehiculos);
+        modelo.addAttribute("reserva", reserva);
+        modelo.addAttribute("vendedor", usuario);
+
+        return "Vendedor/lista_vehiculos_reestablecidos";
+    }
+
+    // Recurso que permite mostrar todos los vehículos entregados que son para repatriar
+    @GetMapping("/Reservas/ListarVehiculosARepatriar")
+    public String mostrarVehiculosARepatriar(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
+        
+        List<Vehiculo> vehiculos = servicioVehiculo.listarVehiculosParaRepatriar();
+        modelo.addAttribute("vehiculos", vehiculos);
+        
+        modelo.addAttribute("vendedor", usuario);
+
+        return "Vendedor/lista_vehiculos_a_repatriar";
+    }
 }

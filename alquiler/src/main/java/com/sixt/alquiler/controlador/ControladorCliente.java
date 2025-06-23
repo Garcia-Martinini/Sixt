@@ -3,6 +3,7 @@ package com.sixt.alquiler.controlador;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import com.sixt.alquiler.modelo.Estado;
 import com.sixt.alquiler.modelo.Usuario;
 import com.sixt.alquiler.servicio.ClienteServicio;
 import com.sixt.alquiler.servicio.EstadoServicio;
+import com.sixt.alquiler.servicio.ReservaServicio;
 
 @Controller
 @SessionAttributes("usuarioSesion")
@@ -35,6 +37,9 @@ public class ControladorCliente {
     private ClienteServicio servicioCliente;
     @Autowired
     private EstadoServicio servicioEstado;
+    @Autowired
+    private ReservaServicio servicioReserva;
+
     // Recurso que permite mostrar la lista de clientes
     @GetMapping("/Clientes")
     public String mostrarClientes(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
@@ -80,14 +85,15 @@ public class ControladorCliente {
     // Recurso que permite evalua si el cliente existe y redirige a la vista de
     // edicion o a la busqueda
     @PostMapping("/editarCliente")
-    public String editarCliente(@ModelAttribute("usuarioSesion") Usuario usuario,
-            @ModelAttribute("cliente") Cliente cliente, RedirectAttributes redirectAttributes) {
-        Cliente clienteEncontrado = servicioCliente.obtenerClientePorId(cliente.getCodigo());
+    public String editarCliente(@RequestParam("codigo") Long codigo,
+            RedirectAttributes redirectAttributes) {
+        Cliente clienteEncontrado = servicioCliente.obtenerClientePorId(codigo);
         if (clienteEncontrado != null) {
-            clienteEncontrado = servicioCliente.obtenerClientePorId(cliente.getCodigo());
+            clienteEncontrado = servicioCliente.obtenerClientePorId(codigo);
             redirectAttributes.addFlashAttribute("cliente", clienteEncontrado);
             return "redirect:/Editar";
         }
+        redirectAttributes.addFlashAttribute("mensaje", "cliente no encontrado");
         return "redirect:/Clientes/Buscar";
 
     }
@@ -127,17 +133,25 @@ public class ControladorCliente {
     // Recurso que permite evalua si el cliente existe y redirige a la vista de
     // eliminacion o a la busqueda
     @PostMapping("/eliminarCliente")
-    public String eliminarCliente(@ModelAttribute("usuarioSesion") Usuario usuario,
-            @ModelAttribute("cliente") Cliente cliente, RedirectAttributes redirectAttributes) {
+    public String eliminarCliente(@RequestParam("codigo") Long codigo, RedirectAttributes redirectAttributes) {
 
-        Cliente clienteAEliminar = servicioCliente.obtenerClientePorId(cliente.getCodigo());
+        Cliente clienteAEliminar = servicioCliente.obtenerClientePorId(codigo);
         if (clienteAEliminar != null) {
-            servicioCliente.eliminarCliente(clienteAEliminar.getCodigo());
+
+            Boolean tieneReservas = servicioReserva.VerificarExistenciaReservasPorCliente(clienteAEliminar);
+            if (tieneReservas) {
+                redirectAttributes.addFlashAttribute("mensaje",
+                        "No se puede eliminar el cliente porque tiene reservas activas.");
+                return "redirect:/Clientes/Elegir";
+            }
+            servicioReserva.eliminarReservasPorCliente(clienteAEliminar);
+            servicioCliente.eliminarCliente(codigo);
             return "redirect:/Clientes";
         }
+        redirectAttributes.addFlashAttribute("mensaje", "cliente no encontrado");
         return "redirect:/Clientes/Elegir";
     }
-    
+
     @GetMapping("/ObtenerCliente")
     @ResponseBody
     public Cliente obtenerCliente(@RequestParam("idCliente") Long codigo) {

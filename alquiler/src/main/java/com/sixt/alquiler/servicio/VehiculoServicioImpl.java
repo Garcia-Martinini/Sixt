@@ -52,4 +52,10 @@ public class VehiculoServicioImpl implements VehiculoServicio {
         return repositorio.findByVehiculosPorOficina(idOficina);
     }
 
+    @Override
+    public List<Vehiculo> listarVehiculosParaRepatriar() {
+        
+        return repositorio.findByVehiculosParaRepatriar();
+    }
+
 }

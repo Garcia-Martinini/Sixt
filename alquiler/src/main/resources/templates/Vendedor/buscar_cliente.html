@@ -4,40 +4,46 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/css/estiloVendedor.css">
+  <link rel="stylesheet" href="/css/estilos.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-  <title>Buscar Cliente</title>
+  <title>Buscar Clientes</title>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
-  <section class="card bg min-vh-100">
-    <nav th:replace="~{plantillas/plVendedor :: nav}"></nav>
 
-    <!-- formulario -->
-    <div class="card text-center mx-auto" style="width: 18rem;" text-center>
-      <div class="card-body">
-        <h5 class="card-title">Buscar Cliente</h5>
-        <form class="row g-3" th:action="@{/editarCliente}" th:object="${cliente}" method="post">
-
-          <div class="col-12">
-            <label for="inputText" class="form-label">Ingrese Código de Cliente</label>
-            <input type="text" th:field="*{codigo}" class="form-control" placeholder="Ingrese Código" required>
-          </div>
-
-
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary">Buscar</button>
-          </div>
-        </form>
+  <body>
+    <section class="min-vh-100">
+      <!--Parte superior-->
+      <div>
+        <nav th:replace="~{plantillas/formatoUsuario :: nav}"></nav>
+        <nav th:replace="~{plantillas/plVendedor :: navVendedor}"></nav>
       </div>
-    </div>
-    <!--Fin de formulario-->
+      <section class="fotoPortada1 flex-fill">
+        <form class="p-4 transparente rounded-4 w-25 mx-auto" th:action="@{/editarCliente}" 
+        method="post">
+        <div class="text-center mb-4">
+          <h5>Modifica el cliente seleccionado</h5>
+          <p th:text="${mensaje}" class="text-danger"></p>
+        </div>
 
-    <div th:replace="~{plantillas/plVendedor :: footer}"></div>
-  </section>
 
-</body>
+           <div class="col-12">
+            <label for="inputText" class="form-label">Ingrese Código de Cliente</label>
+            <input type="number" name="codigo" class="form-control" placeholder="Ingrese Código" required>
+          </div>
+
+          <div class="mt-4 text-center col-12">
+            <button type="submit" class="btn" style="background-color: #FF7900;">buscar</button>
+          </div>
+
+
+        </form>
+      </section>
+      <footer>
+        <div th:replace="~{plantillas/formatoUsuario :: foot}" class="d-flex"></div>
+      </footer>
+    </section>
 
 </html>

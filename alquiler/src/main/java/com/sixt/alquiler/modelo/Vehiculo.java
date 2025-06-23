@@ -44,9 +44,15 @@ public class Vehiculo {
     private Oficina oficina;
 
     @ManyToOne
+    @JoinColumn(name = "id_oficina_actual")
+    private Oficina ubicacion;
+
+    @ManyToOne
     @JoinColumn(name = "id_estado")
     private Estado estado;
 
+    private Boolean disponible = true;
+    
     @ManyToOne
     @JoinColumn(name = "id_marca")
     private Marca marca;
@@ -56,7 +62,7 @@ public class Vehiculo {
     private List<Reserva> reservas;
 
     public Vehiculo(int idVehiculo, double precioDiario, int combustible, String patente, Modelo modelo, Color color,
-            Oficina oficina, Estado estado, Marca marca, List<Reserva> reservas) {
+            Oficina oficina, Estado estado,Boolean disponible, Marca marca, List<Reserva> reservas) {
         this.idVehiculo = idVehiculo;
         this.precioDiario = precioDiario;
         this.combustible = combustible;
@@ -64,7 +70,9 @@ public class Vehiculo {
         this.modelo = modelo;
         this.color = color;
         this.oficina = oficina;
+        this.ubicacion = oficina;
         this.estado = estado;
+        this.disponible = disponible;
         this.marca = marca;
         this.reservas = reservas;
     }
@@ -73,14 +81,16 @@ public class Vehiculo {
     }
 
     public Vehiculo(double precioDiario, int combustible, String patente, Modelo modelo, Color color, Oficina oficina,
-            Estado estado, Marca marca, List<Reserva> reservas) {
+            Estado estado, Boolean disponible, Marca marca, List<Reserva> reservas) {
         this.precioDiario = precioDiario;
         this.combustible = combustible;
         this.patente = patente;
         this.modelo = modelo;
         this.color = color;
         this.oficina = oficina;
+        this.ubicacion = oficina;
         this.estado = estado;
+        this.disponible = disponible;
         this.marca = marca;
         this.reservas = reservas;
     }
@@ -141,12 +151,28 @@ public class Vehiculo {
         this.oficina = oficina;
     }
 
+     public Oficina getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(Oficina ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
     public Estado getEstado() {
         return estado;
     }
 
     public void setEstado(Estado estado) {
         this.estado = estado;
+    }
+
+    public Boolean getDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(Boolean disponible) {
+        this.disponible = disponible;
     }
 
     public Marca getMarca() {
@@ -165,6 +191,5 @@ public class Vehiculo {
         this.reservas = reservas;
     }
 
-    
     
 }

@@ -17,5 +17,7 @@ public interface VehiculoRepositorio extends JpaRepository<Vehiculo, Integer>{
 
     @Query("SELECT v FROM Vehiculo v WHERE v.oficina.idOficina = ?1")
     List<Vehiculo> findByVehiculosPorOficina(int idOficina);
+    @Query("SELECT v FROM Vehiculo v WHERE v.oficina <> v.ubicacion")
+    List<Vehiculo> findByVehiculosParaRepatriar();
 
 }

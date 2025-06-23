@@ -64,25 +64,6 @@ public class ControladorUsuario {
 
     }
 
-    @GetMapping("/gestionAdministrador")
-    public String mostrarPanelInicioAdministrador(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
-        modelo.addAttribute("administrador", usuario);
-        return "Administrador/administrador1";
-    }
-
-    @GetMapping("/gestionVendedor")
-    public String mostrarPanelInicioVendedor(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
-        modelo.addAttribute("vendedor", usuario);
-        return "Vendedor/vendedor";
-    }
-
-    @GetMapping("/gestionCliente")
-    public String mostrarPanelInicioCliente(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
-        modelo.addAttribute("cliente", usuario);
-        return "Cliente/cliente";
-
-    }
-
     @GetMapping("/logout")
     public String logout(SessionStatus status) {
         status.setComplete(); // Limpiar la sesión
@@ -108,7 +89,7 @@ public class ControladorUsuario {
     }
 
     @PostMapping("/guardarUsuario")
-    public String guardarUsuario(@ModelAttribute("usuarioSesion") Usuario usuarioSesion, @ModelAttribute("user") Usuario usuario,
+    public String guardarUsuario(@ModelAttribute("user") Usuario usuario,
             RedirectAttributes redirectAttributes) {
         if (servicio.obtenerUsuarioPorUsuario(usuario.getUsuario()) == null) {
             Usuario nuevoUsuario = new Usuario();
@@ -143,8 +124,8 @@ public class ControladorUsuario {
     }
 
     @PostMapping("/actualizarUsuario/{id}")
-    public String actualizarUsuario(Model modelo, @PathVariable Long id, @ModelAttribute("user") Usuario usuario, 
-    @ModelAttribute("usuarioSesion") Usuario usuarioSesion, RedirectAttributes redirectAttributes) {
+    public String actualizarUsuario(@PathVariable Long id, @ModelAttribute("user") Usuario usuario, 
+    RedirectAttributes redirectAttributes) {
         Usuario usuarioModificado = servicio.obtenerUsuarioPorId(id);
         List<Usuario> usuarios = servicio.listartodosLosUsuarios();
         usuarios.remove(usuarioModificado);

@@ -23,6 +23,14 @@ import com.sixt.alquiler.servicio.EstadoServicio;
 @Controller
 @SessionAttributes("usuarioSesion")
 public class ControladorCliente {
+
+    @GetMapping("/gestionCliente")
+    public String mostrarPanelInicioCliente(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
+        modelo.addAttribute("cliente", usuario);
+        return "Cliente/cliente";
+
+    }
+
     @Autowired
     private ClienteServicio servicioCliente;
     @Autowired
@@ -49,8 +57,7 @@ public class ControladorCliente {
     @PostMapping("/guardarCliente")
     public String guardarCliente(@ModelAttribute("cliente") Cliente cliente, RedirectAttributes redirectAttributes) {
         Cliente clienteNuevo = new Cliente();
-        Estado estado = new Estado();
-        estado = servicioEstado.obtenerEstadoPorIdEstado(1);
+        Estado estado = servicioEstado.obtenerEstadoPorIdEstado(1);
         clienteNuevo.setEstado(estado);
         clienteNuevo.setNombre(cliente.getNombre());
         clienteNuevo.setDni(cliente.getDni());

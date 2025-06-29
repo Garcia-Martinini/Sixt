@@ -62,7 +62,7 @@ public class ControladorCliente {
     @PostMapping("/guardarCliente")
     public String guardarCliente(@ModelAttribute("cliente") Cliente cliente, RedirectAttributes redirectAttributes) {
         Cliente clienteNuevo = new Cliente();
-        Estado estado = servicioEstado.obtenerEstadoPorIdEstado(1);
+        Estado estado = servicioEstado.obtenerEstadoPorIdEstado(1);//revisar el id a asignar (activo deberia ser)
         clienteNuevo.setEstado(estado);
         clienteNuevo.setNombre(cliente.getNombre());
         clienteNuevo.setDni(cliente.getDni());

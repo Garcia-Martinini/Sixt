@@ -21,6 +21,7 @@ import com.sixt.alquiler.modelo.Usuario;
 import com.sixt.alquiler.servicio.ClienteServicio;
 import com.sixt.alquiler.servicio.EstadoServicio;
 import com.sixt.alquiler.servicio.ReservaServicio;
+import com.sixt.alquiler.servicio.UsuarioServicio;
 
 @Controller
 @SessionAttributes("usuarioSesion")
@@ -39,6 +40,8 @@ public class ControladorCliente {
     private EstadoServicio servicioEstado;
     @Autowired
     private ReservaServicio servicioReserva;
+    @Autowired
+    private UsuarioServicio servicioUsuario;
 
     // Recurso que permite mostrar la lista de clientes
     @GetMapping("/Clientes")
@@ -61,7 +64,16 @@ public class ControladorCliente {
     // Recurso que permite guardar un nuevo cliente
     @PostMapping("/guardarCliente")
     public String guardarCliente(@ModelAttribute("cliente") Cliente cliente, RedirectAttributes redirectAttributes) {
-        Cliente clienteNuevo = new Cliente();
+        //Encuentro el usuario por el nombre de usuario dado de alta por el administrador
+        Usuario usuarioNuevoCliente = servicioUsuario.obtenerUsuarioPorUsuario(cliente.getUsuario().getUsuario());
+        if(usuarioNuevoCliente == null) {
+            redirectAttributes.addFlashAttribute("mensaje", "El usuario no existe o no fue dado de alta.");
+            return "redirect:/Clientes/Crear";
+        }
+        //Si ya existe el usuario a partir de este creo el cliente con el constructor
+        //que recibe el usuario como parametro 
+        Cliente clienteNuevo = new Cliente(usuarioNuevoCliente);
+
         Estado estado = servicioEstado.obtenerEstadoPorIdEstado(1);//revisar el id a asignar (activo deberia ser)
         clienteNuevo.setEstado(estado);
         clienteNuevo.setNombre(cliente.getNombre());

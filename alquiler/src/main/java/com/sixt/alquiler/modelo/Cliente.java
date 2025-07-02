@@ -5,8 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 
@@ -26,20 +28,31 @@ public class Cliente{
     @ManyToOne
     private Estado estado;
 
+    @OneToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
+
     @OneToMany(mappedBy="cliente")
     private List<Reserva> reservas;
 
     public Cliente() {
     }
 
+    public Cliente(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+
+
     public Cliente(String dni, String nombre, String direccion, String email, String telefono, Estado estado,
-            List<Reserva> reservas) {
+            List<Reserva> reservas, Usuario usuario) {
         this.dni = dni;
         this.nombre = nombre;
         this.direccion = direccion;
         this.email = email;
         this.telefono = telefono;
         this.estado = estado;
+        this.usuario = usuario;
         this.reservas = reservas;
     }
 
@@ -135,6 +148,14 @@ public class Cliente{
 
     public void setReservas(List<Reserva> reservas) {
         this.reservas = reservas;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     

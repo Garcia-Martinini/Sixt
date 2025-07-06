@@ -172,4 +172,28 @@ public class ControladorCliente {
 
         return cliente;
     }
+
+    @GetMapping("/formularioContrasenia")
+    public String modificarContraseniaFormulario(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo, @ModelAttribute("mensaje") String mensaje) {
+        Cliente cliente = servicioCliente.obtenerClientePorIdUsuario(usuario);
+        System.out.println("El cliente que paso es: " + cliente.toString());
+        String passAnterior = cliente.getUsuario().getContrasenia();
+        modelo.addAttribute("cliente", cliente);
+        modelo.addAttribute("passAnterior", passAnterior);
+        return "Cliente/modificar_contrasenia";
+    }
+
+    @PostMapping("/actualizarContrasenia")
+    public String actualizarContrasenia(@ModelAttribute("cliente") Cliente cliente, RedirectAttributes redirectAttributes){
+        System.out.println("El usuario del cliente es: " + cliente.getUsuario().toString());
+        Cliente clienteModificado = servicioCliente.obtenerClientePorIdUsuario(cliente.getUsuario());
+        if (cliente.getUsuario().getContrasenia().isEmpty()) {
+                redirectAttributes.addFlashAttribute("mensaje", "No se puede dejar el campo vacio");
+                return "redirect:/formularioContrasenia/";
+        }
+        clienteModificado.getUsuario().setContrasenia(cliente.getUsuario().getContrasenia());
+        servicioCliente.guardarCliente(clienteModificado);
+        //Agregar cartel la contraseña se modifico exitosamente
+        return "redirect:/gestionCliente";
+    }
 }

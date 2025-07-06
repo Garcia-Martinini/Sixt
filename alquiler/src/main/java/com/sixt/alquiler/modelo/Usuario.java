@@ -85,5 +85,11 @@ public class Usuario {
         this.estado = estado;
     }
 
+    @Override
+    public String toString() {
+        return "Usuario [idUsuario=" + idUsuario + ", usuario=" + usuario + ", contrasenia=" + contrasenia
+                + ", tipoUsuario=" + tipoUsuario + ", estado=" + estado + "]";
+    }
+
       
 }

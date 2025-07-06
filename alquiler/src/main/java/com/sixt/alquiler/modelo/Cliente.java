@@ -158,5 +158,12 @@ public class Cliente{
         this.usuario = usuario;
     }
 
+    @Override
+    public String toString() {
+        return "Cliente [codigo=" + codigo + ", dni=" + dni + ", nombre=" + nombre + ", direccion=" + direccion
+                + ", email=" + email + ", telefono=" + telefono + ", estado=" + estado + ", usuario=" + usuario
+                + ", reservas=" + reservas + "]";
+    }
+
     
 }

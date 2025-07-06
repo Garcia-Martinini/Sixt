@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sixt.alquiler.modelo.Cliente;
+import com.sixt.alquiler.modelo.Usuario;
 import com.sixt.alquiler.repositorio.ClienteRepositorio;
 
 @Service
@@ -36,6 +37,11 @@ public class ClienteServicioImpl implements ClienteServicio {
     @Override
     public Cliente modificarCliente(Cliente cliente) {
         return repositorio.save(cliente);
+    }
+
+    @Override
+    public Cliente obtenerClientePorIdUsuario(Usuario usuario){
+        return repositorio.findClienteByUsuario_IdUsuario(usuario.getIdUsuario());
     }
 
     

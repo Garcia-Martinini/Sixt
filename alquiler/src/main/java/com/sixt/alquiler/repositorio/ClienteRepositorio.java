@@ -7,5 +7,8 @@ import com.sixt.alquiler.modelo.Cliente;
 
 @Repository
 public interface ClienteRepositorio extends JpaRepository<Cliente,Long>{
+    
+    Cliente findClienteByUsuario_IdUsuario(Long idUsuario);
 
 }
+

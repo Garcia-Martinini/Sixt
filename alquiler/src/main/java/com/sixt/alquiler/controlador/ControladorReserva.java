@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sixt.alquiler.modelo.Cliente;
 import com.sixt.alquiler.modelo.Estado;
 import com.sixt.alquiler.modelo.Oficina;
 import com.sixt.alquiler.modelo.Reserva;
 import com.sixt.alquiler.modelo.TipoReserva;
 import com.sixt.alquiler.modelo.Usuario;
 import com.sixt.alquiler.modelo.Vehiculo;
+import com.sixt.alquiler.servicio.ClienteServicio;
 import com.sixt.alquiler.servicio.EstadoServicio;
 import com.sixt.alquiler.servicio.OficinaServicio;
 import com.sixt.alquiler.servicio.ReservaServicio;
@@ -40,6 +42,8 @@ public class ControladorReserva {
     private OficinaServicio servicioOficina;
     @Autowired
     private VehiculoServicio servicioVehiculo;
+     @Autowired
+    private ClienteServicio servicioCliente;
 
     // Recurso que permite mostrar el formulario para crear una nueva reserva
     @GetMapping("/Reservas/NuevaReserva")
@@ -185,5 +189,18 @@ public class ControladorReserva {
         modelo.addAttribute("vendedor", usuario);
 
         return "Vendedor/lista_vehiculos_a_repatriar";
+    }
+
+   
+     // Recurso que permite mostrar las reservas del cliente asociado al usuario en sesión
+    @GetMapping("/Reservas/listadoReservasCliente")
+    public String mostrarReservasCliente(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
+        Cliente cliente = servicioCliente.obtenerClientePorUsuario(usuario);
+        List<Reserva> reservas = servicioReserva.listarReservasPorCliente(cliente);
+        
+        modelo.addAttribute("reservas", reservas);
+        modelo.addAttribute("usuarioSesion", usuario);
+
+        return "Cliente/listar_reservas_cliente";
     }
 }

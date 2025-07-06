@@ -25,4 +25,6 @@ public interface ReservaServicio {
 
     public Boolean VerificarExistenciaReservasPorCliente(Cliente cliente);
 
+    public List<Reserva> listarReservasPorCliente(Cliente cliente);
+
 }

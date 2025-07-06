@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/estilos.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <title>Lista de Reservas</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+
+    <body>
+        <section class="min-vh-100">
+            <!--Parte superior-->
+            <div>
+                <nav th:replace="~{plantillas/formatoUsuario :: nav}"></nav>
+            </div>
+            <nav class="navbar navbar-expand-lg bg-body-tertiary py-2 px-4" data-bs-theme="dark">
+                <ul class="navbar-nav mb-5 ms-auto mb-2 mb-lg-0 ">
+                    <li class="nav-item">
+                        <a th:href="@{/gestionCliente}" class="nav-link">Volver</a>
+                    </li>
+                </ul>
+            </nav>
+            <section class="fotoPortada1 flex-fill">
+                <div class="container">
+                    <div class="row">
+                        <h2>Listado de Reservas</h2>
+                    </div>
+                    <table class="table table-striped table-bordered w-75">
+                        <thead class="table-dark  opacity-75">
+                            <tr>
+                                <th>Id Reserva</th>
+                                <th>Oficina de Salida</th>
+                                <th>Fecha Inicio</th>
+                                <th>Fecha Fin</th>
+                                <th>Vehículo/s</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="reserva : ${reservas}">
+                                <td th:text="${reserva.idReserva}">id</td>
+                                <td th:text="${reserva.oficinaOrigen.nombreOficina}">Oficina</td>
+                                <td th:text="${reserva.fechaInicio}">Fecha Inicio</td>
+                                <td th:text="${reserva.fechaFin}">Fecha fin</td>
+                                <td>
+                                    <ul>
+                                        <li th:each="vehiculo : ${reserva.vehiculos}"
+                                            th:text="${vehiculo.marca.nombreMarca} + ' ' + ${vehiculo.modelo.nombreModelo} + ' ' + ${vehiculo.patente}">
+                                            Vehículo
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <footer>
+                <div th:replace="~{plantillas/formatoUsuario :: foot}" class="d-flex"></div>
+            </footer>
+        </section>
+
+</html>

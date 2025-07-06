@@ -12,4 +12,5 @@ public interface ClienteServicio {
     public void eliminarCliente(Long id);
     public Cliente modificarCliente(Cliente cliente);
     public Cliente obtenerClientePorIdUsuario(Usuario usuario);
+    public Cliente obtenerClientePorUsuario(Usuario usuario);
 }

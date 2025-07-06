@@ -19,7 +19,7 @@
       <nav th:replace="~{plantillas/plVendedor :: navVendedor}"></nav>
     </div>
     <section class="fotoPortada1 flex-fill">
-      <form class="p-4 transparente rounded-4 w-25 mx-auto" th:action="@{/actualizarCliente/{id}(id=${cliente.codigo})}"
+      <form class="p-4 transparente rounded-4 w-25 mx-auto mt-4 mb-4" th:action="@{/actualizarCliente/{id}(id=${cliente.codigo})}"
         th:object="${cliente}" method="post" onsubmit="return confirmarEnvio()">
         <div class="text-center mb-4">
           <h5>Modifica los datos del cliente</h5>
@@ -27,24 +27,24 @@
         </div>
 
 
-        <div class="col-12">
+        <div class="col-12 mb-2">
           <label for="inputText" class="form-label">Nombre</label>
           <input type="text" th:value="${cliente.nombre}" th:field="*{nombre}" class="form-control"
             placeholder="Ingrese nombre del Cliente">
         </div>
 
-        <div class="col-12">
+        <div class="col-12 mb-2">
           <label for="inputAddress1" class="form-label">Dirección</label>
           <input type="text" th:value="${cliente.direccion}" th:field="*{direccion}" class="form-control"
             id="inputAddress1" placeholder="Ingrese Dirección">
         </div>
 
-        <div class="col-12">
+        <div class="col-12 mb-2">
           <label for="inputEmail4" class="form-label">EMAIL</label>
           <input type="text" th:value="${cliente.email}" th:field="*{email}" class="form-control" id="inputEmail4"
             placeholder="Ingrese Email">
         </div>
-        <div class="row g-3">
+        <div class="row g-3 mb-2">
           <div class="col-6">
             <label for="inputText" class="form-label">DNI</label>
             <input type="text" th:value="${cliente.dni}" th:field="*{dni}" class="form-control"

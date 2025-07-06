@@ -19,46 +19,46 @@
       <nav th:replace="~{plantillas/plVendedor :: navVendedor}"></nav>
     </div>
     <section class="fotoPortada1 flex-fill">
-      <form class="p-4 transparente rounded-4 w-25 mx-auto" th:action="@{/guardarCliente}" th:object="${cliente}"
+      <form class="p-4 transparente rounded-4 w-25 mx-auto mt-3 mb-3" th:action="@{/guardarCliente}" th:object="${cliente}"
         method="post"  onsubmit="return confirmarEnvio()">
         <div class="text-center mb-4">
           <h5>Completa los datos para ingresar un cliente</h5>
           <p th:text="${mensaje}" class="text-danger"></p>
         </div>
 
-        <div class="col-12">
+        <div class="col-12 mb-2">
           <label for="iTUsuario" class="form-label">Usuario</label>
           <input type="text" th:field="*{usuario.usuario}" class="form-control" id = "iTUsuario" placeholder="Usuario designado por Administrador">
         </div>
 
-        <div class="col-12">
+        <div class="col-12 mb-2">
           <label for="inputText" class="form-label">DNI</label>
           <input type="text" th:field="*{dni}" class="form-control" placeholder="Ingrese DNI">
         </div>
 
-        <div class="col-12">
+        <div class="col-12 mb-2">
           <label for="inputText" class="form-label">Nombre</label>
           <input type="text" th:field="*{nombre}" class="form-control" placeholder="Ingrese nombre del Cliente">
         </div>
 
-        <div class="col-12">
+        <div class="col-12 mb-2">
           <label for="inputAddress1" class="form-label">Dirección</label>
           <input type="text" th:field="*{direccion}" class="form-control" id="inputAddress1"
             placeholder="Ingrese Dirección">
         </div>
 
-        <div class="col-12">
+        <div class="col-12 mb-2">
           <label for="inputEmail4" class="form-label">EMAIL</label>
           <input type="text" th:field="*{email}" class="form-control" id="inputEmail4" placeholder="Ingrese Email">
         </div>
 
-        <div class="col-12">
+        <div class="col-12 mb-2">
           <label for="inputText" class="form-label">Teléfono</label>
           <input type="text" th:field="*{telefono}" class="form-control" placeholder="Ingrese Teléfono">
         </div>
 
 
-        <div class="mt-4 text-center col-12">
+        <div class="mt-4 text-center col-12 mb-2">
           <button type="submit" class="btn" style="background-color: #FF7900;">Crear</button>
         </div>
 

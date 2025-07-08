@@ -1,105 +1,193 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" th:href="@{/css/estilos.css}">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-  <title>Nuevo Vehiculo</title>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
- 
-    function actualizarModelos() {
-      const marcaId = document.getElementById('marca').value;
-      
-      if (marcaId !== "0") {
-        fetch(`/obtenerModelos/${marcaId}`)
-          .then(response => response.json())
-          .then(data => {
-            const modeloSelect = document.getElementById('modelo');
-            modeloSelect.innerHTML = '<option value="0" disabled selected>Seleccione un modelo</option>'; // Limpiar los modelos existentes
-            data.forEach(modelo => {
-              modeloSelect.innerHTML += `<option value="${modelo.idModelo}">${modelo.nombreModelo}</option>`;
-            });
-          })
-          .catch(error => console.error('Error al obtener los modelos:', error));
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
+      rel="stylesheet"
+    />
+    <title>Nuevo Vehiculo</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function actualizarModelos() {
+        const marcaId = document.getElementById("marca").value;
+
+        if (marcaId !== "0") {
+          fetch(`/obtenerModelos/${marcaId}`)
+            .then((response) => response.json())
+            .then((data) => {
+              const modeloSelect = document.getElementById("modelo");
+              modeloSelect.innerHTML =
+                '<option value="0" disabled selected>Seleccione un modelo</option>'; // Limpiar los modelos existentes
+              data.forEach((modelo) => {
+                modeloSelect.innerHTML += `<option value="${modelo.idModelo}">${modelo.nombreModelo}</option>`;
+              });
+            })
+            .catch((error) =>
+              console.error("Error al obtener los modelos:", error)
+            );
+        }
       }
-    }
-  </script>
-</head>
-<body>
-  <section class="min-vh-100">
-    <!--Parte superior-->
-    <div>
-      <nav th:replace="~{plantillas/formatoUsuario :: nav}"></nav>
-      <nav class="navbar navbar-expand-lg bg-body-tertiary py-2 px-4" data-bs-theme="dark">
+    </script>
+  </head>
+  <body>
+    <section class="min-vh-100">
+      <!--Parte superior-->
+      <div>
+        <nav th:replace="~{plantillas/formatoUsuario :: nav}"></nav>
+        <nav
+          class="navbar navbar-expand-lg bg-body-tertiary py-2 px-4"
+          data-bs-theme="dark"
+        >
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a th:href="@{/gestionVehiculo}" class="nav-link">Volver</a>
             </li>
           </ul>
-      </nav>
-    </div>
-    <section class="fotoPortada1 flex-fill">
-      <form class="p-4 transparente rounded-4 w-75 mx-auto my-3" th:action="@{/guardarVehiculo}" th:object="${vehiculo}" method="post">
-        <div class="text-center mb-4">
-          <h3>Completa los datos para ingresar un vehículo</h3>
-          <p th:text="${mensaje}" class="text-danger"></p>
-        </div>
-        <div class="row">
-          <div class="mb-3 col col-4">
-            <label class="form-label" for="patente">Patente:</label><br>
-            <input class="form-control" type="text" id="patente" th:field="*{patente}" placeholder="Ingrese el dominio" name="patente" required>
+        </nav>
+      </div>
+      <section class="fotoPortada1 flex-fill">
+        <form
+          class="p-4 transparente rounded-4 w-75 mx-auto my-3"
+          th:action="@{/guardarVehiculo}"
+          th:object="${vehiculo}"
+          method="post"
+        >
+          <div class="text-center mb-4">
+            <h3>Completa los datos para ingresar un vehículo</h3>
+            <p th:text="${mensaje}" class="text-danger"></p>
           </div>
-        </div>
-        <div class="row">
-          <div class="mb-3 mt-3 col col-4">
-            <label class="form-label">Selecciona una Marca:</label><br>
-            <select class="form-select" id="marca" th:field="*{marca.idMarca}" onchange="actualizarModelos()" required>
-              <option value="0" disabled selected>Seleccione una marca</option>
-              <option th:each="marca : ${marcas}" th:value="${marca.idMarca}" th:text="${marca.nombreMarca}"></option>
-            </select>
+          <div class="row">
+            <div class="mb-3 col col-4">
+              <label class="form-label" for="patente">Patente:</label><br />
+              <input
+                class="form-control"
+                type="text"
+                id="patente"
+                th:field="*{patente}"
+                placeholder="Ingrese el dominio"
+                name="patente"
+                required
+              />
+            </div>
           </div>
-          <div class="mb-3 mt-3 col col-4">
-            <label class="form-label">Selecciona un Modelo:</label><br>
-            <select class="form-select" id="modelo" th:field="*{modelo.idModelo}" required>
-              <option value="0" disabled selected>Seleccione un modelo</option>
-            </select>
+          <div class="row">
+            <div class="mb-3 mt-3 col col-4">
+              <label class="form-label">Selecciona una Marca:</label><br />
+              <select
+                class="form-select"
+                id="marca"
+                th:field="*{marca.idMarca}"
+                onchange="actualizarModelos()"
+                required
+              >
+                <option value="0" disabled selected>
+                  Seleccione una marca
+                </option>
+                <option
+                  th:each="marca : ${marcas}"
+                  th:value="${marca.idMarca}"
+                  th:text="${marca.nombreMarca}"
+                ></option>
+              </select>
+            </div>
+            <div class="mb-3 mt-3 col col-4">
+              <label class="form-label">Selecciona un Modelo:</label><br />
+              <select
+                class="form-select"
+                id="modelo"
+                th:field="*{modelo.idModelo}"
+                required
+              >
+                <option value="0" disabled selected>
+                  Seleccione un modelo
+                </option>
+              </select>
+            </div>
+            <div class="mb-3 mt-3 col col-4">
+              <label class="form-label">Selecciona un Color:</label><br />
+              <select
+                class="form-select"
+                id="color"
+                th:field="*{color.idColor}"
+                required
+              >
+                <option value="0" disabled selected>Seleccione un color</option>
+                <option
+                  th:each="color : ${colores}"
+                  th:value="${color.idColor}"
+                  th:text="${color.nombreColor}"
+                ></option>
+              </select>
+            </div>
           </div>
-          <div class="mb-3 mt-3 col col-4">
-            <label class="form-label">Selecciona un Color:</label><br>
-            <select class="form-select" id="color" th:field="*{color.idColor}" required>
-              <option value="0" disabled selected>Seleccione un color</option>
-              <option th:each="color : ${colores}" th:value="${color.idColor}" th:text="${color.nombreColor}"></option>
-            </select>
+          <div class="row">
+            <div class="mb-3 mt-3 col-4">
+              <label class="form-label" for="precio">Precio diario:</label
+              ><br />
+              <input
+                class="form-control"
+                type="text"
+                id="precio"
+                th:field="*{precioDiario}"
+                placeholder="Ingrese el precio diario"
+                name="precio"
+                required
+              />
+            </div>
+            <div class="mb-3 mt-3 col-4">
+              <label class="form-label">Selecciona una oficina de Origen:</label
+              ><br />
+              <select
+                class="form-select"
+                id="oficina"
+                th:field="*{oficina.idOficina}"
+                required
+              >
+                <option value="0" disabled selected>
+                  Seleccione una oficina de origen
+                </option>
+                <option
+                  th:each="oficina : ${oficinas}"
+                  th:value="${oficina.idOficina}"
+                  th:text="${oficina.nombreOficina}"
+                ></option>
+              </select>
+            </div>
+            <div class="mb-3 mt-3 col-4">
+              <label class="form-label" for="capacidad"
+                >Capacidad del tanque en litros:</label
+              ><br />
+              <input
+                class="form-control"
+                type="text"
+                id="capacidad"
+                th:field="*{combustible}"
+                placeholder="Ingrese la capacidad del tanque"
+                name="capacidad"
+                required
+              />
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="mb-3 mt-3 col-4">
-            <label class="form-label" for="precio">Precio diario:</label><br>
-            <input class="form-control" type="text" id="precio" th:field="*{precioDiario}" placeholder="Ingrese el precio diario" name="precio" required>
+          <div class="mt-4 text-center">
+            <button type="submit" class="btn" style="background-color: #ff7900">
+              Guardar
+            </button>
           </div>
-          <div class="mb-3 mt-3 col-4">
-            <label class="form-label">Selecciona una oficina de Origen:</label><br>
-            <select class="form-select" id="oficina" th:field="*{oficina.idOficina}" required>
-              <option value="0" disabled selected>Seleccione una oficina de origen</option>
-              <option th:each="oficina : ${oficinas}" th:value="${oficina.idOficina}" th:text="${oficina.nombreOficina}"></option>
-            </select>
-          </div>
-          <div class="mb-3 mt-3 col-4">
-            <label class="form-label" for="capacidad">Capacidad del tanque en litros:</label><br>
-            <input class="form-control" type="text" id="capacidad" th:field="*{combustible}" placeholder="Ingrese la capacidad del tanque" name="capacidad" required>
-          </div>
-        </div>
-        <div class="mt-4 text-center">
-          <button type="submit" class="btn" style="background-color: #FF7900;">Guardar</button>
-        </div>
-      </form>
-    </section>     
-    <footer>
-      <div th:replace="~{plantillas/formatoUsuario :: foot}" class="d-flex"></div>   
-    </footer>
-  </section>
-</body>
+        </form>
+      </section>
+      <footer>
+        <div
+          th:replace="~{plantillas/formatoUsuario :: foot}"
+          class="d-flex"
+        ></div>
+      </footer>
+    </section>
+  </body>
 </html>

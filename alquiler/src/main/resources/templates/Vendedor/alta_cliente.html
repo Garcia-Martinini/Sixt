@@ -1,79 +1,122 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/css/estilos.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
+      rel="stylesheet"
+    />
+    <title>Alta Cliente</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/css/estilos.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-  <title>Alta Cliente</title>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</head>
+  <body>
+    <section class="min-vh-100">
+      <!--Parte superior-->
+      <div>
+        <nav th:replace="~{plantillas/formatoUsuario :: nav}"></nav>
+        <nav th:replace="~{plantillas/plVendedor :: navVendedor}"></nav>
+      </div>
+      <section class="fotoPortada1 flex-fill">
+        <form
+          class="p-4 transparente rounded-4 w-25 mx-auto mt-3 mb-3"
+          th:action="@{/guardarCliente}"
+          th:object="${cliente}"
+          method="post"
+          onsubmit="return confirmarEnvio()"
+        >
+          <div class="text-center mb-4">
+            <h5>Completa los datos para ingresar un cliente</h5>
+            <p th:text="${mensaje}" class="text-danger"></p>
+          </div>
 
-<body>
-  <section class="min-vh-100">
-    <!--Parte superior-->
-    <div>
-      <nav th:replace="~{plantillas/formatoUsuario :: nav}"></nav>
-      <nav th:replace="~{plantillas/plVendedor :: navVendedor}"></nav>
-    </div>
-    <section class="fotoPortada1 flex-fill">
-      <form class="p-4 transparente rounded-4 w-25 mx-auto mt-3 mb-3" th:action="@{/guardarCliente}" th:object="${cliente}"
-        method="post"  onsubmit="return confirmarEnvio()">
-        <div class="text-center mb-4">
-          <h5>Completa los datos para ingresar un cliente</h5>
-          <p th:text="${mensaje}" class="text-danger"></p>
-        </div>
+          <div class="col-12 mb-2">
+            <label for="iTUsuario" class="form-label">Usuario</label>
+            <input
+              type="text"
+              th:field="*{usuario.usuario}"
+              class="form-control"
+              id="iTUsuario"
+              placeholder="Usuario designado por Administrador"
+            />
+          </div>
 
-        <div class="col-12 mb-2">
-          <label for="iTUsuario" class="form-label">Usuario</label>
-          <input type="text" th:field="*{usuario.usuario}" class="form-control" id = "iTUsuario" placeholder="Usuario designado por Administrador">
-        </div>
+          <div class="col-12 mb-2">
+            <label for="inputText" class="form-label">DNI</label>
+            <input
+              type="text"
+              th:field="*{dni}"
+              class="form-control"
+              placeholder="Ingrese DNI"
+            />
+          </div>
 
-        <div class="col-12 mb-2">
-          <label for="inputText" class="form-label">DNI</label>
-          <input type="text" th:field="*{dni}" class="form-control" placeholder="Ingrese DNI">
-        </div>
+          <div class="col-12 mb-2">
+            <label for="inputText" class="form-label">Nombre</label>
+            <input
+              type="text"
+              th:field="*{nombre}"
+              class="form-control"
+              placeholder="Ingrese nombre del Cliente"
+            />
+          </div>
 
-        <div class="col-12 mb-2">
-          <label for="inputText" class="form-label">Nombre</label>
-          <input type="text" th:field="*{nombre}" class="form-control" placeholder="Ingrese nombre del Cliente">
-        </div>
+          <div class="col-12 mb-2">
+            <label for="inputAddress1" class="form-label">Dirección</label>
+            <input
+              type="text"
+              th:field="*{direccion}"
+              class="form-control"
+              id="inputAddress1"
+              placeholder="Ingrese Dirección"
+            />
+          </div>
 
-        <div class="col-12 mb-2">
-          <label for="inputAddress1" class="form-label">Dirección</label>
-          <input type="text" th:field="*{direccion}" class="form-control" id="inputAddress1"
-            placeholder="Ingrese Dirección">
-        </div>
+          <div class="col-12 mb-2">
+            <label for="inputEmail4" class="form-label">EMAIL</label>
+            <input
+              type="text"
+              th:field="*{email}"
+              class="form-control"
+              id="inputEmail4"
+              placeholder="Ingrese Email"
+            />
+          </div>
 
-        <div class="col-12 mb-2">
-          <label for="inputEmail4" class="form-label">EMAIL</label>
-          <input type="text" th:field="*{email}" class="form-control" id="inputEmail4" placeholder="Ingrese Email">
-        </div>
+          <div class="col-12 mb-2">
+            <label for="inputText" class="form-label">Teléfono</label>
+            <input
+              type="text"
+              th:field="*{telefono}"
+              class="form-control"
+              placeholder="Ingrese Teléfono"
+            />
+          </div>
 
-        <div class="col-12 mb-2">
-          <label for="inputText" class="form-label">Teléfono</label>
-          <input type="text" th:field="*{telefono}" class="form-control" placeholder="Ingrese Teléfono">
-        </div>
-
-
-        <div class="mt-4 text-center col-12 mb-2">
-          <button type="submit" class="btn" style="background-color: #FF7900;">Crear</button>
-        </div>
-
-
-      </form>
+          <div class="mt-4 text-center col-12 mb-2">
+            <button type="submit" class="btn" style="background-color: #ff7900">
+              Crear
+            </button>
+          </div>
+        </form>
+      </section>
+      <footer>
+        <div
+          th:replace="~{plantillas/formatoUsuario :: foot}"
+          class="d-flex"
+        ></div>
+      </footer>
     </section>
-    <footer>
-      <div th:replace="~{plantillas/formatoUsuario :: foot}" class="d-flex"></div>
-    </footer>
-  </section>
-</body>
-<script>
-  function confirmarEnvio() {
-    return confirm("¿Estás seguro de que querés enviar el formulario?");
-  }
-</script>
-
+  </body>
+  <script>
+    function confirmarEnvio() {
+      return confirm("¿Estás seguro de que querés enviar el formulario?");
+    }
+  </script>
 </html>

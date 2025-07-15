@@ -83,7 +83,7 @@ public class ControladorReserva {
 
         Reserva reserva = new Reserva();
         modelo.addAttribute("reserva", reserva);
-        modelo.addAttribute("vendedor", usuario);
+        modelo.addAttribute("usuarioSesion", usuario);
 
         return "Vendedor/buscar_reserva_entregar";
     }

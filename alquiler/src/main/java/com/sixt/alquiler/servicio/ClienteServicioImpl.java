@@ -44,6 +44,9 @@ public class ClienteServicioImpl implements ClienteServicio {
         return repositorio.findClienteByUsuario_IdUsuario(usuario.getIdUsuario());
     }
 
-    
+    @Override
+    public Cliente obtenerClientePorUsuario(Usuario usuario) {
+       return repositorio.findClienteByUsuario(usuario);
+    }
 
 }

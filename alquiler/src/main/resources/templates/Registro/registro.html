@@ -8,26 +8,42 @@
   <title>Inicio</title>
 </head>
 <body>
-  <div>
-    <div class="titulo w-100">Bienvenido a Sixt Argentina</div>
-</div>
-  <img src="IMG/Foto portada.webp" alt="foto de portada" class="portada">
-  <form class="ingreso" th:action="@{/login}" th:object="${user}" method="post">
-    <p>Completa los datos para ingresar</p>
-    <div class="mb-3 mt-3">
-      <label for="usuario">Usuario:</label><br>
-      <input type="text" id="usuario" th:field="*{usuario}" placeholder="Ingrese su usuario" name="usuario">
+  <section  class=" min-vh-100">
+  <nav class="navbar naranja text-dark">
+    <div class="container-fluid">
+      <p class="navbar-text mx-auto fs-1">
+        Bienvenido a Sixt Argentina
+      </p>
     </div>
-    <div class="mb-3">
-      <label for="pwd">Contraseña:</label><br>
-      <input type="password" id="pwd" th:field="*{contrasenia}" placeholder="Ingrese su contraseña" name="pswd">
-    </div>
-    <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
-      <button type="submit" class="botonEnviar">Enviar</button>
-      <div>
-        <p th:text="${mensaje}"></p>
+  </nav>
+    <section class="fotoPortada flex-fill">
+        <form class="p-4 transparente rounded-4 w-25 mx-auto" th:action="@{/login}" th:object="${user}" method="post">
+          <div class="text-center mb-4">
+            <h3>Completa los datos para ingresar</h3>
+          </div>
+        
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" id="nombre" class="form-control" th:field="*{usuario}" placeholder="Ingrese el usuario">
+          </div>
+          <div class="mb-3">
+            <label for="pass" class="form-label">Password</label>
+            <input type="password" id="pass" class="form-control" th:field="*{contrasenia}" placeholder="Ingrese la contraseña">
+          </div>
+          <div class="mt-4 text-center">
+            <button type="submit" class="btn" style="background-color: #FF7900;">Enviar</button>
+            <div>
+              <p th:text="${mensaje}"></p>
+            </div>
+          
+        </form>
+  
       </div>
+    </section>
+    <div class="card-footer text-dark text-center footer d-flex align-items-center justify-content-center" style="background-color: #FF7900;">
+      tp FINAL Programación 2 - Garcia-Martinini -
     </div>
-  </form>
+  </section>
+
 </body>
 </html>

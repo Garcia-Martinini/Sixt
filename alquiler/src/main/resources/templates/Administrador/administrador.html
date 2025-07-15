@@ -8,50 +8,59 @@
     <title>Administrador</title>
 </head>
 <body>
+    <section  class=" min-vh-100">
+    <!--Parte superior-->
     <div>
-        <div class="titulo">Bienvenido a Sixt Argentina</div>
-        <div class="identidad">
-          <p th:text="'Usuario: ' + ${usuarioSesion.usuario}"></p>
-        </div>
-    </div>
-        <img src="IMG/Foto portada.webp" alt="foto de portada" class = "portada">
-        <div class="navBar">
-          <ul>
-              <li>
-              <div class="dropdown">
-                  <button>Usuarios</button>
-                  <div class="dropdown-menu">
-                      <a th:href="@{/gestionUsuario}">Gestionar usuarios</a>
-                  </div>
-              </div>
-              </li>
-              <li>
-                <div class="dropdown">
-                    <button>Vehículos</button>
-                    <div class="dropdown-menu">
-                        <a th:href="@{/gestionVehiculo}">Gestionar Vehiculos</a>
-                    </div>
+    <nav th:replace="~{plantillas/formatoUsuario :: nav}"></nav>
+        
+        <nav class="navbar navbar-expand-lg bg-body-tertiary py-2 px-4" data-bs-theme="dark">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Usuarios
+                            </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" th:href="@{/gestionUsuario}">Gestionar Usuarios</a></li>
+                                </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Vehiculos
+                            </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" th:href="@{/gestionVehiculo}">Gestionar Vehículos</a></li>
+                                </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            ABM
+                            </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" th:href="@{/listarABM_color}">Color</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/listarABM_estado}">Estado</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/listarABM_marca}">Marca</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/listarABM_modelo}">Modelo</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/listarABM_tipoReserva}">Tipo de reserva</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/listarABM_tipoUsuario}">Tipo de usuario</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/listarABM_oficina}">Oficina</a></li>
+                                </ul>
+                        </li>
+                    </ul>
+                <div>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a th:href="@{/logout}" class="nav-link">Cerrar sesión</a>
+                        </li>
+                    </ul>
                 </div>
-                </li>
-                <li>
-                    <div class="dropdown">
-                        <button>ABM</button>
-                        <div class="dropdown-menu">
-                            <a th:href="@{/listarABM_color}">Color</a>
-                            <a th:href="@{/listarABM_estado}">Estado</a>
-                            <a th:href="@{/listarABM_marca}">Marca</a>
-                            <a th:href="@{/listarABM_modelo}">Modelo</a>
-                            <a th:href="@{/listarABM_tipoReserva}">Tipo de reserva</a>
-                            <a th:href="@{/listarABM_tipoUsuario}">Tipo de Usuario
-                            <a th:href="@{/listarABM_oficina}">Oficina</a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-                  <div>
-                        <a th:href="@{/logout}" class="finDeNav">Cerrar sesión</a>
-                  </div>
-          
-      </div>
+  </div>
+</nav>
+</div>
+       <section class="fotoPortada1 flex-fill"></section> 
+      <footer>
+        <div th:replace="~{plantillas/formatoUsuario :: foot}" class="d-flex "></div>   
+      </footer>
+</section>       
 </body>
 </html>

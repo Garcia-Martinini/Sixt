@@ -36,7 +36,7 @@ public class ControladorUsuario {
         Usuario usuario = new Usuario();
         modelo.addAttribute("user", usuario);
         modelo.addAttribute("mensaje", mensaje);
-        return "Registro/registro1";
+        return "Registro/registro";
     }
 
     @PostMapping("/login")
@@ -74,7 +74,7 @@ public class ControladorUsuario {
     public String gestionarUsuarios(@ModelAttribute("usuarioSesion") Usuario usuarioSesion, Model modelo) {
         modelo.addAttribute("usuarios", servicio.listartodosLosUsuarios());
         modelo.addAttribute("usuarioSesion", usuarioSesion);
-        return "Administrador/Usuario/ABM_usuario1";
+        return "Administrador/Usuario/ABM_usuario";
     }
 
     @GetMapping("/nuevoUsuario")
@@ -85,7 +85,7 @@ public class ControladorUsuario {
         modelo.addAttribute("mensaje", mensaje);
         modelo.addAttribute("user", usuario1);
         modelo.addAttribute("tipoUsuarios", tipoUsuarioServicio.listarLosTipoUsuario());
-        return "/Administrador/Usuario/nuevo_usuario1";
+        return "/Administrador/Usuario/nuevo_usuario";
     }
 
     @PostMapping("/guardarUsuario")
@@ -120,7 +120,7 @@ public class ControladorUsuario {
         modelo.addAttribute("estadoAnterior", estadoAnterior);
         modelo.addAttribute("tipoUsuarios", tipoUsuarioServicio.listarLosTipoUsuario());
         modelo.addAttribute("estados", estadoServicio.listarLosEstados());
-        return "Administrador/Usuario/modificar_usuario1";
+        return "Administrador/Usuario/modificar_usuario";
     }
 
     @PostMapping("/actualizarUsuario/{id}")

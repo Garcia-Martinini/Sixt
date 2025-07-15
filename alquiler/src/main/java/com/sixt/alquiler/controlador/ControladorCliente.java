@@ -191,7 +191,6 @@ public class ControladorCliente {
         }
         clienteModificado.getUsuario().setContrasenia(cliente.getUsuario().getContrasenia());
         servicioCliente.guardarCliente(clienteModificado);
-        //Agregar cartel la contraseña se modifico exitosamente
         return "redirect:/gestionCliente";
     }
 }

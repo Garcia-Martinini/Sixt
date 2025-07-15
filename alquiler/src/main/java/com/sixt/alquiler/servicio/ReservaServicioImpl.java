@@ -92,4 +92,9 @@ public class ReservaServicioImpl implements ReservaServicio {
         }
     }
 
+    @Override
+    public List<Reserva> listarReservasPorCliente(Cliente cliente) {
+        return repositorio.findByCliente(cliente);
+    }
+
 }

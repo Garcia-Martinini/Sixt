@@ -201,4 +201,5 @@ public class ControladorReserva {
         modelo.addAttribute("usuarioSesion", usuario);
 
         return "Cliente/listar_reservas_cliente";
+    }
 }

@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sixt.alquiler.modelo.Estado;
 import com.sixt.alquiler.modelo.Modelo;
+import com.sixt.alquiler.modelo.Oficina;
+import com.sixt.alquiler.modelo.Reserva;
 import com.sixt.alquiler.modelo.Usuario;
 import com.sixt.alquiler.modelo.Vehiculo;
 import com.sixt.alquiler.servicio.ColorServicio;
@@ -165,5 +168,53 @@ public class ControladorVehiculo {
           Vehiculo vehiculo = servicio.obtenerVehiculoPorId(idVehiculo);
           return vehiculo.getPrecioDiario();
       }
+
+      // Recurso que permite mostrar todos los vehículos entregados que son para repatriar
+    @GetMapping("/ListarVehiculosARepatriar")
+    public String mostrarVehiculosARepatriar(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
+        
+        List<Vehiculo> vehiculos = servicio.listarVehiculosParaRepatriar();
+        modelo.addAttribute("vehiculos", vehiculos);
+        
+        modelo.addAttribute("vendedor", usuario);
+
+        return "Administrador/Vehiculo/lista_vehiculos_a_repatriar";
+    }
+
+    @PostMapping("/retornarVehiculoAOrigen/{id}")
+    public String retornarVehiculoAOrigen(@PathVariable Integer id) {
+        Vehiculo vehiculoModificado = servicio.obtenerVehiculoPorId(id);
+        vehiculoModificado.setUbicacion(vehiculoModificado.getOficina());
+        servicio.actualizarVehiculo(vehiculoModificado);
+        return "redirect:/ListarVehiculosARepatriar";
+    }
+
+    // Recurso que permite recibir vehículos de una reserva
+    @PostMapping("/reestablecerVehiculos")
+    public String reestablecerVehiculos(@RequestParam("idReserva") Long idReserva, @RequestParam("idOficina") int idOficina,
+            RedirectAttributes redirectAttributes) {
+        Reserva reserva = reservaServicio.obtenerReservaPorId(idReserva);
+        if (reserva == null) {
+            redirectAttributes.addFlashAttribute("mensaje", "Reserva no existente.");
+            return "/Reservas/BuscarReservaParaReestablecimientoVehiculos";
+        }
+        if (reserva.getEstado().getIdEstado() == 6) { // Verifico si está finalizada
+            redirectAttributes.addFlashAttribute("mensaje", "La Reserva ya ha sido finalizada.");
+            return "redirect:/Reservas/BuscarReservaParaReestablecimientoVehiculos";
+        }
+        Oficina oficina =oficinaServicio.obtenerOficinaPorIdOficina(idOficina);
+
+        for (Vehiculo vehiculo : reserva.getVehiculos()) {
+            vehiculo.setUbicacion(oficina); // Cambiar la ubicación del vehículo a la oficina de restitución
+            vehiculo.setDisponible(true); // Marcar como disponible
+            servicio.guardarVehiculo(vehiculo);
+        }
+        Estado nuevoEstado = estadoServicio.obtenerEstadoPorIdEstado(6);
+        reserva.setEstado(nuevoEstado);
+        reservaServicio.modificarReserva(reserva);
+        redirectAttributes.addFlashAttribute("oficina", oficina);
+        redirectAttributes.addFlashAttribute("reserva", reserva);
+        return "redirect:/Reservas/ListarVehiculosReestablecidos";
+    }
 
 }

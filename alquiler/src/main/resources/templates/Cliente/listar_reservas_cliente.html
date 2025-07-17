@@ -39,6 +39,7 @@
                                 <th>Fecha Inicio</th>
                                 <th>Fecha Fin</th>
                                 <th>Vehículo/s</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -55,6 +56,7 @@
                                         </li>
                                     </ul>
                                 </td>
+                                <td th:text="${reserva.estado.nombreEstado}">Estado</td>
                             </tr>
                         </tbody>
                     </table>

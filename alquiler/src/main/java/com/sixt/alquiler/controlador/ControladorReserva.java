@@ -140,31 +140,6 @@ public class ControladorReserva {
         return "Vendedor/buscar_reserva_reestablecer";
     }
 
-    // Recurso que permite entregar vehículos de una reserva
-    @PostMapping("/reestablecerVehiculos")
-    public String reestablecerVehiculos(@RequestParam("idReserva") Long idReserva, @RequestParam("idOficina") int idOficina,
-            RedirectAttributes redirectAttributes) {
-        Reserva reserva = servicioReserva.obtenerReservaPorId(idReserva);
-        if (reserva == null) {
-            redirectAttributes.addFlashAttribute("mensaje", "Reserva no existente.");
-            return "/Reservas/BuscarReservaParaReestablecimientoVehiculos";
-        }
-        if (reserva.getEstado().getIdEstado() == 6) { // Verifico si está finalizada
-            redirectAttributes.addFlashAttribute("mensaje", "La Reserva ya ha sido finalizada.");
-            return "redirect:/Reservas/BuscarReservaParaReestablecimientoVehiculos";
-        }
-        Oficina oficina =servicioOficina.obtenerOficinaPorIdOficina(idOficina);
-
-        for (Vehiculo vehiculo : reserva.getVehiculos()) {
-            vehiculo.setUbicacion(oficina); // Cambiar la ubicación del vehículo a la oficina de restitución
-            vehiculo.setDisponible(true); // Marcar como disponible
-            servicioVehiculo.guardarVehiculo(vehiculo);
-        }
-        redirectAttributes.addFlashAttribute("oficina", oficina);
-        redirectAttributes.addFlashAttribute("reserva", reserva);
-        return "redirect:/Reservas/ListarVehiculosReestablecidos";
-    }
-
     // Recurso que permite mostrar los vehículos entregados de una reserva
     @GetMapping("/Reservas/ListarVehiculosReestablecidos")
     public String mostrarVehiculosReestablecidos(@ModelAttribute("oficina") Oficina oficina, 
@@ -177,18 +152,6 @@ public class ControladorReserva {
         modelo.addAttribute("vendedor", usuario);
 
         return "Vendedor/lista_vehiculos_reestablecidos";
-    }
-
-    // Recurso que permite mostrar todos los vehículos entregados que son para repatriar
-    @GetMapping("/Reservas/ListarVehiculosARepatriar")
-    public String mostrarVehiculosARepatriar(@ModelAttribute("usuarioSesion") Usuario usuario, Model modelo) {
-        
-        List<Vehiculo> vehiculos = servicioVehiculo.listarVehiculosParaRepatriar();
-        modelo.addAttribute("vehiculos", vehiculos);
-        
-        modelo.addAttribute("vendedor", usuario);
-
-        return "Vendedor/lista_vehiculos_a_repatriar";
     }
 
      // Recurso que permite mostrar las reservas del cliente asociado al usuario en sesión

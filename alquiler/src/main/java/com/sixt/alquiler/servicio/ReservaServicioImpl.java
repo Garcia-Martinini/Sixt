@@ -32,12 +32,12 @@ public class ReservaServicioImpl implements ReservaServicio {
 
     @Override
     public void eliminarReserva(Long id) {
-
+        repositorio.deleteById(id);
     }
 
     @Override
     public Reserva modificarReserva(Reserva reserva) {
-        return null;
+        return repositorio.save(reserva);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class ReservaServicioImpl implements ReservaServicio {
 
     @Override
     public Boolean VerificarExistenciaReservasPorCliente(Cliente cliente) {
-        List<Reserva> reservas = repositorio.findByCliente(cliente);
+        List<Reserva> reservas = repositorio.findByClienteConReservaActiva(cliente);
 
         if (!(reservas.isEmpty())) {
             for (Reserva reserva : reservas) {
@@ -84,7 +84,7 @@ public class ReservaServicioImpl implements ReservaServicio {
     @Override
     public void eliminarReservasPorCliente(Cliente cliente) {
         
-        List<Reserva> reservas = repositorio.findByCliente(cliente);
+        List<Reserva> reservas = repositorio.findByClienteConReservaActiva(cliente);
         if (!(reservas.isEmpty())) {
             for (Reserva reserva : reservas) {
                 repositorio.delete(reserva);
@@ -94,7 +94,7 @@ public class ReservaServicioImpl implements ReservaServicio {
 
     @Override
     public List<Reserva> listarReservasPorCliente(Cliente cliente) {
-        return repositorio.findByCliente(cliente);
+        return repositorio.findByClienteConReservaActiva(cliente);
     }
 
 }

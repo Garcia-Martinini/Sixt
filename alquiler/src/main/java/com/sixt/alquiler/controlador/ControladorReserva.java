@@ -76,8 +76,19 @@ public class ControladorReserva {
         reservaNueva.setDiasTotales(reserva.getDiasTotales());
         reservaNueva.setOficinaOrigen(reserva.getOficinaOrigen());
         servicioReserva.guardarReserva(reservaNueva);
+        redirectAttributes.addFlashAttribute("usuarioCliente", reserva.getCliente().getUsuario());
+        return "redirect:/Reservas/mostrarReservasCliente";
+    }
 
-        return "redirect:/gestionVendedor";
+    @GetMapping("/Reservas/mostrarReservasCliente")
+    public String mostrarConjuntoReservasCliente(@ModelAttribute("usuarioSesion") Usuario usuario,@ModelAttribute("usuarioCliente") Usuario usuarioCliente, Model modelo) {
+
+        Cliente cliente = servicioCliente.obtenerClientePorUsuario(usuarioCliente);
+        List<Reserva> reservas = servicioReserva.listarReservasPorCliente(cliente);
+        modelo.addAttribute("cliente", cliente);
+        modelo.addAttribute("reservas", reservas);
+        modelo.addAttribute("usuarioSesion", usuario);
+        return "Vendedor/mostrar_reservas_cliente";
     }
 
     // Recurso que permite mostrar el formulario para entregar vehículos de una

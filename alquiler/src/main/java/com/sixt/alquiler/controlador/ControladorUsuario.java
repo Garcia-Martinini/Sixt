@@ -45,6 +45,11 @@ public class ControladorUsuario {
         Usuario usuarioBD = servicio.obtenerUsuarioPorUsuario(usuario.getUsuario());
 
         if (usuarioBD != null && usuarioBD.getContrasenia().equals(usuario.getContrasenia())) {
+
+            if(usuarioBD.getEstado().getIdEstado() == 2){
+                redirectAttributes.addFlashAttribute("mensaje", "El usuario está anulado");
+                return "redirect:/";
+            }
             if (usuarioBD.getTipoUsuario().getId() == 1) {
                 redirectAttributes.addFlashAttribute("usuarioSesion", usuarioBD);
                 return "redirect:/gestionAdministrador";

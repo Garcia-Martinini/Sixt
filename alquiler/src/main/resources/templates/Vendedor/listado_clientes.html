@@ -34,7 +34,7 @@
                                 <th>Telefono</th>
                                 <th>Dirección</th>
                                 <th>Estado</th>
-                                <th>Reservas</th>
+                                <!--<th>Reservas</th>-->
 
                             </tr>
                         </thead>
@@ -48,7 +48,7 @@
 
                                 <td th:text="${cliente.estado != null ? cliente.estado.nombreEstado : 'Sin Estado'}">
                                     estado</td>
-                                <td th:text="${cliente.reservas == null ? 'SI' : 'NO'}">Reservas</td>
+                                <!--<td th:text="${cliente.reservas == null ? 'SI' : 'NO'}">Reservas</td>-->
                             </tr>
                         </tbody>
                     </table>
